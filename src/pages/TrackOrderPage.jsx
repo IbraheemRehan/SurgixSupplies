@@ -22,17 +22,17 @@ export function TrackOrderPage() {
     setTrackingData({
       orderId: orderNumber.toUpperCase(),
       status: "In Sterile Transit — On Schedule",
-      carrier: "FedEx HealthCare Express Priority",
+      carrier: "FedEx Express Priority",
       trackingNumber: "7884 9912 3041",
-      destination: "Materials Management, Massachusetts General Hospital",
+      destination: "Verified Delivery Destination",
       estimatedDelivery: "Tomorrow by 10:30 AM EST",
       sterileSealCheck: "VERIFIED INTACT (Tamper-Evident RFID Seal #BOS-8491)",
       steps: [
-        { title: "Order Confirmed & PO Authorized", date: "Oct 10, 2026 - 09:14 AM", done: true },
+        { title: "Order Confirmed & Payment Authorized", date: "Oct 10, 2026 - 09:14 AM", done: true },
         { title: "Quality Inspection & ASTM Chemical Passivation Audit", date: "Oct 10, 2026 - 11:30 AM", done: true },
         { title: "Cleanroom Sterile Packaging & Barcode Laser Scan", date: "Oct 10, 2026 - 02:45 PM", done: true },
         { title: "Dispatched from Boston Central Logistics Facility", date: "Oct 10, 2026 - 06:15 PM", done: true },
-        { title: "Out for Final Delivery to Hospital Materials Receiving", date: "Estimated Oct 11, 2026 - 08:00 AM", done: false }
+        { title: "Out for Final Delivery to Destination", date: "Estimated Oct 11, 2026 - 08:00 AM", done: false }
       ]
     });
   };
@@ -45,10 +45,10 @@ export function TrackOrderPage() {
             <Package size={24} />
           </div>
           <h1 style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
-            Track Hospital Purchase Order
+            Track Order & Delivery Status
           </h1>
           <p style={{ fontSize: '0.95rem', color: 'var(--slate-600)', marginTop: '8px' }}>
-            Live status monitoring for nationwide hospital shipments and sterile container parcels.
+            Live status monitoring for all consumer orders, clinic deliveries, and express shipments.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export function TrackOrderPage() {
           <form onSubmit={handleTrack}>
             <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr auto', gap: '14px', alignItems: 'flex-end' }}>
               <div className="form-group" style={{ margin: 0 }}>
-                <label className="form-label">Order Number or Hospital PO *</label>
+                <label className="form-label">Order Number or PO Reference *</label>
                 <input 
                   type="text" 
                   required

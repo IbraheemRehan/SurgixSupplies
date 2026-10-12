@@ -41,20 +41,18 @@ export function HomePage({
     {
       id: 1,
       image: '/assets/hero-modern-or.jpg',
-      badge: 'US-BASED HOSPITAL SUPPLY • DIRECT FACTORY EXPORT PRICING',
-      title: 'Hospital-Grade Surgical Instruments & Precision Sets',
-      subtitle: 'Engineered from German-forged stainless steel with 100% ASTM A967 passivation. Serving over 450+ medical centers, surgical suites, and procurement networks nationwide.',
+      title: 'Precision Surgical Instruments for Professionals & Clinics',
+      subtitle: 'Engineered from German-forged stainless steel with 100% ASTM A967 passivation. Order single instruments directly with zero minimum order quantities, or bulk volume for healthcare centers.',
       primaryBtnText: 'Explore Instruments Catalog',
       primaryAction: () => onNavigate('shop'),
-      secondaryBtnText: 'Request Institutional RFQ',
+      secondaryBtnText: 'Request Bulk / Custom Quote',
       secondaryAction: onOpenQuote
     },
     {
       id: 2,
       image: '/assets/products/cardio-thoracic-set.jpg',
-      badge: 'COMPREHENSIVE OR SUITES • DIN STERILIZATION BASKETS',
-      title: 'Complete Operating Room Trays & Sterilization Sets',
-      subtitle: 'Standardized major laparotomy, cardiovascular, orthopedic trauma, and clinic surgery sets configured strictly to US hospital procurement protocols.',
+      title: 'Complete Operating Room Trays & Precision Surgery Sets',
+      subtitle: 'Standardized major laparotomy, cardiovascular, orthopedic trauma, and specialty clinic sets for individual surgeons, private practices, and hospital surgical suites.',
       primaryBtnText: 'View Surgical Sets & Trays',
       primaryAction: () => onNavigate('sets'),
       secondaryBtnText: 'Quality Documentation',
@@ -63,12 +61,11 @@ export function HomePage({
     {
       id: 3,
       image: '/assets/products/ortho-trauma-set.jpg',
-      badge: 'METALLURGY EXCELLENCE • 500+ AUTOCLAVE CYCLES',
       title: 'German Martensitic Alloys with Tungsten Carbide Inserts',
-      subtitle: 'Rockwell hardness calibrated to HRC 54–58 with diamond-pyramid grip jaws. Certified Mill Test Reports (MTR) and traceability lot codes enclosed with every delivery.',
+      subtitle: 'Rockwell hardness calibrated to HRC 54–58 with diamond-pyramid grip jaws. Direct factory pricing with Mill Test Reports (MTR) and lot traceability included with every purchase.',
       primaryBtnText: 'View Metallurgy Standards',
       primaryAction: () => onNavigate('quality'),
-      secondaryBtnText: 'Request Instant B2B Quote',
+      secondaryBtnText: 'Direct Order / Wholesale Quote',
       secondaryAction: onOpenQuote
     }
   ];
@@ -104,14 +101,14 @@ export function HomePage({
   return (
     <div className="home-page-root">
       
-      {/* 1. HERO SLIDER BANNER (No logo, full thematic background images behind typography) */}
+      {/* 1. HERO SLIDER BANNER (No logo, badges removed, headings pushed upward) */}
       <section 
         className="hero-slider-section"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         style={{
           position: 'relative',
-          height: '620px',
+          height: '560px',
           overflow: 'hidden',
           backgroundColor: '#091c38'
         }}
@@ -161,37 +158,28 @@ export function HomePage({
                 }}
               />
 
-              {/* Slide Content */}
-              <div className="container" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', zIndex: 3 }}>
-                <div style={{ maxWidth: '720px', color: '#ffffff' }}>
+              {/* Slide Content - Pushed upward */}
+              <div 
+                className="container" 
+                style={{ 
+                  position: 'relative', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'flex-start', 
+                  paddingTop: '78px',
+                  zIndex: 3 
+                }}
+              >
+                <div style={{ maxWidth: '750px', color: '#ffffff' }}>
                   
-                  {/* Subtle Badge */}
-                  <div style={{ 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '8px', 
-                    background: 'rgba(255, 255, 255, 0.12)', 
-                    border: '1px solid rgba(255, 255, 255, 0.25)', 
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: '9999px', 
-                    padding: '6px 16px', 
-                    fontSize: '0.78rem', 
-                    fontWeight: '700', 
-                    letterSpacing: '0.05em', 
-                    marginBottom: '20px' 
-                  }}>
-                    <Sparkles size={14} color="#38bdf8" />
-                    <span>{slide.badge}</span>
-                  </div>
-
                   {/* Main Title */}
                   <h1 style={{ 
-                    fontSize: 'clamp(2.2rem, 4.2vw, 3.5rem)', 
+                    fontSize: 'clamp(2.3rem, 4.4vw, 3.65rem)', 
                     fontWeight: '900', 
                     lineHeight: '1.14', 
-                    marginBottom: '18px', 
+                    marginBottom: '16px', 
                     letterSpacing: '-0.025em',
-                    textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+                    textShadow: '0 2px 12px rgba(0,0,0,0.55)'
                   }}>
                     {slide.title}
                   </h1>
@@ -201,8 +189,8 @@ export function HomePage({
                     fontSize: '1.08rem', 
                     color: '#e2e8f0', 
                     lineHeight: '1.65', 
-                    marginBottom: '34px', 
-                    maxWidth: '640px',
+                    marginBottom: '32px', 
+                    maxWidth: '650px',
                     textShadow: '0 1px 4px rgba(0,0,0,0.4)'
                   }}>
                     {slide.subtitle}
@@ -373,8 +361,8 @@ export function HomePage({
                 <Building2 size={22} />
               </div>
               <div>
-                <div style={{ fontWeight: '800', fontSize: '0.9rem', color: 'var(--navy-dark)' }}>Hospital Net-30 PO</div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--slate-500)' }}>Instant Institutional Terms</div>
+                <div style={{ fontWeight: '800', fontSize: '0.9rem', color: 'var(--navy-dark)' }}>Flexible Checkout</div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--slate-500)' }}>Cards, Apple Pay & Net-30 PO</div>
               </div>
             </div>
           </div>
@@ -516,7 +504,7 @@ export function HomePage({
                 Sterilization Ready
               </div>
               <h2 style={{ fontSize: '1.875rem', fontWeight: '900', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
-                Major Hospital Procedure Sets & Sterilization Trays
+                Specialty Surgical Sets & Sterilization Trays
               </h2>
             </div>
             <button 
@@ -649,10 +637,10 @@ export function HomePage({
           <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '40px', boxShadow: '0 8px 24px rgba(13, 45, 94, 0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
             <div style={{ maxWidth: '600px' }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: 'var(--navy-dark)', marginBottom: '8px' }}>
-                Need a Custom Surgery Pack or Bulk Hospital RFP Quote?
+                Need a Custom Procedure Pack, Student Kit, or Bulk Quote?
               </h3>
               <p style={{ fontSize: '0.925rem', color: 'var(--slate-600)', lineHeight: '1.6', margin: 0 }}>
-                Our Boston procurement team reviews institutional tenders, GPO agreements, and ASC expansions with guaranteed factory pricing within 4 business hours.
+                Whether you are ordering individual pieces for private practice, academic kits for training, or bulk supply for a surgical center, our Boston team is ready to assist.
               </p>
             </div>
 
@@ -662,7 +650,7 @@ export function HomePage({
                 style={{ padding: '14px 28px', fontSize: '0.95rem' }}
                 onClick={onOpenQuote}
               >
-                <span>Request B2B RFQ Quote</span>
+                <span>Request Bulk / Custom Quote</span>
                 <ArrowRight size={16} />
               </button>
               <button 

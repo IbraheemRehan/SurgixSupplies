@@ -7,7 +7,8 @@ export function ProductModal({
   isOpen, 
   onClose, 
   onAddToCart, 
-  onOpenEnquiry 
+  onOpenEnquiry,
+  onSelectProduct 
 }) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
@@ -128,7 +129,7 @@ export function ProductModal({
                     ${(product.price * 1.35).toFixed(2)}
                   </span>
                   <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--emerald-600)', background: 'var(--emerald-50)', padding: '2px 6px', borderRadius: '4px' }}>
-                    Institutional Rate
+                    Direct Factory Pricing
                   </span>
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--slate-500)', marginTop: '2px' }}>
@@ -176,9 +177,35 @@ export function ProductModal({
                   }}
                 >
                   <Mail size={14} />
-                  <span>Request Sterile Evaluation Sample / Bulk RFQ</span>
+                  <span>Direct Inquiry / Request Bulk Quote</span>
                 </button>
               </div>
+
+              {onSelectProduct && (
+                <div style={{ marginTop: '12px', textAlign: 'center' }}>
+                  <button
+                    type="button"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--primary)',
+                      fontSize: '0.825rem',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      textDecoration: 'underline'
+                    }}
+                    onClick={() => {
+                      onClose();
+                      onSelectProduct(product);
+                    }}
+                  >
+                    View Comprehensive Product Details Page →
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

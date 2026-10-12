@@ -24,10 +24,10 @@ export function SignInModal({ isOpen, onClose }) {
         <div className="modal-header">
           <div>
             <h3 className="modal-title">
-              {activeTab === 'login' ? 'Hospital Portal Login' : 'Procurement Registration'}
+              {activeTab === 'login' ? 'Customer & Clinic Sign In' : 'Create an Account'}
             </h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)', marginTop: '2px' }}>
-              Access institutional contract pricing & purchase order history
+              Access your order history, direct tracking & saved instrument lists
             </p>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
@@ -45,7 +45,7 @@ export function SignInModal({ isOpen, onClose }) {
                 Authentication Verified
               </h4>
               <p style={{ fontSize: '0.85rem', color: 'var(--slate-600)' }}>
-                Welcome to Surgix Enterprise. Loading your hospital contracts...
+                Welcome back to Surgix Supplies. Loading your account...
               </p>
             </div>
           ) : (
@@ -80,32 +80,32 @@ export function SignInModal({ isOpen, onClose }) {
                   }}
                   onClick={() => setActiveTab('register')}
                 >
-                  New Hospital Account
+                  Create Account
                 </button>
               </div>
 
               <form onSubmit={handleSubmit}>
                 {activeTab === 'register' && (
                   <div className="form-group">
-                    <label className="form-label">Healthcare System / Clinic Name *</label>
+                    <label className="form-label">Full Name or Practice Name *</label>
                     <div style={{ position: 'relative' }}>
                       <input 
                         type="text" 
                         required 
                         className="form-input" 
-                        placeholder="e.g., Boston Children's Surgical Center" 
+                        placeholder="e.g., Dr. Sarah Jenkins / City Clinic" 
                       />
                     </div>
                   </div>
                 )}
 
                 <div className="form-group">
-                  <label className="form-label">Procurement Email *</label>
+                  <label className="form-label">Email Address *</label>
                   <input 
                     type="email" 
                     required 
                     className="form-input" 
-                    placeholder="purchasing@hospital.org" 
+                    placeholder="yourname@example.com" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -132,11 +132,11 @@ export function SignInModal({ isOpen, onClose }) {
 
                 {activeTab === 'register' && (
                   <div className="form-group">
-                    <label className="form-label">Tax Exemption / EIN (Optional for Net-30)</label>
+                    <label className="form-label">Tax Exemption / Clinic ID (Optional)</label>
                     <input 
                       type="text" 
                       className="form-input" 
-                      placeholder="XX-XXXXXXX" 
+                      placeholder="Optional for tax-exempt entities" 
                     />
                   </div>
                 )}
@@ -147,12 +147,12 @@ export function SignInModal({ isOpen, onClose }) {
                   style={{ width: '100%', padding: '12px', fontSize: '0.925rem', marginTop: '12px' }}
                 >
                   <Lock size={16} />
-                  <span>{activeTab === 'login' ? 'Access Hospital Portal' : 'Register Institution Account'}</span>
+                  <span>{activeTab === 'login' ? 'Sign In to Account' : 'Create Customer Account'}</span>
                 </button>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '18px', fontSize: '0.75rem', color: 'var(--slate-500)' }}>
                   <Shield size={14} color="var(--primary)" />
-                  <span>256-Bit SSL Encrypted Healthcare Portal</span>
+                  <span>256-Bit SSL Encrypted Secure Portal</span>
                 </div>
               </form>
             </>

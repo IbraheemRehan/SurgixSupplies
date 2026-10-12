@@ -18,7 +18,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
     institution: '',
     email: '',
     phone: '',
-    department: 'Hospital Procurement',
+    department: 'General Product Inquiry / Direct Order',
     subject: '',
     message: ''
   });
@@ -33,7 +33,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
         institution: '',
         email: '',
         phone: '',
-        department: 'Hospital Procurement',
+        department: 'General Product Inquiry / Direct Order',
         subject: '',
         message: ''
       });
@@ -110,8 +110,8 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.825rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
-                  <span style={{ color: 'var(--slate-600)' }}>Hospital Procurement & Bids:</span>
-                  <a href="mailto:bids@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>bids@surgixsupplies.com</a>
+                  <span style={{ color: 'var(--slate-600)' }}>Customer Orders & Quotes:</span>
+                  <a href="mailto:orders@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>orders@surgixsupplies.com</a>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
                   <span style={{ color: 'var(--slate-600)' }}>International Export / Containers:</span>
@@ -149,7 +149,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
               Send an Inquiry
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginBottom: '24px' }}>
-              Our procurement managers reply within 2 to 4 business hours.
+              Our support and sales specialists reply within 2 to 4 business hours.
             </p>
 
             {submitted ? (
@@ -159,7 +159,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                   Message Transmitted Successfully
                 </h4>
                 <p style={{ fontSize: '0.875rem', color: '#047857' }}>
-                  Thank you, <strong>{formData.name || 'valued customer'}</strong>. A Boston account representative has been assigned to your request and will reach out promptly.
+                  Thank you, <strong>{formData.name || 'valued customer'}</strong>. A Boston team member has been assigned to your request and will reach out promptly.
                 </p>
               </div>
             ) : (
@@ -178,12 +178,11 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Hospital / Healthcare Organization *</label>
+                    <label className="form-label">Practice, Clinic or School (Optional)</label>
                     <input 
                       type="text" 
-                      required 
                       className="form-input" 
-                      placeholder="Brigham and Women's Hospital"
+                      placeholder="Miller Surgical Clinic"
                       value={formData.institution}
                       onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
                     />
@@ -192,12 +191,12 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
-                    <label className="form-label">Work Email *</label>
+                    <label className="form-label">Email Address *</label>
                     <input 
                       type="email" 
                       required 
                       className="form-input" 
-                      placeholder="kmiller@bwh.harvard.edu"
+                      placeholder="kmiller@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
@@ -223,7 +222,8 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                     value={formData.department}
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                   >
-                    <option>Hospital Procurement / B2B Quote</option>
+                    <option>General Product Inquiry / Direct Order</option>
+                    <option>Clinic & Hospital Bulk Quotation</option>
                     <option>Surgical Instrument Sets Configuration</option>
                     <option>International Export Logistics</option>
                     <option>Quality Assurance / Material Reports</option>
@@ -236,7 +236,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                   <input 
                     type="text" 
                     className="form-input" 
-                    placeholder="e.g., Annual Major Laparotomy Tray Requisition"
+                    placeholder="e.g., Question about needle holder sizes or bulk quote"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   />
@@ -248,7 +248,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                     rows={4} 
                     required 
                     className="form-textarea"
-                    placeholder="Provide details of your required instruments, timeline, or procurement specifications..."
+                    placeholder="Provide details of your required instruments, questions, or specifications..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />

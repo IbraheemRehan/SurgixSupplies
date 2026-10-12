@@ -34,8 +34,7 @@ export function Footer({
               </div>
             </div>
             <p className="footer-desc">
-              US-based supplier of hospital-grade surgical instruments and complete instrument sets. 
-              Direct factory export pricing with nationwide support.
+              US-based supplier of precision surgical instruments and complete sets for practitioners, clinics, and individual buyers. Direct factory pricing with nationwide express delivery.
             </p>
           </div>
 
@@ -55,7 +54,7 @@ export function Footer({
               </li>
               <li>
                 <span className="footer-link" onClick={() => handleNavigate('cart')}>
-                  Procurement Cart
+                  Shopping Cart
                 </span>
               </li>
               <li>

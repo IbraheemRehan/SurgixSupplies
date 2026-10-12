@@ -24,7 +24,8 @@ export function CartPage({
   onUpdateQty, 
   onRemoveItem, 
   onNavigate, 
-  onOpenQuote 
+  onOpenQuote,
+  onSelectProduct 
 }) {
   const [taxExempt, setTaxExempt] = useState(true);
   const [promoCode, setPromoCode] = useState('');
@@ -59,7 +60,7 @@ export function CartPage({
       setDiscountCodeName(code);
       setPromoCode('');
     } else {
-      setPromoError('Invalid institutional promo code. Try "SURGIX10" for 10% off.');
+      setPromoError('Invalid promo code. Try "SURGIX10" for 10% off.');
     }
   };
 
@@ -79,15 +80,15 @@ export function CartPage({
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', color: 'var(--slate-400)', marginBottom: '8px' }}>
             <button onClick={() => onNavigate('home')} style={{ color: 'var(--slate-600)', hover: { color: 'var(--primary)' } }}>Home</button>
             <span>/</span>
-            <span style={{ color: 'var(--primary)', fontWeight: '600' }}>Procurement Cart</span>
+            <span style={{ color: 'var(--primary)', fontWeight: '600' }}>Shopping Cart</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <h1 style={{ fontSize: '1.875rem', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
-                Procurement Cart & Order Review
+                Shopping Cart & Order Review
               </h1>
               <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', marginTop: '4px', margin: 0 }}>
-                Hospital-grade German stainless steel instruments & sterile sets ready for dispatch
+                Surgical-grade German stainless steel instruments & precision sets ready for dispatch
               </p>
             </div>
             <button 
@@ -109,10 +110,10 @@ export function CartPage({
               <ShoppingCart size={38} strokeWidth={1.5} />
             </div>
             <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '8px' }}>
-              Your Procurement Cart is Empty
+              Your Cart is Empty
             </h2>
             <p style={{ color: 'var(--slate-600)', fontSize: '0.95rem', maxWidth: '440px', margin: '0 auto 24px auto', lineHeight: '1.6' }}>
-              Explore our surgical instruments catalog or comprehensive operating room sets to begin configuring your hospital procurement requisition.
+              Explore our surgical instruments catalog or comprehensive procedure sets suitable for individual practitioners, students, clinics, and healthcare facilities.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <button 
@@ -134,13 +135,17 @@ export function CartPage({
             {/* Popular Items Showcase */}
             <div style={{ marginTop: '48px', borderTop: '1px solid var(--slate-200)', paddingTop: '32px', textAlign: 'left' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '16px' }}>
-                Featured Hospital Procurement Items:
+                Featured Surgical Instruments & Sets:
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
                 {recommendedItems.map(item => (
-                  <div key={item.id} style={{ border: '1px solid var(--slate-200)', borderRadius: '8px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div 
+                    key={item.id} 
+                    style={{ border: '1px solid var(--slate-200)', borderRadius: '8px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px', cursor: 'pointer' }}
+                    onClick={() => onSelectProduct && onSelectProduct(item)}
+                  >
                     <div style={{ height: '100px', borderRadius: '6px', overflow: 'hidden' }}>
-                      <ProductImage src={item.image} alt={item.name} sku={item.sku} height="100%" />
+                      <ProductImage src={item.image} alt={item.name} sku={item.sku} height="100%" showWatermark={false} />
                     </div>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)' }}>{item.sku}</div>
                     <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--slate-800)', lineHeight: '1.3', flex: 1 }}>{item.name}</div>
@@ -218,12 +223,17 @@ export function CartPage({
                           }}
                         >
                           {/* Image with minimal watermark */}
-                          <div style={{ width: '88px', height: '88px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--slate-200)', backgroundColor: '#ffffff', flexShrink: 0 }}>
+                          <div 
+                            style={{ width: '88px', height: '88px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--slate-200)', backgroundColor: '#ffffff', flexShrink: 0, cursor: 'pointer' }}
+                            onClick={() => onSelectProduct && onSelectProduct(item)}
+                            title="Click to view product details"
+                          >
                             <ProductImage 
                               src={item.image} 
                               alt={item.name} 
                               sku={item.sku} 
                               height="100%" 
+                              showWatermark={false}
                             />
                           </div>
 
@@ -237,7 +247,10 @@ export function CartPage({
                                 In Stock • Ships 24h
                               </span>
                             </div>
-                            <h3 style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--slate-800)', margin: 0, lineHeight: '1.3' }}>
+                            <h3 
+                              style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--slate-800)', margin: 0, lineHeight: '1.3', cursor: 'pointer' }}
+                              onClick={() => onSelectProduct && onSelectProduct(item)}
+                            >
                               {item.name}
                             </h3>
                             <div style={{ fontSize: '0.78rem', color: 'var(--slate-500)', display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -314,18 +327,18 @@ export function CartPage({
                   </div>
                 </div>
 
-                {/* Hospital PO & Special Handling Dock Instructions */}
+                {/* Order Notes & PO Instructions */}
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <h4 style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Info size={16} color="var(--primary)" />
-                    Hospital Purchase Order (PO) & Dock Receiving Notes
+                    Order Notes, PO Reference & Delivery Instructions
                   </h4>
                   <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '12px' }}>
-                    Include internal reference numbers, department IDs, or central sterile delivery instructions:
+                    Include internal reference or PO numbers, clinic details, or special delivery instructions:
                   </p>
                   <textarea 
                     rows="2" 
-                    placeholder="e.g., PO #HOSP-2026-9901 — Deliver to OR Central Sterile Dock 4B, Attention: Dr. Vance..."
+                    placeholder="e.g., PO #SX-2026-9901, or delivery instructions: Leave at suite reception / front desk..."
                     value={poReference}
                     onChange={(e) => setPoReference(e.target.value)}
                     className="form-textarea"
@@ -340,7 +353,7 @@ export function CartPage({
                 
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: '0 4px 12px rgba(13, 45, 94, 0.05)' }}>
                   <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '18px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-200)' }}>
-                    Procurement Summary
+                    Order Summary
                   </h3>
 
                   {/* Calculations */}
@@ -360,7 +373,7 @@ export function CartPage({
                     )}
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--slate-600)' }}>
-                      <span>Insured Freight (Nationwide)</span>
+                      <span>Insured Shipping (Nationwide)</span>
                       <span>
                         {baseShippingCost === 0 ? (
                           <span style={{ color: 'var(--emerald-600)', fontWeight: '700' }}>FREE</span>
@@ -380,8 +393,8 @@ export function CartPage({
                           style={{ marginTop: '3px' }}
                         />
                         <div style={{ fontSize: '0.78rem', lineHeight: '1.4' }}>
-                          <span style={{ fontWeight: '700', color: 'var(--slate-800)', display: 'block' }}>Hospital / Tax-Exempt Status</span>
-                          <span style={{ color: 'var(--slate-500)' }}>501(c)(3) or state certified healthcare entity</span>
+                          <span style={{ fontWeight: '700', color: 'var(--slate-800)', display: 'block' }}>Tax-Exempt / Clinic Status (Optional)</span>
+                          <span style={{ color: 'var(--slate-500)' }}>501(c)(3), clinic ID, or qualifying healthcare entity</span>
                         </div>
                       </label>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '0.8125rem' }}>
@@ -415,7 +428,7 @@ export function CartPage({
                       <form onSubmit={handleApplyPromo} style={{ display: 'flex', gap: '8px' }}>
                         <input 
                           type="text" 
-                          placeholder="Institutional Promo (e.g. SURGIX10)" 
+                          placeholder="Promo or Discount Code (e.g. SURGIX10)" 
                           value={promoCode}
                           onChange={(e) => setPromoCode(e.target.value)}
                           className="form-input"
@@ -454,7 +467,7 @@ export function CartPage({
                       onClick={onOpenQuote}
                     >
                       <FileDown size={15} />
-                      <span>Request Official Net-30 B2B Quote</span>
+                      <span>Request Bulk / Wholesale Quote</span>
                     </button>
                   </div>
 
@@ -470,7 +483,7 @@ export function CartPage({
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--slate-600)' }}>
                       <Award size={15} color="var(--primary)" />
-                      <span>30-Day Hospital Evaluation & Return Policy</span>
+                      <span>30-Day Money-Back Evaluation & Return Policy</span>
                     </div>
                   </div>
 
@@ -487,7 +500,7 @@ export function CartPage({
                     <span style={{ padding: '4px 8px', backgroundColor: 'var(--slate-100)', borderRadius: '4px' }}>Mastercard</span>
                     <span style={{ padding: '4px 8px', backgroundColor: 'var(--slate-100)', borderRadius: '4px' }}>Amex</span>
                     <span style={{ padding: '4px 8px', backgroundColor: 'var(--slate-100)', borderRadius: '4px' }}>Apple Pay</span>
-                    <span style={{ padding: '4px 8px', backgroundColor: 'var(--slate-100)', borderRadius: '4px' }}>Hospital PO</span>
+                    <span style={{ padding: '4px 8px', backgroundColor: 'var(--slate-100)', borderRadius: '4px' }}>Net-30 / PO</span>
                   </div>
                 </div>
 

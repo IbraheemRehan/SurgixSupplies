@@ -237,7 +237,7 @@ export function ShopPage({
                     {item.steel.includes('Tungsten Carbide') ? (
                       <span className="instrument-card-badge tc-badge">Tungsten Carbide</span>
                     ) : (
-                      <span className="instrument-card-badge">Hospital Grade</span>
+                      <span className="instrument-card-badge">Surgical Grade</span>
                     )}
 
                     <div 

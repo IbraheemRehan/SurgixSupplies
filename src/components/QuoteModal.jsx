@@ -31,9 +31,9 @@ export function QuoteModal({ isOpen, onClose }) {
       <div className="modal-dialog" style={{ maxWidth: '640px' }} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <h3 className="modal-title">Formal Institutional RFQ Quotation</h3>
+            <h3 className="modal-title">Custom Bulk & Wholesale Quotation</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)', marginTop: '2px' }}>
-              Tiered hospital volume discounts & Net-30 purchase terms
+              Volume tier discounts for individual practitioners, clinics, and healthcare networks
             </p>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
@@ -48,35 +48,34 @@ export function QuoteModal({ isOpen, onClose }) {
                 <CheckCircle2 size={36} />
               </div>
               <h4 style={{ fontSize: '1.25rem', color: 'var(--navy-dark)', fontWeight: '700', marginBottom: '8px' }}>
-                RFQ Dossier Generated & Forwarded
+                Quote Request Received
               </h4>
               <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', lineHeight: '1.6', maxWidth: '420px', margin: '0 auto' }}>
                 Quote reference: <strong>RFQ-BOS-2026-{Math.floor(10000 + Math.random() * 90000)}</strong>.<br />
-                Our institutional bids team has generated your discounted tier pricing. An official PDF quotation with Mill Test Reports has been dispatched to <strong>{quoteForm.email || 'your email'}</strong>.
+                Our sales team has generated your discounted tier pricing. An official quotation has been sent to <strong>{quoteForm.email || 'your email'}</strong>.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group">
-                  <label className="form-label">Healthcare Facility / System *</label>
+                  <label className="form-label">Practice, Clinic or School (Optional)</label>
                   <input 
                     type="text" 
-                    required 
                     className="form-input" 
-                    placeholder="e.g., Mount Sinai Health System"
+                    placeholder="e.g., Private Practice or Clinic"
                     value={quoteForm.institution}
                     onChange={(e) => setQuoteForm({ ...quoteForm, institution: e.target.value })}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Purchasing Officer / Surgeon Name *</label>
+                  <label className="form-label">Contact Name *</label>
                   <input 
                     type="text" 
                     required 
                     className="form-input" 
-                    placeholder="Dr. Robert Hayes, MD"
+                    placeholder="Dr. Robert Hayes or Jane Doe"
                     value={quoteForm.contactName}
                     onChange={(e) => setQuoteForm({ ...quoteForm, contactName: e.target.value })}
                   />
@@ -85,12 +84,12 @@ export function QuoteModal({ isOpen, onClose }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group">
-                  <label className="form-label">Procurement Email *</label>
+                  <label className="form-label">Email Address *</label>
                   <input 
                     type="email" 
                     required 
                     className="form-input" 
-                    placeholder="procurement@mtsinai.org"
+                    placeholder="yourname@example.com"
                     value={quoteForm.email}
                     onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
                   />
@@ -154,12 +153,12 @@ export function QuoteModal({ isOpen, onClose }) {
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--slate-200)' }}>
                 <span style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>
-                  Includes 30-Day Hospital Evaluation & Lifetime Joint Warranty
+                  Includes 30-Day Evaluation Period & Lifetime Joint Warranty
                 </span>
 
                 <button type="submit" className="btn-primary" style={{ padding: '10px 24px' }}>
                   <FileText size={15} />
-                  <span>Request Institutional Quote</span>
+                  <span>Request Bulk / Wholesale Quote</span>
                 </button>
               </div>
             </form>

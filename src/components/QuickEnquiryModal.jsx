@@ -29,9 +29,9 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
       <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <h3 className="modal-title">Direct Procurement Enquiry</h3>
+            <h3 className="modal-title">Direct Product & Order Enquiry</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)', marginTop: '2px' }}>
-              Direct factory export pricing & institution supply quotes
+              Direct factory pricing for consumers, practitioners, clinics & medical facilities
             </p>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
@@ -50,7 +50,7 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
               </h4>
               <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', lineHeight: '1.6' }}>
                 Reference ID: <strong>ENQ-2026-BOS-{Math.floor(1000 + Math.random() * 9000)}</strong><br />
-                Our Boston clinical sales specialist will deliver your institutional rate card and MTR dossier within 4 business hours.
+                Our product specialist will review your request and get back to you within 4 business hours.
               </p>
             </div>
           ) : (
@@ -62,19 +62,18 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
                     type="text" 
                     required 
                     className="form-input" 
-                    placeholder="Dr. Sarah Jenkins"
+                    placeholder="e.g. Dr. Sarah Jenkins or John Smith"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Hospital / Institution *</label>
+                  <label className="form-label">Practice, Clinic or School (Optional)</label>
                   <input 
                     type="text" 
-                    required 
                     className="form-input" 
-                    placeholder="Mass General Brigham"
+                    placeholder="e.g. Private Practice or Individual"
                     value={formData.hospital}
                     onChange={(e) => setFormData({ ...formData, hospital: e.target.value })}
                   />
@@ -83,12 +82,12 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group">
-                  <label className="form-label">Official Work Email *</label>
+                  <label className="form-label">Email Address *</label>
                   <input 
                     type="email" 
                     required 
                     className="form-input" 
-                    placeholder="sjenkins@mgb.org"
+                    placeholder="yourname@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />

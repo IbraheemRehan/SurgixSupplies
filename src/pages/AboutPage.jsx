@@ -27,7 +27,7 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
           </h1>
 
           <p style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.65' }}>
-            Surgix Supplies bridges traditional German metallurgical forging with advanced Boston-based quality engineering. We provide hospitals, surgery centers, and academic medical systems direct factory access to premium surgical instrumentation.
+            Surgix Supplies bridges traditional German metallurgical forging with advanced Boston-based quality engineering. We provide surgeons, private practitioners, students, and healthcare facilities direct factory access to premium surgical instrumentation.
           </p>
         </div>
       </section>
@@ -44,16 +44,16 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
                 Direct Factory Model Without Compromise
               </h2>
               <p style={{ fontSize: '0.95rem', color: 'var(--slate-600)', lineHeight: '1.7', marginBottom: '16px' }}>
-                For decades, hospital procurement departments paid excessive markups to intermediary medical supply conglomerates. Surgix Supplies was founded by biomedical engineers and clinical materials directors to disrupt this supply chain.
+                For decades, medical professionals and clinical buyers paid excessive markups to intermediary medical supply conglomerates. Surgix Supplies was founded by biomedical engineers and clinical materials directors to disrupt this supply chain.
               </p>
               <p style={{ fontSize: '0.95rem', color: 'var(--slate-600)', lineHeight: '1.7', marginBottom: '24px' }}>
-                By establishing direct factory forging partnerships and routing every instrument through our Boston, Massachusetts testing laboratory, we achieve unyielding dimensional precision while passing 25% to 40% cost savings directly to health networks.
+                By establishing direct factory forging partnerships and routing every instrument through our Boston, Massachusetts testing laboratory, we achieve unyielding dimensional precision while passing 25% to 40% cost savings directly to individual buyers, clinics, and health networks.
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div style={{ padding: '16px', background: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)' }}>
                   <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--primary)' }}>450+</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '2px' }}>Hospitals & Surgical Centers Supplied</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '2px' }}>Surgeons, Clinics & Hospitals Supplied</div>
                 </div>
                 <div style={{ padding: '16px', background: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)' }}>
                   <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--primary)' }}>100%</div>

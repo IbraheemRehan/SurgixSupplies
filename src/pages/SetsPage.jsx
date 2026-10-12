@@ -9,12 +9,14 @@ import {
   Clock, 
   Sparkles,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Eye,
+  Info
 } from 'lucide-react';
 import { surgicalSets } from '../data/sets';
 import { ProductImage } from '../components/ProductImage';
 
-
+export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProduct }) {
   const [expandedSetId, setExpandedSetId] = useState(surgicalSets[0].id);
 
   const toggleExpand = (id) => {
@@ -28,29 +30,33 @@ import { ProductImage } from '../components/ProductImage';
       name: set.name,
       price: set.price,
       bulkPrice: set.price * 0.9,
-      quantity: 1,
-      steel: "Complete German Steel Set (AISI 420 & 410)",
-      size: `${set.pieces} Surgical Instruments + DIN Tray`
+      image: set.image,
+      quantity: 1
     });
   };
 
+  const handleOpenSetDetails = (set) => {
+    if (onSelectProduct) {
+      onSelectProduct(set);
+    }
+  };
+
   return (
-    <div className="sets-page-root" style={{ background: '#f8fafc', padding: '48px 0 80px 0' }}>
+    <div className="sets-page-root" style={{ background: '#f8fafc', padding: '40px 0 80px 0' }}>
       <div className="container">
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--primary-light)', color: 'var(--primary)', padding: '4px 14px', borderRadius: '9999px', fontSize: '0.8rem', fontWeight: '700', marginBottom: '14px', letterSpacing: '0.04em' }}>
+        {/* Page Header */}
+        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 48px auto' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--primary-light)', color: 'var(--primary)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.8rem', fontWeight: '700', letterSpacing: '0.04em', marginBottom: '14px' }}>
             <Layers size={15} />
-            <span>STANDARDIZED OPERATING ROOM PACKS</span>
+            <span>SURGICAL PROCEDURAL PACKS & TRAYS</span>
           </div>
 
-          <h1 style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1.2' }}>
-            Hospital Surgical Instrument Sets & Trays
+          <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', marginBottom: '16px' }}>
+            Pre-Configured Surgical Instrument Sets & Trays
           </h1>
 
-          <p style={{ fontSize: '1.05rem', color: 'var(--slate-600)', marginTop: '12px', lineHeight: '1.6' }}>
-            Turnkey sterilization-ready assemblies formulated in collaboration with US surgical teams. 
-            All sets include heavy-duty DIN wire baskets, silicone brackets, and 100% certified ASTM F899 German-blank instruments.
+          <p style={{ fontSize: '1rem', color: 'var(--slate-600)', lineHeight: '1.6' }}>
+            Standardized procedure trays configured per AORN and clinical excellence guidelines. Ideal for private practices, surgeons, specialty clinics, and healthcare facilities. All instruments passivated per ASTM A967 with Tungsten Carbide reinforcement where indicated.
           </p>
         </div>
 
@@ -73,13 +79,17 @@ import { ProductImage } from '../components/ProductImage';
               >
                 {/* Main Card Overview Bar */}
                 <div style={{ padding: '28px', display: 'grid', gridTemplateColumns: '200px 1.2fr 0.9fr 0.7fr', gap: '24px', alignItems: 'center' }}>
-                  {/* Set Product Image with Watermark */}
-                  <div style={{ height: '170px', borderRadius: '10px', overflow: 'hidden', border: '1px solid var(--slate-200)', background: '#f8fafc' }}>
+                  {/* Set Product Image with Minimal Watermark */}
+                  <div 
+                    style={{ height: '170px', borderRadius: '10px', overflow: 'hidden', border: '1px solid var(--slate-200)', background: '#f8fafc', cursor: 'pointer' }}
+                    onClick={() => handleOpenSetDetails(set)}
+                  >
                     <ProductImage 
                       src={set.image} 
                       alt={set.name} 
                       sku={set.sku} 
                       height="100%" 
+                      showWatermark={true}
                     />
                   </div>
 
@@ -94,11 +104,14 @@ import { ProductImage } from '../components/ProductImage';
                       </span>
                     </div>
 
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '8px' }}>
+                    <h2 
+                      style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '8px', cursor: 'pointer' }}
+                      onClick={() => handleOpenSetDetails(set)}
+                    >
                       {set.name}
                     </h2>
 
-                    <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', lineHeight: '1.5', marginBottom: '16px' }}>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.5', marginBottom: '16px' }}>
                       {set.summary}
                     </p>
 
@@ -114,10 +127,10 @@ import { ProductImage } from '../components/ProductImage';
                     </div>
                   </div>
 
-                  {/* Middle Column: Highlights Checklist */}
-                  <div style={{ background: 'var(--slate-50)', padding: '20px', borderRadius: '12px', border: '1px solid var(--slate-200)' }}>
-                    <div style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--navy-dark)', textTransform: 'uppercase', marginBottom: '10px' }}>
-                      Procurement Standards
+                  {/* Highlights Column */}
+                  <div style={{ background: 'var(--slate-50)', padding: '16px 20px', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--navy-dark)', letterSpacing: '0.04em', marginBottom: '10px' }}>
+                      Quality & Assembly Standards
                     </div>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       {set.highlights.map((hl, i) => (
@@ -156,71 +169,67 @@ import { ProductImage } from '../components/ProductImage';
                       <button 
                         className="btn-secondary" 
                         style={{ padding: '9px 14px', width: '100%', fontSize: '0.825rem' }}
-                        onClick={onOpenQuote}
+                        onClick={() => handleOpenSetDetails(set)}
                       >
-                        <FileText size={14} />
-                        <span>Request Custom B2B RFQ</span>
+                        <Eye size={14} />
+                        <span>View Full Set Specs</span>
                       </button>
                     </div>
 
                     <button 
                       onClick={() => toggleExpand(set.id)}
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)', marginTop: '16px', cursor: 'pointer' }}
+                      style={{ marginTop: '14px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)' }}
                     >
-                      <span>{isExpanded ? 'Hide Bill of Materials' : `View All ${set.pieces} Pieces (BOM)`}</span>
+                      <span>{isExpanded ? 'Hide' : 'Inspect'} Itemized Manifest ({set.pieces} Items)</span>
                       {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
                   </div>
                 </div>
 
-                {/* Expanded Itemized Bill of Materials (BOM) */}
+                {/* Collapsible Itemized Instrument Manifest */}
                 {isExpanded && (
-                  <div style={{ padding: '24px 32px', background: '#fafcff', borderTop: '1px solid var(--slate-200)' }}>
+                  <div style={{ borderTop: '1px solid var(--slate-200)', background: 'var(--slate-50)', padding: '24px 28px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--navy-dark)' }}>
-                        Itemized Bill of Materials (BOM) & Tray Specifications
-                      </h4>
-                      <span style={{ fontSize: '0.78rem', color: 'var(--slate-500)' }}>
-                        DIN Basket Dimensions: <strong>{set.trayDimensions}</strong>
+                      <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
+                        Sterilization Container Content & Itemized Manifest (DIN Specification)
+                      </div>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>
+                        All instruments laser-etched with matching barcode & traceability lot ID
                       </span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
-                      {set.itemizedList.map((item, idx) => (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '10px' }}>
+                      {set.itemizedList.map((entry, index) => (
                         <div 
-                          key={idx}
+                          key={index}
                           style={{
                             background: '#ffffff',
                             padding: '10px 14px',
-                            borderRadius: '6px',
+                            borderRadius: '8px',
                             border: '1px solid var(--slate-200)',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            fontSize: '0.825rem'
+                            fontSize: '0.8125rem'
                           }}
                         >
-                          <span style={{ background: 'var(--primary-light)', color: 'var(--primary)', fontWeight: '800', width: '28px', height: '28px', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.78rem' }}>
-                            {item.qty}x
+                          <span style={{ fontWeight: '800', color: 'var(--primary)', background: 'var(--primary-light)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem' }}>
+                            {entry.qty}x
                           </span>
                           <span style={{ color: 'var(--slate-800)', fontWeight: '500' }}>
-                            {item.item}
+                            {entry.item}
                           </span>
                         </div>
                       ))}
                     </div>
 
-                    <div style={{ marginTop: '20px', padding: '14px', background: '#ffffff', borderRadius: '8px', border: '1px solid var(--slate-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
-                        <ShieldCheck size={18} color="var(--primary)" />
-                        <span>Need custom instrument substitutions or laser department marking? We configure trays to exact OR committee preferences.</span>
-                      </div>
+                    <div style={{ marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--slate-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
+                      <span><strong>Tray Dimensions:</strong> {set.trayDimensions}</span>
                       <button 
-                        className="btn-secondary" 
-                        style={{ padding: '6px 14px', fontSize: '0.8rem' }}
-                        onClick={() => onOpenEnquiry(set)}
+                        onClick={onOpenQuote}
+                        style={{ color: 'var(--primary)', fontWeight: '700', textDecoration: 'underline' }}
                       >
-                        Request Tray Customization
+                        Request Custom Instrument Substitutions for This Set →
                       </button>
                     </div>
                   </div>

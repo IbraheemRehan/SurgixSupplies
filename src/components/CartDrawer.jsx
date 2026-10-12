@@ -11,7 +11,8 @@ export function CartDrawer({
   onCheckout, 
   onOpenQuote,
   onNavigateToCart,
-  onNavigateToCheckout
+  onNavigateToCheckout,
+  onSelectProduct
 }) {
   const [taxExempt, setTaxExempt] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -40,7 +41,7 @@ export function CartDrawer({
         {/* Header */}
         <div className="modal-header">
           <div>
-            <h3 className="modal-title">Procurement Cart</h3>
+            <h3 className="modal-title">Shopping Cart</h3>
             <p style={{ fontSize: '0.78rem', color: 'var(--slate-400)', marginTop: '2px' }}>
               {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in order list
             </p>
@@ -84,10 +85,10 @@ export function CartDrawer({
                 <CheckCircle2 size={32} />
               </div>
               <h4 style={{ fontSize: '1.2rem', color: 'var(--navy-dark)', fontWeight: '700', marginBottom: '8px' }}>
-                Hospital Purchase Order Confirmed!
+                Order Confirmed!
               </h4>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.5', maxWidth: '320px', margin: '0 auto' }}>
-                Order #SX-PO-2026-881 has been transmitted to Boston Fulfillment. A tracking number and certified MTR will be emailed shortly.
+                Order reference #SX-ORD-2026 has been received. A tracking number and order receipt will be emailed shortly.
               </p>
             </div>
           ) : cartItems.length === 0 ? (
@@ -99,7 +100,7 @@ export function CartDrawer({
                 Your cart is empty
               </p>
               <p style={{ fontSize: '0.85rem' }}>
-                Explore our catalog or instrument sets to add hospital-grade surgical items.
+                Explore our catalog or instrument sets to add surgical-grade instruments.
               </p>
             </div>
           ) : (
@@ -116,6 +117,7 @@ export function CartDrawer({
                     background: '#ffffff' 
                   }}
                 >
+                  {/* Clean Thumbnail WITHOUT Watermark Text */}
                   <div 
                     style={{ 
                       width: '64px', 
@@ -123,20 +125,33 @@ export function CartDrawer({
                       borderRadius: '6px', 
                       overflow: 'hidden',
                       flexShrink: 0,
-                      border: '1px solid var(--slate-200)'
+                      border: '1px solid var(--slate-200)',
+                      cursor: 'pointer'
                     }}
+                    onClick={() => {
+                      onClose();
+                      if (onSelectProduct) onSelectProduct(item);
+                    }}
+                    title="Click to view product details"
                   >
                     <ProductImage 
                       src={item.image} 
                       alt={item.name} 
                       sku={item.sku} 
                       height="100%" 
+                      showWatermark={false}
                     />
                   </div>
 
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <div>
+                      <div 
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          onClose();
+                          if (onSelectProduct) onSelectProduct(item);
+                        }}
+                      >
                         <span style={{ fontSize: '0.7rem', color: 'var(--slate-400)', fontWeight: '700' }}>
                           {item.sku}
                         </span>
@@ -214,7 +229,7 @@ export function CartDrawer({
                   checked={taxExempt} 
                   onChange={(e) => setTaxExempt(e.target.checked)} 
                 />
-                <span>Hospital / Tax-Exempt Entity</span>
+                <span>Tax-Exempt / Clinic Entity (Optional)</span>
               </label>
               <span>{taxExempt ? '$0.00' : `$${taxCost.toFixed(2)}`}</span>
             </div>
@@ -263,13 +278,13 @@ export function CartDrawer({
                 }}
               >
                 <FileDown size={14} />
-                <span>Convert Cart to Formal RFQ / B2B Quote</span>
+                <span>Request Bulk / Wholesale Quote</span>
               </button>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '12px', fontSize: '0.72rem', color: 'var(--slate-500)' }}>
               <ShieldCheck size={14} color="var(--primary)" />
-              <span>Direct factory warranty with 30-day hospital inspection guarantee</span>
+              <span>Direct factory warranty with 30-day money-back inspection guarantee</span>
             </div>
           </div>
         )}

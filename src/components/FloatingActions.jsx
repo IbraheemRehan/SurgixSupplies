@@ -7,7 +7,7 @@ export function FloatingActions({ onOpenWhatsApp }) {
       <button 
         className="floating-whatsapp-btn"
         onClick={onOpenWhatsApp}
-        title="Chat with Surgix Hospital Logistics via WhatsApp"
+        title="Chat with Surgix Support via WhatsApp"
       >
         {/* WhatsApp Icon SVG */}
         <svg 

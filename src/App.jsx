@@ -24,6 +24,7 @@ import { FaqPage } from './pages/FaqPage';
 import { LegalPage } from './pages/LegalPage';
 import { CartPage } from './pages/CartPage';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { ProductDetailPage } from './pages/ProductDetailPage';
 
 import { surgicalInstruments } from './data/instruments';
 
@@ -112,6 +113,14 @@ export default function App() {
     setEnquiryModalOpen(true);
   };
 
+  const handleSelectProduct = (prod) => {
+    setActiveProduct(prod);
+    setActivePage('product-detail');
+    setCartOpen(false);
+    setProductModalOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="app-container">
       {/* 1. Header (Matching Image 1) */}
@@ -141,6 +150,7 @@ export default function App() {
             onAddToCart={handleAddToCart}
             onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
@@ -151,6 +161,7 @@ export default function App() {
             onOpenProductModal={openProductQuickView}
             onAddToCart={handleAddToCart}
             onOpenEnquiry={openEnquiryForItem}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
@@ -159,6 +170,7 @@ export default function App() {
             onAddToCart={handleAddToCart}
             onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
@@ -168,6 +180,21 @@ export default function App() {
             onAddToCart={handleAddToCart}
             onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
+            onSelectProduct={handleSelectProduct}
+          />
+        )}
+
+        {activePage === 'product-detail' && (
+          <ProductDetailPage
+            product={activeProduct}
+            onAddToCart={handleAddToCart}
+            onNavigate={(page) => {
+              setActivePage(page);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onOpenQuote={() => setQuoteModalOpen(true)}
+            onOpenEnquiry={openEnquiryForItem}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
@@ -226,6 +253,7 @@ export default function App() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onOpenQuote={() => setQuoteModalOpen(true)}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
@@ -237,6 +265,7 @@ export default function App() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onCheckoutComplete={handleCheckoutComplete}
+            onSelectProduct={handleSelectProduct}
           />
         )}
       </main>
@@ -276,6 +305,7 @@ export default function App() {
           setActivePage('checkout');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+        onSelectProduct={handleSelectProduct}
       />
 
       <QuickEnquiryModal
@@ -300,6 +330,7 @@ export default function App() {
         onClose={() => setProductModalOpen(false)}
         onAddToCart={handleAddToCart}
         onOpenEnquiry={openEnquiryForItem}
+        onSelectProduct={handleSelectProduct}
       />
 
       <AiAssistantModal

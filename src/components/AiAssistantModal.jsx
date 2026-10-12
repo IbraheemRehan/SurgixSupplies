@@ -5,7 +5,7 @@ export function AiAssistantModal({ isOpen, onClose, onNavigateToShop, onNavigate
   const [messages, setMessages] = useState([
     {
       sender: 'bot',
-      text: "Hello! I am Surgix MedAI, your surgical instrument & procurement consultant. How can I assist your surgical team or procurement department today?"
+      text: "Hello! I am Surgix MedAI, your surgical instrument specialist. Whether you need a single instrument for your practice or bulk trays for a surgical facility, how can I assist you today?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -17,7 +17,7 @@ export function AiAssistantModal({ isOpen, onClose, onNavigateToShop, onNavigate
     "What's the difference between AISI 410 and 420?",
     "Show me the 84-Piece Laparotomy Set",
     "How to maintain Tungsten Carbide (TC) gold handles?",
-    "What are your hospital volume discount tiers?"
+    "Do you sell single instruments or bulk packs?"
   ];
 
   const handleSend = (textToSend) => {
@@ -39,10 +39,10 @@ export function AiAssistantModal({ isOpen, onClose, onNavigateToShop, onNavigate
         reply = "Our 84-Piece Major General Laparotomy Set (SKU: SX-SET-LAP84) includes German-forged Mayo & Metzenbaum TC scissors, DeBakey atraumatic forceps, Balfour abdominal retractor, and 30 Fr Poole suction tube. It comes nested in a heavy-duty DIN electropolished sterilization basket with silicone dividers.";
       } else if (lower.includes('carbide') || lower.includes('tc') || lower.includes('gold')) {
         reply = "Tungsten Carbide (TC) inserts feature an exceptional Rockwell hardness of HRC 70-75. Identified by gold-plated finger rings, they provide 5x longer cutting longevity. During autoclave sterilization, ensure neutral pH enzymatic cleaning detergents (pH 7.0-8.5) and dry thoroughly before storage to prevent silver solder brazing degradation.";
-      } else if (lower.includes('discount') || lower.includes('tier') || lower.includes('price') || lower.includes('quote')) {
-        reply = "We offer direct factory export pricing: Tier 1 (10-49 units) provides 10% off; Tier 2 (50-200 units) provides 18% off; Tier 3 (200+ units) provides 25% off institutional list prices. All orders over $500 qualify for free nationwide sterile logistics, plus Net-30 payment terms for accredited hospitals.";
+      } else if (lower.includes('discount') || lower.includes('tier') || lower.includes('price') || lower.includes('quote') || lower.includes('single') || lower.includes('moq') || lower.includes('consumer') || lower.includes('bulk')) {
+        reply = "We welcome all buyers! There is NO minimum order quantity (MOQ) — individual surgeons, students, and practitioners can purchase single instruments directly at direct factory pricing. For clinics and bulk orders: Tier 1 (10-49 units) saves 10%; Tier 2 (50-200 units) saves 18%; Tier 3 (200+ units) saves 25%. All orders over $500 qualify for free nationwide insured delivery.";
       } else {
-        reply = `Thank you for your inquiry regarding "${query}". All Surgix Supplies instruments are 100% German-blank forged, passivated per ASTM A967, and certified under ISO 13485:2016 and FDA 510(k) clearances. Would you like to review our catalog or request a formal institutional quote?`;
+        reply = `Thank you for your inquiry regarding "${query}". All Surgix Supplies instruments are 100% German-blank forged, passivated per ASTM A967, and certified under ISO 13485:2016 and FDA 510(k) clearances with full traceability for individual practitioners and healthcare facilities alike. Would you like to review our catalog or place an order?`;
       }
 
       setMessages((prev) => [...prev, { sender: 'bot', text: reply }]);
@@ -64,7 +64,7 @@ export function AiAssistantModal({ isOpen, onClose, onNavigateToShop, onNavigate
                 Surgix MedAI Assistant
               </h3>
               <p style={{ fontSize: '0.72rem', color: '#93c5fd', margin: 0 }}>
-                Clinical Metallurgy & Procurement Advisor
+                Clinical Metallurgy & Product Advisor
               </p>
             </div>
           </div>

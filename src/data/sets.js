@@ -14,7 +14,7 @@ export const surgicalSets = [
     rating: 4.95,
     reviews: 28,
     leadTime: "In Stock (Ships 24h)",
-    summary: "The definitive OR major laparotomy tray configured according to US hospital procurement protocols. Includes all primary instruments for open abdominal explorations, bowel resections, and trauma interventions.",
+    summary: "The definitive major laparotomy tray configured according to clinical procedural standards. Includes all primary instruments for open abdominal explorations, bowel resections, and trauma interventions.",
     highlights: [
       "Manufactured from forged AISI 420 & AISI 410 German-grade surgical steel",
       "All needle holders and dissecting scissors fitted with Tungsten Carbide (TC) inserts",

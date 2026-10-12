@@ -4,11 +4,15 @@ import { HelpCircle, ChevronDown, ChevronUp, ShieldCheck } from 'lucide-react';
 export function FaqPage({ onOpenQuote }) {
   const faqs = [
     {
+      q: "Can individual consumers, private practitioners, and students purchase directly?",
+      a: "Yes, absolutely! We sell directly to individual practitioners, surgeons, veterinarians, dental clinics, students, and consumers with ZERO minimum order quantities (MOQ). You can purchase single units or full sets instantly using credit cards, Apple Pay, Google Pay, or PayPal at factory-direct pricing."
+    },
+    {
       q: "Are Surgix Supplies instruments manufactured from German stainless steel?",
       a: "Yes. 100% of our surgical blanks originate from certified German forging mills meeting ASTM F899 standards (primarily AISI 420 for cutting blades and AISI 410 for flexible hemostats). Final machining, precision hand-honing, ASTM A967 passivation, and quality inspections take place in our Boston, Massachusetts facility."
     },
     {
-      q: "What certifications accompany hospital shipments?",
+      q: "What certifications accompany shipments?",
       a: "Every batch includes complete Material Test Reports (MTR) demonstrating chemical composition, Certificate of Passivation (ASTM A967), and documentation of compliance with ISO 13485:2016 and FDA 510(k) clearances. All documents can also be downloaded from our Quality Documentation portal."
     },
     {
@@ -42,7 +46,7 @@ export function FaqPage({ onOpenQuote }) {
             Frequently Asked Questions
           </h1>
           <p style={{ fontSize: '1rem', color: 'var(--slate-600)', marginTop: '8px' }}>
-            Answers to common questions regarding metallurgy, sterilizer cycles, procurement contracts, and logistics.
+            Answers to common questions regarding ordering, metallurgy, sterilizer cycles, and bulk pricing.
           </p>
         </div>
 
@@ -100,7 +104,7 @@ export function FaqPage({ onOpenQuote }) {
             Our Boston clinical engineers and regulatory team are on standby to address your queries.
           </p>
           <button className="btn-primary" style={{ padding: '10px 24px' }} onClick={onOpenQuote}>
-            Contact Procurement Desk
+            Contact Customer Desk
           </button>
         </div>
       </div>

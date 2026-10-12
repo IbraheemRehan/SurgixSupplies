@@ -7,10 +7,10 @@ export function ShippingReturnsPage({ onOpenEnquiry }) {
       <div className="container" style={{ maxWidth: '880px' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <h1 style={{ fontSize: '2.3rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
-            Hospital Shipping & 30-Day Evaluation Terms
+            Shipping & 30-Day Satisfaction Terms
           </h1>
           <p style={{ fontSize: '1rem', color: 'var(--slate-600)', marginTop: '8px' }}>
-            Nationwide sterile transit protocols and risk-free surgical center trial guarantees.
+            Nationwide insured delivery protocols and 100% satisfaction guarantees for practitioners and healthcare facilities.
           </p>
         </div>
 
@@ -22,19 +22,19 @@ export function ShippingReturnsPage({ onOpenEnquiry }) {
                 <Truck size={22} />
               </div>
               <h2 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
-                Nationwide Hospital Shipping
+                Nationwide Direct & Clinical Shipping
               </h2>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.9rem', color: 'var(--slate-700)', lineHeight: '1.6' }}>
               <p>
-                <strong>Free Shipping Standard:</strong> All hospital purchase orders and catalog requisitions totaling <strong>$500.00 or greater</strong> qualify for complimentary priority ground and 2-day delivery across all 50 US states. Orders under $500 incur a flat $25.00 medical courier handling fee.
+                <strong>Free Shipping Standard:</strong> All consumer orders and institutional requisitions totaling <strong>$500.00 or greater</strong> qualify for complimentary priority delivery across all 50 US states. Orders under $500 enjoy flat, insured courier delivery.
               </p>
               <p>
                 <strong>Sterile Tamper-Evident Packaging:</strong> Every surgical instrument is individually sealed in lint-free, puncture-resistant medical film with active desiccant and an RFID-verified tamper seal.
               </p>
               <p>
-                <strong>Same-Day Dispatch Cutoff:</strong> In-stock instruments ordered before 4:00 PM EST ship same day from our Boston distribution center via FedEx HealthCare or UPS Medical Express.
+                <strong>Same-Day Dispatch Cutoff:</strong> In-stock instruments ordered before 4:00 PM EST ship same day from our Boston distribution center via FedEx or UPS Express.
               </p>
             </div>
           </div>
@@ -52,13 +52,13 @@ export function ShippingReturnsPage({ onOpenEnquiry }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.9rem', color: 'var(--slate-700)', lineHeight: '1.6' }}>
               <p>
-                <strong>30-Day Hospital Evaluation:</strong> Surgical teams have 30 days to test the balance, cutting action, and autoclave resistance of any Surgix instrument in your facility. If not completely satisfied, return for a 100% credit or refund with zero restocking fees.
+                <strong>30-Day Evaluation Period:</strong> Customers and surgical teams have 30 days to test the balance, cutting action, and autoclave resistance of any Surgix instrument in your facility. If not completely satisfied, return for a 100% refund or credit with zero restocking fees.
               </p>
               <p>
                 <strong>Lifetime Joint & Box-Lock Warranty:</strong> All box-lock joints and Tungsten Carbide vacuum-welded inserts carry a lifetime guarantee against cracking, detachment, or joint seizure under standard sterile processing.
               </p>
               <p>
-                <strong>Hassle-Free Return Authorization (RMA):</strong> Need to generate an institutional return? Email <strong>returns@surgixsupplies.com</strong> with your PO number to receive an immediate prepaid return courier label.
+                <strong>Hassle-Free Return Authorization (RMA):</strong> Need to generate a return? Email <strong>returns@surgixsupplies.com</strong> with your order number or PO number to receive an immediate prepaid return courier label.
               </p>
             </div>
           </div>

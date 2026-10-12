@@ -45,7 +45,7 @@ export function QualityDocsPage() {
           </h1>
 
           <p style={{ fontSize: '1.05rem', color: 'var(--slate-600)', marginTop: '12px', lineHeight: '1.6' }}>
-            Verified compliance certificates for hospital legal counsel, sterile processing departments (CSPD), and international customs authorities. All documents are current for 2026.
+            Verified compliance certificates for practitioners, surgical clinics, sterile processing departments (CSPD), and international authorities. All documents are current for 2026.
           </p>
         </div>
 
@@ -131,7 +131,7 @@ export function QualityDocsPage() {
         <div style={{ marginTop: '56px', background: '#ffffff', borderRadius: '14px', border: '1px solid var(--slate-200)', padding: '32px', textAlign: 'center' }}>
           <ShieldCheck size={36} color="var(--primary)" style={{ margin: '0 auto 12px auto' }} />
           <h4 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '8px' }}>
-            Hospital Audit Assistance & Quality Rep Visits
+            Quality Audit Assistance & Technical Compliance Support
           </h4>
           <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', maxWidth: '640px', margin: '0 auto 18px auto', lineHeight: '1.6' }}>
             Preparing for Joint Commission (JCAHO) or DNV healthcare facility reviews? Our Boston regulatory team supplies certified full-lot master dossiers and sterile validation certificates within 2 hours.

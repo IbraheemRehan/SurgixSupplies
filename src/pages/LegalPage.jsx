@@ -17,7 +17,7 @@ export function LegalPage() {
         <div style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '40px', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column', gap: '28px', fontSize: '0.9rem', color: 'var(--slate-700)', lineHeight: '1.7' }}>
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '10px' }}>
-              1. Institutional Sale & Regulatory Clearances
+              1. Sales Standards & Regulatory Clearances
             </h3>
             <p>
               Surgix Supplies distributes surgical instruments manufactured under ISO 13485:2016 quality management systems and FDA establishment registration regulations. All devices conform to U.S. FDA 21 CFR Part 820 standards and EU Medical Device Regulation (MDR 2017/745) requirements.
@@ -26,10 +26,10 @@ export function LegalPage() {
 
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '10px' }}>
-              2. Hospital Privacy & HIPAA Security Commitment
+              2. Customer Privacy & Data Security Commitment
             </h3>
             <p>
-              We adhere to strict data privacy principles under U.S. and Massachusetts state data security statutes. Surgix Supplies does not collect protected health information (PHI) or patient records. Institutional purchasing data, hospital credit information, and account details are encrypted using 256-bit SSL/TLS protocols and never transferred or sold to third parties.
+              We adhere to strict data privacy principles under U.S. and Massachusetts state data security statutes. Surgix Supplies does not collect protected health information (PHI) or patient records. Customer purchasing data, payment details, and account credentials are encrypted using 256-bit SSL/TLS protocols and never transferred or sold to third parties.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export function LegalPage() {
               3. Warranty & Limitation of Liability
             </h3>
             <p>
-              Surgix Supplies warrants that all surgical instruments are free from metallurgical defects, micro-cracks, and joint misalignment for the lifetime of the instrument under appropriate hospital sterilization reprocessing. Instruments must be cleaned and autoclaved in compliance with ISO 17664 instructions for use (IFU).
+              Surgix Supplies warrants that all surgical instruments are free from metallurgical defects, micro-cracks, and joint misalignment for the lifetime of the instrument under appropriate clinical and sterile reprocessing. Instruments must be cleaned and autoclaved in compliance with ISO 17664 instructions for use (IFU).
             </p>
           </div>
 

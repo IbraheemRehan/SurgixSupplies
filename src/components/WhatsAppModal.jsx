@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Send, PhoneCall, ShieldCheck, Clock } from 'lucide-react';
 
 export function WhatsAppModal({ isOpen, onClose }) {
-  const [inquiryType, setInquiryType] = useState('Hospital Procurement');
+  const [inquiryType, setInquiryType] = useState('Individual Order / Customer Inquiry');
   const [customMsg, setCustomMsg] = useState('');
 
   if (!isOpen) return null;
@@ -29,7 +29,7 @@ export function WhatsAppModal({ isOpen, onClose }) {
                 WhatsApp Direct Support
               </h3>
               <p style={{ fontSize: '0.72rem', color: '#a7f3d0', margin: 0 }}>
-                Direct Link with Boston Sales & Export Team
+                Direct Link with Boston Sales & Support Team
               </p>
             </div>
           </div>
@@ -51,9 +51,10 @@ export function WhatsAppModal({ isOpen, onClose }) {
               value={inquiryType}
               onChange={(e) => setInquiryType(e.target.value)}
             >
-              <option>Hospital Bulk Requisition / RFQ</option>
+              <option>Individual Order / Customer Inquiry</option>
+              <option>Hospital & Clinic Bulk Requisition / RFQ</option>
               <option>Urgent Surgery Center Restock</option>
-              <option>Custom Tray & Laser Barcode Marking</option>
+              <option>Custom Tray & Instrument Sets</option>
               <option>International Air Export & Freight</option>
               <option>Sterilization & Compliance Specs</option>
             </select>
@@ -64,7 +65,7 @@ export function WhatsAppModal({ isOpen, onClose }) {
             <textarea
               rows={3}
               className="form-textarea"
-              placeholder="Provide order details, hospital name, or specific SKU numbers..."
+              placeholder="Provide order details, product questions, or specific SKU numbers..."
               value={customMsg}
               onChange={(e) => setCustomMsg(e.target.value)}
             />

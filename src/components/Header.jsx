@@ -127,7 +127,7 @@ export function Header({
             <button 
               className="header-action-btn"
               onClick={onOpenSignIn}
-              title="Hospital Procurement Login"
+              title="Customer & Clinic Sign In"
             >
               <User size={16} />
               <span>SIGN IN</span>
@@ -136,7 +136,7 @@ export function Header({
             <button 
               className="header-action-btn"
               onClick={() => onOpenEnquiry(null)}
-              title="Submit Direct RFQ or Enquiry"
+              title="Submit Direct Product Enquiry or RFQ"
             >
               <Mail size={16} />
               <span>ENQUIRY</span>

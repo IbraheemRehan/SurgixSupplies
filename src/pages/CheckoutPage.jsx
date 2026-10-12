@@ -22,7 +22,8 @@ import { ProductImage } from '../components/ProductImage';
 export function CheckoutPage({ 
   cartItems, 
   onNavigate, 
-  onCheckoutComplete 
+  onCheckoutComplete,
+  onSelectProduct
 }) {
   // Step indicator
   const [step, setStep] = useState(1); // 1: Shipping & Info, 2: Payment & Review, 3: Order Placed
@@ -31,12 +32,13 @@ export function CheckoutPage({
 
   // Form Fields
   const [formData, setFormData] = useState({
+    accountType: 'individual', // 'individual' or 'business'
     email: '',
     phone: '',
     firstName: '',
     lastName: '',
     hospitalName: '',
-    department: 'OR / Central Sterile Supply',
+    department: 'Private Practice / Clinic',
     taxExemptId: '',
     address: '',
     address2: '',
@@ -74,8 +76,8 @@ export function CheckoutPage({
     shippingCost = 75.00;
   }
 
-  // Tax exempt by default if hospital entity ID provided or checkbox checked
-  const isTaxExempt = Boolean(formData.hospitalName.trim());
+  // Tax exempt if business provided taxExemptId
+  const isTaxExempt = formData.accountType === 'business' && Boolean(formData.taxExemptId.trim());
   const taxCost = isTaxExempt ? 0 : subtotal * 0.065;
   const grandTotal = subtotal + shippingCost + taxCost;
 
@@ -88,11 +90,13 @@ export function CheckoutPage({
 
   const validateStep1 = () => {
     const errors = {};
-    if (!formData.email.trim() || !formData.email.includes('@')) errors.email = 'Valid corporate or hospital email required';
+    if (!formData.email.trim() || !formData.email.includes('@')) errors.email = 'Valid email address required';
     if (!formData.phone.trim()) errors.phone = 'Phone number is required for dispatch notification';
     if (!formData.firstName.trim()) errors.firstName = 'First name is required';
     if (!formData.lastName.trim()) errors.lastName = 'Last name is required';
-    if (!formData.hospitalName.trim()) errors.hospitalName = 'Hospital, surgical clinic or practice name required';
+    if (formData.accountType === 'business' && !formData.hospitalName.trim()) {
+      errors.hospitalName = 'Hospital, surgical clinic or organization name required';
+    }
     if (!formData.address.trim()) errors.address = 'Street address required';
     if (!formData.city.trim()) errors.city = 'City required';
     if (!formData.state.trim()) errors.state = 'State required';
@@ -155,10 +159,10 @@ export function CheckoutPage({
               <CheckCircle2 size={40} />
             </div>
             <h1 style={{ fontSize: '1.75rem', fontWeight: '800', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
-              Hospital Order Confirmed & Authorized
+              Order Confirmed & Authorized
             </h1>
             <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem', margin: '0 auto', maxWidth: '520px' }}>
-              Thank you for ordering with Surgix Supplies. Order reference <strong>{orderReference}</strong> has been transmitted to Boston Logistics Facility.
+              Thank you for ordering with Surgix Supplies. Order reference <strong>{orderReference}</strong> has been transmitted to our Boston Logistics Center.
             </p>
           </div>
 
@@ -167,8 +171,8 @@ export function CheckoutPage({
             <div style={{ backgroundColor: 'var(--emerald-50)', border: '1px solid rgba(5, 150, 105, 0.25)', borderRadius: '10px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '28px' }}>
               <Clock size={24} color="var(--emerald-600)" />
               <div style={{ fontSize: '0.85rem', color: 'var(--slate-700)' }}>
-                <strong style={{ color: 'var(--navy-dark)', display: 'block' }}>Chain-of-Custody Packaging in Progress</strong>
-                Inspection Certificate & Mill Test Report (MTR) will be emailed to <strong>{formData.email}</strong>.
+                <strong style={{ color: 'var(--navy-dark)', display: 'block' }}>Precision Packaging & Quality Verification in Progress</strong>
+                Order confirmation, tracking link, and Certificate of Compliance will be emailed to <strong>{formData.email}</strong>.
               </div>
             </div>
 
@@ -177,13 +181,17 @@ export function CheckoutPage({
               <div>
                 <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--slate-400)', fontWeight: '700', letterSpacing: '0.05em' }}>Order Reference</span>
                 <div style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '4px' }}>{orderReference}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>PO: {formData.poNumber || 'Credit Gateway'}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>Payment: {formData.paymentMethod === 'card' ? 'Credit Card (Stripe)' : formData.paymentMethod === 'applepay' ? 'Digital Wallet' : 'PO / Wire Gateway'}</div>
               </div>
 
               <div>
-                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--slate-400)', fontWeight: '700', letterSpacing: '0.05em' }}>Delivering Institution</span>
-                <div style={{ fontSize: '0.925rem', fontWeight: '700', color: 'var(--slate-800)', marginTop: '4px' }}>{formData.hospitalName}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>{formData.department}</div>
+                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--slate-400)', fontWeight: '700', letterSpacing: '0.05em' }}>Customer / Organization</span>
+                <div style={{ fontSize: '0.925rem', fontWeight: '700', color: 'var(--slate-800)', marginTop: '4px' }}>
+                  {formData.hospitalName ? formData.hospitalName : `${formData.firstName} ${formData.lastName}`}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>
+                  {formData.hospitalName ? formData.department : 'Individual Professional / Direct Buyer'}
+                </div>
               </div>
 
               <div>
@@ -194,12 +202,12 @@ export function CheckoutPage({
               </div>
 
               <div>
-                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--slate-400)', fontWeight: '700', letterSpacing: '0.05em' }}>Authorized Amount</span>
+                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--slate-400)', fontWeight: '700', letterSpacing: '0.05em' }}>Total Paid</span>
                 <div style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '2px' }}>
                   ${grandTotal.toFixed(2)}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: '600' }}>
-                  {formData.paymentMethod === 'card' ? 'Authorized via Stripe' : 'PO Terms Authorized'}
+                  {formData.paymentMethod === 'card' ? 'Securely Processed via Stripe' : 'Order Authorized'}
                 </div>
               </div>
             </div>
@@ -228,7 +236,7 @@ export function CheckoutPage({
                 style={{ padding: '10px 18px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}
               >
                 <Printer size={16} />
-                <span>Print Official Hospital Receipt</span>
+                <span>Print Official Receipt</span>
               </button>
 
               <div style={{ display: 'flex', gap: '10px' }}>
@@ -237,7 +245,7 @@ export function CheckoutPage({
                   className="btn-secondary"
                   style={{ padding: '10px 18px', fontSize: '0.875rem' }}
                 >
-                  Track Hospital Order
+                  Track Order Status
                 </button>
                 <button 
                   onClick={() => onNavigate('shop')}
@@ -274,14 +282,14 @@ export function CheckoutPage({
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <img src="/assets/surgix-logo.png" alt="Surgix Supplies" style={{ height: '28px', objectFit: 'contain' }} />
               <span style={{ fontSize: '0.95rem', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '0.04em' }}>
-                SURGIX PROCUREMENT CHECKOUT
+                SURGIX SECURE CHECKOUT
               </span>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--slate-600)', backgroundColor: 'var(--slate-50)', padding: '6px 12px', borderRadius: '20px', border: '1px solid var(--slate-200)' }}>
             <Lock size={13} color="var(--emerald-600)" />
-            <span>256-Bit SSL Encrypted Procurement Gateway</span>
+            <span>256-Bit SSL Encrypted Checkout</span>
           </div>
         </div>
       </div>
@@ -295,7 +303,7 @@ export function CheckoutPage({
               1
             </div>
             <span style={{ fontSize: '0.875rem', fontWeight: step === 1 ? '700' : '500', color: step === 1 ? 'var(--navy-dark)' : 'var(--slate-500)' }}>
-              Hospital & Delivery
+              Customer & Delivery Details
             </span>
           </div>
 
@@ -306,7 +314,7 @@ export function CheckoutPage({
               2
             </div>
             <span style={{ fontSize: '0.875rem', fontWeight: step === 2 ? '700' : '500', color: step === 2 ? 'var(--navy-dark)' : 'var(--slate-500)' }}>
-              Payment & Authorization
+              Payment & Order Review
             </span>
           </div>
         </div>
@@ -319,33 +327,59 @@ export function CheckoutPage({
             {step === 1 && (
               <form onSubmit={handleProceedToPayment} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 
-                {/* 1. Hospital / Organization Contact */}
+                {/* 1. Customer & Organization Contact */}
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-100)' }}>
                     <Building2 size={20} color="var(--primary)" />
                     <h2 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--navy-dark)', margin: 0 }}>
-                      1. Institution & Procurement Contact
+                      1. Customer & Shipping Contact
                     </h2>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                      <label className="form-label">Hospital, Surgical Center or Practice Name *</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., Mount Sinai Surgical Center / Memorial Hospital" 
-                        value={formData.hospitalName}
-                        onChange={(e) => handleInputChange('hospitalName', e.target.value)}
-                        className="form-input"
-                      />
-                      {formErrors.hospitalName && <span style={{ color: '#dc2626', fontSize: '0.75rem' }}>{formErrors.hospitalName}</span>}
-                    </div>
+                  {/* Customer Type Toggle (Consumer vs Hospital/Business) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('accountType', 'individual')}
+                      style={{
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        border: formData.accountType === 'individual' ? '2px solid var(--primary)' : '1px solid var(--slate-300)',
+                        backgroundColor: formData.accountType === 'individual' ? 'var(--primary-light)' : '#ffffff',
+                        fontWeight: '700',
+                        fontSize: '0.825rem',
+                        color: formData.accountType === 'individual' ? 'var(--primary)' : 'var(--slate-700)',
+                        cursor: 'pointer',
+                        textAlign: 'center'
+                      }}
+                    >
+                      👤 Individual / Practitioner / Consumer
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('accountType', 'business')}
+                      style={{
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        border: formData.accountType === 'business' ? '2px solid var(--primary)' : '1px solid var(--slate-300)',
+                        backgroundColor: formData.accountType === 'business' ? 'var(--primary-light)' : '#ffffff',
+                        fontWeight: '700',
+                        fontSize: '0.825rem',
+                        color: formData.accountType === 'business' ? 'var(--primary)' : 'var(--slate-700)',
+                        cursor: 'pointer',
+                        textAlign: 'center'
+                      }}
+                    >
+                      🏥 Hospital / Clinic / Organization
+                    </button>
+                  </div>
 
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                     <div className="form-group">
                       <label className="form-label">First Name *</label>
                       <input 
                         type="text" 
-                        placeholder="Procurement contact" 
+                        placeholder="First name" 
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         className="form-input"
@@ -366,10 +400,10 @@ export function CheckoutPage({
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label">Official Work Email (For MTRs & Tracking) *</label>
+                      <label className="form-label">Email Address (For Order Confirmation & Tracking) *</label>
                       <input 
                         type="email" 
-                        placeholder="purchasing@hospital.org" 
+                        placeholder="yourname@example.com" 
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         className="form-input"
@@ -378,7 +412,7 @@ export function CheckoutPage({
                     </div>
 
                     <div className="form-group">
-                      <label className="form-label">Dispatch Phone Number *</label>
+                      <label className="form-label">Phone Number *</label>
                       <input 
                         type="tel" 
                         placeholder="+1 (555) 000-0000" 
@@ -389,51 +423,80 @@ export function CheckoutPage({
                       {formErrors.phone && <span style={{ color: '#dc2626', fontSize: '0.75rem' }}>{formErrors.phone}</span>}
                     </div>
 
-                    <div className="form-group">
-                      <label className="form-label">Department / Unit</label>
-                      <select 
-                        value={formData.department}
-                        onChange={(e) => handleInputChange('department', e.target.value)}
-                        className="form-select"
-                      >
-                        <option value="OR / Central Sterile Supply">OR / Central Sterile Supply</option>
-                        <option value="General Surgery Procurement">General Surgery Procurement</option>
-                        <option value="Cardiothoracic / Vascular OR">Cardiothoracic / Vascular OR</option>
-                        <option value="Orthopedic Trauma Service">Orthopedic Trauma Service</option>
-                        <option value="Ambulatory Surgical Center (ASC)">Ambulatory Surgical Center (ASC)</option>
-                        <option value="Labor & Delivery / OBGYN">Labor & Delivery / OBGYN</option>
-                        <option value="Materials Management">Materials Management / Purchasing</option>
-                      </select>
-                    </div>
+                    {formData.accountType === 'business' ? (
+                      <>
+                        <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                          <label className="form-label">Hospital, Surgical Center or Practice Name *</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., Mount Sinai Surgical Center / Memorial Practice" 
+                            value={formData.hospitalName}
+                            onChange={(e) => handleInputChange('hospitalName', e.target.value)}
+                            className="form-input"
+                          />
+                          {formErrors.hospitalName && <span style={{ color: '#dc2626', fontSize: '0.75rem' }}>{formErrors.hospitalName}</span>}
+                        </div>
 
-                    <div className="form-group">
-                      <label className="form-label">Hospital Tax-Exempt / NPI # (Optional)</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., 501(c)(3) ID or NPI" 
-                        value={formData.taxExemptId}
-                        onChange={(e) => handleInputChange('taxExemptId', e.target.value)}
-                        className="form-input"
-                      />
-                    </div>
+                        <div className="form-group">
+                          <label className="form-label">Department / Specialty</label>
+                          <select 
+                            value={formData.department}
+                            onChange={(e) => handleInputChange('department', e.target.value)}
+                            className="form-select"
+                          >
+                            <option value="Private Practice / Clinic">Private Practice / Clinic</option>
+                            <option value="OR / Central Sterile Supply">OR / Central Sterile Supply</option>
+                            <option value="General Surgery Department">General Surgery Department</option>
+                            <option value="Cardiothoracic / Vascular">Cardiothoracic / Vascular</option>
+                            <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+                            <option value="Ambulatory Surgical Center (ASC)">Ambulatory Surgical Center (ASC)</option>
+                            <option value="Dental / Oral Surgery">Dental / Oral Surgery</option>
+                            <option value="Veterinary Surgery">Veterinary Surgery</option>
+                            <option value="Purchasing / Materials Dept">Purchasing / Materials Dept</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label">Tax-Exempt / NPI # (Optional)</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., 501(c)(3) ID or NPI" 
+                            value={formData.taxExemptId}
+                            onChange={(e) => handleInputChange('taxExemptId', e.target.value)}
+                            className="form-input"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                        <label className="form-label">Clinic, Practice or School (Optional)</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g., Private Practice, University, or leave blank" 
+                          value={formData.hospitalName}
+                          onChange={(e) => handleInputChange('hospitalName', e.target.value)}
+                          className="form-input"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* 2. Receiving Address & Dock Info */}
+                {/* 2. Receiving Address Info */}
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-100)' }}>
                     <Truck size={20} color="var(--primary)" />
                     <h2 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--navy-dark)', margin: 0 }}>
-                      2. Hospital Delivery Address & Receiving Dock
+                      2. Shipping & Delivery Address
                     </h2>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '16px' }}>
                     <div className="form-group" style={{ gridColumn: 'span 3' }}>
-                      <label className="form-label">Facility Street Address *</label>
+                      <label className="form-label">Delivery Street Address *</label>
                       <input 
                         type="text" 
-                        placeholder="e.g., 100 Hospital Plaza, Medical Arts Blvd" 
+                        placeholder="e.g., 123 Main St / 100 Medical Arts Blvd" 
                         value={formData.address}
                         onChange={(e) => handleInputChange('address', e.target.value)}
                         className="form-input"
@@ -442,10 +505,10 @@ export function CheckoutPage({
                     </div>
 
                     <div className="form-group" style={{ gridColumn: 'span 3' }}>
-                      <label className="form-label">Building / Dock Number / Suite</label>
+                      <label className="form-label">Apt, Suite, Unit, Building or Dock (Optional)</label>
                       <input 
                         type="text" 
-                        placeholder="e.g., Receiving Dock B, Suite 400" 
+                        placeholder="e.g., Apt 4B, Suite 200, Receiving Dock B" 
                         value={formData.address2}
                         onChange={(e) => handleInputChange('address2', e.target.value)}
                         className="form-input"
@@ -491,7 +554,7 @@ export function CheckoutPage({
 
                   {/* Shipping Speed Selection */}
                   <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--slate-100)' }}>
-                    <label className="form-label" style={{ marginBottom: '10px' }}>Select Insured Hospital Freight Method</label>
+                    <label className="form-label" style={{ marginBottom: '10px' }}>Select Insured Shipping Method</label>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       
                       <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', border: formData.shippingMethod === 'standard' ? '2px solid var(--primary)' : '1px solid var(--slate-300)', borderRadius: '8px', cursor: 'pointer', backgroundColor: formData.shippingMethod === 'standard' ? 'var(--primary-light)' : '#ffffff' }}>
@@ -504,10 +567,10 @@ export function CheckoutPage({
                           />
                           <div>
                             <span style={{ fontWeight: '700', fontSize: '0.875rem', color: 'var(--navy-dark)', display: 'block' }}>
-                              Standard Insured Medical Ground (2-3 Business Days)
+                              Standard Insured Ground (2-3 Business Days)
                             </span>
                             <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>
-                              Autoclave sealed, chain-of-custody box tracking
+                              Protective bubble-sealed box with tracking & insurance
                             </span>
                           </div>
                         </div>
@@ -526,10 +589,10 @@ export function CheckoutPage({
                           />
                           <div>
                             <span style={{ fontWeight: '700', fontSize: '0.875rem', color: 'var(--navy-dark)', display: 'block' }}>
-                              Hospital Priority Overnight (Next Morning 10:30 AM)
+                              Priority Express Overnight (Next Business Day)
                             </span>
                             <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>
-                              Direct courier from Boston Sterile Distribution
+                              Expedited dispatch from Boston Distribution Center
                             </span>
                           </div>
                         </div>
@@ -547,7 +610,7 @@ export function CheckoutPage({
                   className="btn-primary" 
                   style={{ padding: '14px', fontSize: '1rem', width: '100%', borderRadius: '8px' }}
                 >
-                  <span>Continue to Secure Payment Gateway</span>
+                  <span>Continue to Payment & Order Review</span>
                   <ChevronRight size={18} />
                 </button>
 
@@ -557,14 +620,14 @@ export function CheckoutPage({
             {step === 2 && (
               <form onSubmit={handlePlaceOrder} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 
-                {/* 3. Payment Gateway (Built ready for Stripe & other famous payment methods) */}
+                {/* 3. Payment Gateway */}
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-100)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <CreditCard size={20} color="var(--primary)" />
                       <h2 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--navy-dark)', margin: 0 }}>
-                        3. Payment & Institutional Authorization
+                        3. Payment & Order Review
                       </h2>
                     </div>
                     <button 
@@ -632,7 +695,7 @@ export function CheckoutPage({
                       }}
                     >
                       <FileText size={20} color={formData.paymentMethod === 'po' ? 'var(--primary)' : 'var(--slate-600)'} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--navy-dark)' }}>Hospital PO (Net-30)</span>
+                      <span style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--navy-dark)' }}>Net-30 PO Terms</span>
                     </button>
 
                     <button 
@@ -761,7 +824,7 @@ export function CheckoutPage({
                   {formData.paymentMethod === 'applepay' && (
                     <div style={{ backgroundColor: 'var(--slate-50)', padding: '24px', borderRadius: '10px', border: '1px solid var(--slate-200)', textAlign: 'center' }}>
                       <p style={{ fontSize: '0.9rem', color: 'var(--slate-700)', marginBottom: '16px' }}>
-                        Authorize one-touch hospital procurement using Apple Pay or Google Pay via Stripe:
+                        Complete your purchase instantly using Apple Pay or Google Pay via Stripe:
                       </p>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '320px', margin: '0 auto' }}>
                         <button 
@@ -787,11 +850,11 @@ export function CheckoutPage({
                     <div style={{ backgroundColor: 'var(--slate-50)', padding: '20px', borderRadius: '10px', border: '1px solid var(--slate-200)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--navy-dark)', fontWeight: '700', fontSize: '0.9rem' }}>
                         <FileText size={16} color="var(--primary)" />
-                        <span>Institutional Purchase Order Terms (Net-30 / Net-60)</span>
+                        <span>Purchase Order Terms (Net-30 / Net-60 for Registered Organizations)</span>
                       </div>
                       
                       <div className="form-group" style={{ margin: 0 }}>
-                        <label className="form-label">Official Hospital PO Number *</label>
+                        <label className="form-label">Official PO or Requisition Number *</label>
                         <input 
                           type="text" 
                           placeholder="e.g., PO-2026-NY-4920" 
@@ -804,7 +867,7 @@ export function CheckoutPage({
 
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                         <div className="form-group" style={{ margin: 0 }}>
-                          <label className="form-label">Purchasing Officer Name</label>
+                          <label className="form-label">Purchasing Contact / Authorizer</label>
                           <input 
                             type="text" 
                             placeholder="Full name" 
@@ -821,7 +884,7 @@ export function CheckoutPage({
                             onChange={(e) => handleInputChange('poTerms', e.target.value)}
                             className="form-select"
                           >
-                            <option value="net30">Net 30 Days (Standard Hospital)</option>
+                            <option value="net30">Net 30 Days (Standard Clinic / Practice)</option>
                             <option value="net60">Net 60 Days (State Healthcare / IDN)</option>
                           </select>
                         </div>
@@ -833,19 +896,19 @@ export function CheckoutPage({
                     </div>
                   )}
 
-                  {/* 4. Bank Wire / Institutional ACH Panel */}
+                  {/* 4. Bank Wire / Direct ACH Panel */}
                   {formData.paymentMethod === 'wire' && (
                     <div style={{ backgroundColor: 'var(--slate-50)', padding: '20px', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
                       <div style={{ fontSize: '0.875rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '8px' }}>
-                        Direct Institutional Wire / Fedwire / ACH Instructions
+                        Direct Bank Wire / Fedwire / ACH Instructions
                       </div>
                       <p style={{ fontSize: '0.8125rem', color: 'var(--slate-600)', marginBottom: '12px' }}>
-                        Upon placing your order, an official commercial pro-forma invoice containing our Citibank Institutional Treasury routing will be sent to your email. Instruments will be allocated immediately.
+                        Upon placing your order, an official commercial pro-forma invoice containing our Citibank Treasury routing will be sent to your email. Instruments will be allocated immediately.
                       </p>
                       <div style={{ backgroundColor: '#ffffff', padding: '12px', borderRadius: '6px', border: '1px solid var(--slate-200)', fontSize: '0.8rem', fontFamily: 'monospace' }}>
                         <div>Bank: Citibank N.A. New York / Medical Commercial Division</div>
                         <div>Account Name: Surgix Supplies Surgical Instruments LLC</div>
-                        <div>Reference: {formData.hospitalName ? formData.hospitalName.slice(0, 10).toUpperCase() : 'SURGIX-ORD'}</div>
+                        <div>Reference: {formData.hospitalName ? formData.hospitalName.slice(0, 10).toUpperCase() : (formData.fullName ? formData.fullName.slice(0, 10).toUpperCase() : 'SURGIX-ORD')}</div>
                       </div>
                     </div>
                   )}
@@ -858,7 +921,7 @@ export function CheckoutPage({
                         checked={formData.billingSameAsShipping}
                         onChange={(e) => handleInputChange('billingSameAsShipping', e.target.checked)} 
                       />
-                      <span>Billing address is identical to hospital receiving address</span>
+                      <span>Billing address is same as delivery address</span>
                     </label>
                   </div>
 
@@ -887,7 +950,7 @@ export function CheckoutPage({
                     ) : (
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                         <Lock size={18} />
-                        <span>Authorize Hospital Order • ${grandTotal.toFixed(2)}</span>
+                        <span>Complete Order • ${grandTotal.toFixed(2)}</span>
                       </span>
                     )}
                   </button>
@@ -897,7 +960,7 @@ export function CheckoutPage({
                     onClick={() => setStep(1)} 
                     style={{ fontSize: '0.85rem', color: 'var(--slate-600)', textAlign: 'center' }}
                   >
-                    ← Back to Hospital Delivery Details
+                    ← Back to Customer & Delivery Details
                   </button>
                 </div>
 
@@ -905,13 +968,13 @@ export function CheckoutPage({
             )}
           </div>
 
-          {/* Right Column: Sticky Procurement Order Summary */}
+          {/* Right Column: Sticky Order Summary */}
           <div style={{ position: 'sticky', top: '80px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: '0 4px 12px rgba(13, 45, 94, 0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-200)' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--navy-dark)', margin: 0 }}>
-                  Order Requisition ({cartItems.reduce((a, b) => a + b.quantity, 0)} Items)
+                  Order Summary ({cartItems.reduce((a, b) => a + b.quantity, 0)} Items)
                 </h3>
                 <button 
                   onClick={() => onNavigate('cart')}
@@ -925,11 +988,19 @@ export function CheckoutPage({
               <div style={{ maxHeight: '280px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', paddingRight: '4px', marginBottom: '18px' }}>
                 {cartItems.map(item => (
                   <div key={item.id} style={{ display: 'flex', gap: '12px', alignItems: 'center', paddingBottom: '10px', borderBottom: '1px solid var(--slate-100)' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--slate-200)', flexShrink: 0 }}>
-                      <ProductImage src={item.image} alt={item.name} sku={item.sku} height="100%" />
+                    <div 
+                      style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--slate-200)', flexShrink: 0, cursor: onSelectProduct ? 'pointer' : 'default' }}
+                      onClick={() => onSelectProduct && onSelectProduct(item)}
+                      title="View product details"
+                    >
+                      <ProductImage src={item.image} alt={item.name} sku={item.sku} height="100%" showWatermark={false} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--slate-800)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <div 
+                        style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--slate-800)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: onSelectProduct ? 'pointer' : 'default' }}
+                        onClick={() => onSelectProduct && onSelectProduct(item)}
+                        title={item.name}
+                      >
                         {item.name}
                       </div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--slate-500)' }}>
@@ -951,14 +1022,14 @@ export function CheckoutPage({
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--slate-600)' }}>
-                  <span>Hospital Freight</span>
+                  <span>Insured Shipping</span>
                   <span style={{ fontWeight: '600', color: shippingCost === 0 ? 'var(--emerald-600)' : 'var(--slate-800)' }}>
                     {shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`}
                   </span>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--slate-600)' }}>
-                  <span>Sales Tax ({isTaxExempt ? 'Hospital Exempt' : 'Standard'})</span>
+                  <span>Sales Tax ({isTaxExempt ? 'Tax Exempt' : 'Estimated'})</span>
                   <span style={{ fontWeight: '600' }}>
                     {isTaxExempt ? '$0.00' : `$${taxCost.toFixed(2)}`}
                   </span>

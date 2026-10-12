@@ -21,7 +21,8 @@ export function CataloguePage({
   onOpenProductModal, 
   onAddToCart, 
   onOpenQuote, 
-  onOpenEnquiry 
+  onOpenEnquiry,
+  onSelectProduct 
 }) {
   const [activeCatalogTab, setActiveCatalogTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -157,7 +158,7 @@ export function CataloguePage({
               </h3>
 
               <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', lineHeight: '1.6', marginBottom: '20px', flex: 1 }}>
-                Receive our comprehensive 128-page hardbound hospital catalog delivered directly to your Materials Management or Surgical Services department.
+                Receive our comprehensive 128-page hardbound catalog delivered directly to your practice, clinic, or office.
               </p>
 
               <button 
@@ -254,7 +255,7 @@ export function CataloguePage({
                     <th style={{ padding: '14px 18px' }}>Metallurgy / Alloy</th>
                     <th style={{ padding: '14px 18px' }}>Hardness</th>
                     <th style={{ padding: '14px 18px' }}>Dimensions</th>
-                    <th style={{ padding: '14px 18px' }}>Hospital Unit Price</th>
+                    <th style={{ padding: '14px 18px' }}>Direct Unit Price</th>
                     <th style={{ padding: '14px 18px' }}>Bulk Tier Price</th>
                     <th style={{ padding: '14px 18px', textAlign: 'right' }}>Actions</th>
                   </tr>
@@ -269,10 +270,18 @@ export function CataloguePage({
                         transition: 'background 0.15s ease'
                       }}
                     >
-                      <td style={{ padding: '14px 18px', fontWeight: '700', color: 'var(--primary)', fontFamily: 'monospace' }}>
+                      <td 
+                        style={{ padding: '14px 18px', fontWeight: '700', color: 'var(--primary)', fontFamily: 'monospace', cursor: onSelectProduct ? 'pointer' : 'default' }}
+                        onClick={() => onSelectProduct && onSelectProduct(item)}
+                        title="Click to view product details"
+                      >
                         {item.sku}
                       </td>
-                      <td style={{ padding: '14px 18px' }}>
+                      <td 
+                        style={{ padding: '14px 18px', cursor: onSelectProduct ? 'pointer' : 'default' }}
+                        onClick={() => onSelectProduct && onSelectProduct(item)}
+                        title="Click to view product details"
+                      >
                         <div style={{ fontWeight: '600', color: 'var(--slate-900)' }}>{item.name}</div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)', marginTop: '2px' }}>{item.finish}</div>
                       </td>
@@ -340,10 +349,10 @@ export function CataloguePage({
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <Printer size={36} color="var(--primary)" style={{ margin: '0 auto 12px auto' }} />
             <h2 style={{ fontSize: '1.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
-              Request Physical Hospital Hardbound Catalogue
+              Request Physical Hardbound Catalogue
             </h2>
             <p style={{ color: 'var(--slate-600)', fontSize: '0.925rem' }}>
-              Complimentary 128-page full-color edition including complete instrument trays, dimensional line art, and reprocessing protocols. Delivered via FedEx to verified medical institutions.
+              Complimentary 128-page full-color edition including complete instrument trays, dimensional line art, and reprocessing protocols. Delivered via FedEx nationwide to practitioners, clinics, and surgical centers.
             </p>
           </div>
 
@@ -354,26 +363,26 @@ export function CataloguePage({
                 Hardbound Catalogue Dispatched
               </h3>
               <p style={{ fontSize: '0.875rem', color: '#047857' }}>
-                Your institutional package has been registered. You will receive carrier tracking via email within 24 hours.
+                Your catalogue package has been registered. You will receive carrier tracking via email within 24 hours.
               </p>
             </div>
           ) : (
             <form onSubmit={handleRequestPhysical} style={{ background: 'var(--slate-50)', border: '1px solid var(--slate-200)', padding: '32px', borderRadius: '16px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label className="form-label">Procurement Officer / Contact Name *</label>
+                  <label className="form-label">Contact / Full Name *</label>
                   <input type="text" required className="form-input" placeholder="Dr. Jennifer Ross" />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Medical Center / Hospital Name *</label>
-                  <input type="text" required className="form-input" placeholder="Beth Israel Deaconess Medical Center" />
+                  <label className="form-label">Practice, Clinic or School (Optional)</label>
+                  <input type="text" className="form-input" placeholder="Ross Surgery / Medical Center" />
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
-                  <label className="form-label">Work Email *</label>
-                  <input type="email" required className="form-input" placeholder="jross@bidmc.harvard.edu" />
+                  <label className="form-label">Email Address *</label>
+                  <input type="email" required className="form-input" placeholder="jross@example.com" />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone Number *</label>
@@ -382,8 +391,8 @@ export function CataloguePage({
               </div>
 
               <div className="form-group">
-                <label className="form-label">Hospital Street Shipping Address *</label>
-                <input type="text" required className="form-input" placeholder="330 Brookline Ave, Materials Management Receiving" />
+                <label className="form-label">Street Shipping Address *</label>
+                <input type="text" required className="form-input" placeholder="1200 Healthcare Way, Suite 400" />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '16px' }}>

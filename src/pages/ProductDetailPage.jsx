@@ -183,7 +183,7 @@ export function ProductDetailPage({
                 <span style={{ fontWeight: '700', marginLeft: '4px' }}>{currentProduct.rating || '4.9'}</span>
               </div>
               <span style={{ color: 'var(--slate-400)' }}>•</span>
-              <span style={{ color: 'var(--slate-600)' }}>{currentProduct.reviews || '34'} Verified Hospital Reviews</span>
+              <span style={{ color: 'var(--slate-600)' }}>{currentProduct.reviews || '34'} Verified Customer & Clinic Reviews</span>
             </div>
 
             {/* Pricing Section */}
@@ -193,11 +193,11 @@ export function ProductDetailPage({
                   ${currentUnitPrice.toFixed(2)}
                 </span>
                 <span style={{ fontSize: '0.85rem', color: 'var(--slate-500)' }}>
-                  / unit (FOB Boston)
+                  / unit (Direct Pricing)
                 </span>
                 {currentProduct.bulkPrice && (
                   <span style={{ fontSize: '0.8rem', color: 'var(--emerald-600)', fontWeight: '700', marginLeft: 'auto' }}>
-                    Bulk Tier Available
+                    Bulk Discount Available
                   </span>
                 )}
               </div>
@@ -215,7 +215,7 @@ export function ProductDetailPage({
                   </div>
                 </div>
                 <div style={{ padding: '6px 8px', borderRadius: '6px', backgroundColor: quantity >= 20 ? '#ffffff' : 'transparent', border: quantity >= 20 ? '1px solid var(--primary)' : '1px solid var(--slate-200)', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '700', color: 'var(--navy-dark)' }}>20+ Case Pack</div>
+                  <div style={{ fontWeight: '700', color: 'var(--navy-dark)' }}>20+ Bulk Pack</div>
                   <div style={{ color: 'var(--emerald-600)', fontWeight: '700' }}>
                     ${(currentProduct.bulkPrice || currentProduct.price * 0.85).toFixed(2)} ea
                   </div>
@@ -268,7 +268,7 @@ export function ProductDetailPage({
                 onClick={handleAdd}
               >
                 <ShoppingCart size={18} />
-                <span>Add to Procurement Cart (${totalPrice.toFixed(2)})</span>
+                <span>Add to Cart (${totalPrice.toFixed(2)})</span>
               </button>
             </div>
 
@@ -294,7 +294,7 @@ export function ProductDetailPage({
                 onClick={onOpenQuote}
               >
                 <FileDown size={15} />
-                <span>Request B2B Formal Quote</span>
+                <span>Request Bulk / Wholesale Quote</span>
               </button>
 
               <button 
@@ -310,7 +310,7 @@ export function ProductDetailPage({
             {/* Free Shipping Alert */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--slate-500)', borderTop: '1px solid var(--slate-100)', paddingTop: '12px' }}>
               <Truck size={15} color="var(--primary)" />
-              <span>Orders over $500 qualify for Free Nationwide Insured Hospital Freight</span>
+              <span>Orders over $500 qualify for Free Nationwide Insured Shipping</span>
             </div>
 
           </div>
@@ -370,7 +370,7 @@ export function ProductDetailPage({
                   </div>
                   <div style={{ border: '1px solid var(--slate-200)', borderRadius: '8px', padding: '14px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--slate-400)', textTransform: 'uppercase', fontWeight: '700' }}>Nominal Length / Gauge</span>
-                    <div style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--navy-dark)', marginTop: '2px' }}>{currentProduct.size || currentProduct.trayDimensions || 'Hospital Standard OR Scale'}</div>
+                    <div style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--navy-dark)', marginTop: '2px' }}>{currentProduct.size || currentProduct.trayDimensions || 'Standard Surgical Scale'}</div>
                   </div>
                   <div style={{ border: '1px solid var(--slate-200)', borderRadius: '8px', padding: '14px' }}>
                     <span style={{ fontSize: '0.75rem', color: 'var(--slate-400)', textTransform: 'uppercase', fontWeight: '700' }}>Passivation Standard</span>
@@ -437,7 +437,7 @@ export function ProductDetailPage({
             {activeTab === 'certs' && (
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '12px' }}>
-                  Hospital Compliance & Regulatory Traceability
+                  Quality Standards, Compliance & Regulatory Traceability
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
                   <div style={{ padding: '16px', border: '1px solid var(--slate-200)', borderRadius: '8px', backgroundColor: 'var(--slate-50)' }}>
