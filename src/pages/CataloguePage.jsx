@@ -96,7 +96,7 @@ export function CataloguePage({
       {/* 2. TWO FEATURE CARDS UNDER HERO (Matches Image 2) */}
       <section style={{ padding: '48px 0 64px 0', background: '#ffffff', borderBottom: '1px solid var(--slate-200)' }}>
         <div className="container">
-          <div className="catalogue-feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', maxWidth: '1000px', margin: '0 auto' }}>
+          <div className="catalogue-feature-grid">
             {/* Card 1: Searchable Online Database */}
             <div className="catalogue-feature-card">
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '2px solid var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', marginBottom: '16px' }}>
@@ -112,8 +112,7 @@ export function CataloguePage({
               </p>
 
               <button 
-                className="btn-primary" 
-                style={{ padding: '10px 18px', width: 'fit-content' }}
+                className="btn-primary catalogue-feature-btn" 
                 onClick={() => {
                   const el = document.getElementById('searchable-catalogue-section');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -139,8 +138,7 @@ export function CataloguePage({
               </p>
 
               <button 
-                className="btn-secondary" 
-                style={{ padding: '10px 18px', width: 'fit-content' }}
+                className="btn-secondary catalogue-feature-btn" 
                 onClick={() => {
                   const el = document.getElementById('printed-catalog-form');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -180,6 +178,7 @@ export function CataloguePage({
 
           {/* Filter Bar */}
           <div className="catalogue-filter-bar">
+            {/* Desktop Tabs */}
             <div className="catalogue-tabs-scroll">
               {[
                 { id: 'all', label: 'All Catalog' },
@@ -197,6 +196,24 @@ export function CataloguePage({
                   {tab.label}
                 </button>
               ))}
+            </div>
+
+            {/* Mobile Category Dropdown Selector */}
+            <div className="catalogue-mobile-select-wrapper">
+              <label htmlFor="catalogue-category-select" className="catalogue-select-label">Category:</label>
+              <select
+                id="catalogue-category-select"
+                value={activeCatalogTab}
+                onChange={(e) => setActiveCatalogTab(e.target.value)}
+                className="catalogue-mobile-select"
+              >
+                <option value="all">All Catalog Specialties</option>
+                <option value="scissors">Scissors & Shears</option>
+                <option value="forceps">Hemostats & Forceps</option>
+                <option value="needle-holders">Needle Holders (TC)</option>
+                <option value="retractors">Retractors & Hooks</option>
+                <option value="orthopedic">Orthopedic Instruments</option>
+              </select>
             </div>
 
             <div className="catalogue-search-box">

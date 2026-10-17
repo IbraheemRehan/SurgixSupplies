@@ -78,11 +78,10 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
                 }}
               >
                 {/* Main Card Overview Bar */}
-                <div className="sets-card-grid" style={{ padding: '28px', display: 'grid', gridTemplateColumns: '200px 1.2fr 0.9fr 0.7fr', gap: '24px', alignItems: 'center' }}>
+                <div className="sets-card-grid">
                   {/* Set Product Image with Minimal Watermark */}
                   <div 
                     className="sets-card-image"
-                    style={{ height: '170px', borderRadius: '10px', overflow: 'hidden', border: '1px solid var(--slate-200)', background: '#f8fafc', cursor: 'pointer' }}
                     onClick={() => handleOpenSetDetails(set)}
                   >
                     <ProductImage 
@@ -96,33 +95,32 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
 
                   {/* Details Column */}
                   <div className="sets-card-details">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', background: 'var(--primary-light)', padding: '3px 10px', borderRadius: '4px' }}>
+                    <div className="sets-card-meta-row">
+                      <span className="sets-piece-badge">
                         {set.pieces} INSTRUMENTS INCLUDED
                       </span>
-                      <span style={{ fontSize: '0.8rem', color: 'var(--slate-400)', fontFamily: 'monospace', fontWeight: '700' }}>
+                      <span className="sets-sku-text">
                         {set.sku}
                       </span>
                     </div>
 
                     <h2 
                       className="sets-card-title"
-                      style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '8px', cursor: 'pointer' }}
                       onClick={() => handleOpenSetDetails(set)}
                     >
                       {set.name}
                     </h2>
 
-                    <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.5', marginBottom: '16px' }}>
+                    <p className="sets-card-summary">
                       {set.summary}
                     </p>
 
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div className="sets-card-specs-row">
+                      <div className="sets-spec-item">
                         <Box size={16} color="var(--primary)" />
                         <span><strong>Tray:</strong> {set.trayType.split('with')[0]}</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div className="sets-spec-item">
                         <Clock size={16} color="var(--emerald-600)" />
                         <span><strong>Lead Time:</strong> {set.leadTime}</span>
                       </div>
@@ -130,13 +128,13 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
                   </div>
 
                   {/* Highlights Column */}
-                  <div className="sets-card-highlights" style={{ background: 'var(--slate-50)', padding: '16px 20px', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--navy-dark)', letterSpacing: '0.04em', marginBottom: '10px' }}>
+                  <div className="sets-card-highlights">
+                    <div className="sets-highlights-title">
                       Quality & Assembly Standards
                     </div>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <ul className="sets-highlights-list">
                       {set.highlights.map((hl, i) => (
-                        <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.8rem', color: 'var(--slate-700)', lineHeight: '1.4' }}>
+                        <li key={i} className="sets-highlight-item">
                           <Check size={14} color="var(--emerald-600)" style={{ flexShrink: 0, marginTop: '2px' }} />
                           <span>{hl}</span>
                         </li>
@@ -145,23 +143,22 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
                   </div>
 
                   {/* Right Column: Pricing & Purchase */}
-                  <div className="sets-card-pricing" style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center' }}>
-                    <div style={{ marginBottom: '16px' }}>
-                      <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1' }}>
+                  <div className="sets-card-pricing">
+                    <div className="sets-price-box">
+                      <div className="sets-main-price">
                         ${set.price.toFixed(2)}
                       </div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--slate-400)', textDecoration: 'line-through', marginTop: '4px' }}>
+                      <div className="sets-list-price">
                         List Price: ${set.listPrice.toFixed(2)}
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: '700', marginTop: '2px' }}>
+                      <div className="sets-savings-tag">
                         Direct Factory Savings: ${(set.listPrice - set.price).toFixed(0)}
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+                    <div className="sets-action-buttons">
                       <button 
-                        className="btn-primary" 
-                        style={{ padding: '12px 18px', width: '100%', fontSize: '0.9rem' }}
+                        className="btn-primary sets-order-btn" 
                         onClick={() => handleAddSetToCart(set)}
                       >
                         <ShoppingCart size={16} />
@@ -169,8 +166,7 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
                       </button>
 
                       <button 
-                        className="btn-secondary" 
-                        style={{ padding: '9px 14px', width: '100%', fontSize: '0.825rem' }}
+                        className="btn-secondary sets-specs-btn" 
                         onClick={() => handleOpenSetDetails(set)}
                       >
                         <Eye size={14} />
@@ -180,7 +176,7 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
 
                     <button 
                       onClick={() => toggleExpand(set.id)}
-                      style={{ marginTop: '14px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)' }}
+                      className="sets-manifest-toggle-btn"
                     >
                       <span>{isExpanded ? 'Hide' : 'Inspect'} Itemized Manifest ({set.pieces} Items)</span>
                       {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -190,46 +186,34 @@ export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
 
                 {/* Collapsible Itemized Instrument Manifest */}
                 {isExpanded && (
-                  <div className="sets-manifest" style={{ borderTop: '1px solid var(--slate-200)', background: 'var(--slate-50)', padding: '24px 28px' }}>
-                    <div className="sets-manifest-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
+                  <div className="sets-manifest">
+                    <div className="sets-manifest-header">
+                      <div className="sets-manifest-title">
                         Sterilization Container Content & Itemized Manifest (DIN Specification)
                       </div>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>
+                      <span className="sets-manifest-subtitle">
                         All instruments laser-etched with matching barcode & traceability lot ID
                       </span>
                     </div>
 
-                    <div className="sets-manifest-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '10px' }}>
+                    <div className="sets-manifest-grid">
                       {set.itemizedList.map((entry, index) => (
-                        <div 
-                          key={index}
-                          style={{
-                            background: '#ffffff',
-                            padding: '10px 14px',
-                            borderRadius: '8px',
-                            border: '1px solid var(--slate-200)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            fontSize: '0.8125rem'
-                          }}
-                        >
-                          <span style={{ fontWeight: '800', color: 'var(--primary)', background: 'var(--primary-light)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem' }}>
+                        <div key={index} className="sets-manifest-item">
+                          <span className="manifest-qty">
                             {entry.qty}x
                           </span>
-                          <span style={{ color: 'var(--slate-800)', fontWeight: '500' }}>
+                          <span className="manifest-name">
                             {entry.item}
                           </span>
                         </div>
                       ))}
                     </div>
 
-                    <div className="sets-manifest-footer" style={{ marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--slate-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
+                    <div className="sets-manifest-footer">
                       <span><strong>Tray Dimensions:</strong> {set.trayDimensions}</span>
                       <button 
                         onClick={() => onOpenEnquiry(set)}
-                        style={{ color: 'var(--primary)', fontWeight: '700', textDecoration: 'underline' }}
+                        className="sets-inquire-link"
                       >
                         Have Questions About This Set? Inquire Directly →
                       </button>

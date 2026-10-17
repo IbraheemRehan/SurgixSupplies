@@ -264,7 +264,8 @@ export function ShopPage({
                     )}
 
                     <div 
-                      style={{ height: '210px', background: '#f8fafc', position: 'relative', cursor: 'pointer' }}
+                      className="instrument-card-image-box"
+                      style={{ background: '#f8fafc', position: 'relative', cursor: 'pointer' }}
                       onClick={() => handleOpenProduct(item)}
                     >
                       <ProductImage 

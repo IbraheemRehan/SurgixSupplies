@@ -1220,6 +1220,238 @@ input, select, textarea {
 .shop-category-pills-bar {
   display: none;
 }
+.instrument-card-image-box {
+  height: 210px;
+}
+
+/* Sets Page (Desktop Base) */
+.sets-card-grid {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 200px 1.2fr 0.9fr 0.7fr;
+  gap: 24px;
+  align-items: center;
+}
+.sets-card-image {
+  height: 170px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--slate-200);
+  background: #f8fafc;
+  cursor: pointer;
+}
+.sets-card-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.sets-piece-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+.sets-sku-text {
+  font-size: 0.8rem;
+  color: var(--slate-400);
+  font-family: monospace;
+  font-weight: 700;
+}
+.sets-card-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.sets-card-summary {
+  font-size: 0.875rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.sets-card-specs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--slate-600);
+}
+.sets-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sets-card-highlights {
+  background: var(--slate-50);
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--slate-200);
+}
+.sets-highlights-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--navy-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.sets-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sets-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--slate-700);
+  line-height: 1.4;
+}
+.sets-card-pricing {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.sets-price-box {
+  margin-bottom: 16px;
+}
+.sets-main-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  line-height: 1;
+}
+.sets-list-price {
+  font-size: 0.85rem;
+  color: var(--slate-400);
+  text-decoration: line-through;
+  margin-top: 4px;
+}
+.sets-savings-tag {
+  font-size: 0.75rem;
+  color: var(--emerald-600);
+  font-weight: 700;
+  margin-top: 2px;
+}
+.sets-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.sets-order-btn {
+  padding: 12px 18px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+.sets-specs-btn {
+  padding: 9px 14px;
+  width: 100%;
+  font-size: 0.825rem;
+}
+.sets-manifest-toggle-btn {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.sets-manifest {
+  border-top: 1px solid var(--slate-200);
+  background: var(--slate-50);
+  padding: 24px 28px;
+}
+.sets-manifest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.sets-manifest-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+}
+.sets-manifest-subtitle {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+.sets-manifest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+.sets-manifest-item {
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8125rem;
+}
+.manifest-qty {
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+.manifest-name {
+  color: var(--slate-800);
+  font-weight: 500;
+}
+.sets-manifest-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--slate-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--slate-600);
+}
+.sets-inquire-link {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Catalogue Page (Desktop Base) */
+.catalogue-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.catalogue-feature-btn {
+  padding: 10px 18px;
+  width: fit-content;
+}
+.catalogue-mobile-select-wrapper {
+  display: none;
+}
 
 /* ==========================================================================
    MODALS & OVERLAYS
@@ -4736,55 +4968,79 @@ input, select, textarea {
 
   /* Sets Page */
   .sets-page-root {
-    padding: 28px 0 56px 0 !important;
+    padding: 24px 0 50px 0 !important;
   }
   .sets-page-header {
-    margin-bottom: 28px !important;
+    margin-bottom: 24px !important;
     padding: 0 4px !important;
+    text-align: left !important;
   }
   .sets-page-title {
-    font-size: 1.6rem !important;
+    font-size: 1.55rem !important;
+    line-height: 1.25 !important;
   }
   .sets-card-grid {
     grid-template-columns: 1fr !important;
-    gap: 18px !important;
-    padding: 20px !important;
+    gap: 16px !important;
+    padding: 18px !important;
   }
   .sets-card-image {
     height: 200px !important;
     width: 100% !important;
   }
   .sets-card-title {
-    font-size: 1.2rem !important;
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+  .sets-card-highlights {
+    padding: 14px 16px !important;
+    border-radius: 8px !important;
   }
   .sets-card-pricing {
     grid-column: 1 / -1 !important;
     text-align: left !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
     width: 100% !important;
     flex-direction: column !important;
     gap: 12px !important;
   }
-  .sets-card-pricing > div {
-    text-align: left !important;
+  .sets-price-box {
+    margin-bottom: 6px !important;
   }
-  .sets-card-pricing .btn-primary,
-  .sets-card-pricing .btn-secondary {
+  .sets-main-price {
+    font-size: 1.65rem !important;
+  }
+  .sets-action-buttons {
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  .sets-order-btn,
+  .sets-specs-btn {
     width: 100% !important;
     justify-content: center !important;
+    height: 42px !important;
+    font-size: 0.88rem !important;
+  }
+  .sets-manifest-toggle-btn {
+    margin-top: 6px !important;
+    justify-content: flex-start !important;
   }
   .sets-manifest {
-    padding: 18px 20px !important;
+    padding: 16px !important;
   }
   .sets-manifest-header {
     flex-direction: column !important;
     align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .sets-manifest-grid {
+    grid-template-columns: 1fr !important;
     gap: 6px !important;
   }
   .sets-manifest-footer {
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
   /* Product Detail Page */
@@ -5084,6 +5340,11 @@ input, select, textarea {
     padding: 20px 18px !important;
     border-radius: 12px !important;
   }
+  .catalogue-feature-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    height: 42px !important;
+  }
   .catalogue-dir-header {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -5099,6 +5360,7 @@ input, select, textarea {
   .catalogue-download-btn {
     width: 100% !important;
     justify-content: center !important;
+    height: 44px !important;
   }
   .catalogue-filter-bar {
     padding: 12px !important;
@@ -5107,24 +5369,39 @@ input, select, textarea {
     gap: 10px !important;
   }
   .catalogue-tabs-scroll {
-    overflow-x: auto !important;
-    flex-wrap: nowrap !important;
-    padding-bottom: 4px !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-  }
-  .catalogue-tabs-scroll::-webkit-scrollbar {
     display: none !important;
   }
-  .catalogue-tab-btn {
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    padding: 7px 12px !important;
-    font-size: 0.78rem !important;
+  .catalogue-mobile-select-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  .catalogue-select-label {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: var(--slate-500) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+  }
+  .catalogue-mobile-select {
+    width: 100% !important;
+    border: 1px solid var(--slate-300) !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+    font-size: 0.825rem !important;
+    font-weight: 600 !important;
+    background: #ffffff !important;
+    color: var(--navy-dark) !important;
+    cursor: pointer !important;
   }
   .catalogue-search-box {
     min-width: 100% !important;
     width: 100% !important;
+  }
+  .catalogue-search-input {
+    height: 42px !important;
+    font-size: 0.85rem !important;
   }
 
   /* Hide raw table on mobile & Show card list */
@@ -5214,8 +5491,9 @@ input, select, textarea {
     gap: 6px !important;
   }
   .catalogue-card-actions button {
-    padding: 6px 10px !important;
-    font-size: 0.75rem !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+    height: 38px !important;
   }
   .catalogue-mobile-pagination {
     padding: 12px 14px !important;
@@ -5374,6 +5652,12 @@ input, select, textarea {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
+  .instrument-card-image-box {
+    height: 185px !important;
+  }
+  .instrument-title {
+    font-size: 0.95rem !important;
+  }
   .shop-sort-bar {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -5406,15 +5690,25 @@ input, select, textarea {
     padding: 9px 12px !important;
     font-size: 0.8125rem !important;
     justify-content: center !important;
+    height: 42px !important;
   }
 
   /* Sets Page */
+  .sets-page-title {
+    font-size: 1.35rem !important;
+  }
   .sets-card-grid {
     padding: 14px !important;
     gap: 14px !important;
   }
   .sets-card-image {
     height: 160px !important;
+  }
+  .sets-card-title {
+    font-size: 1.15rem !important;
+  }
+  .sets-main-price {
+    font-size: 1.5rem !important;
   }
   .sets-manifest {
     padding: 14px !important;
