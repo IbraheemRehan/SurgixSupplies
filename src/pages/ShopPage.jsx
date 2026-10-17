@@ -3,8 +3,6 @@ import {
   Search, 
   Filter, 
   SlidersHorizontal, 
-  Grid, 
-  List, 
   Eye, 
   ShoppingCart, 
   Check, 
@@ -27,7 +25,6 @@ export function ShopPage({
   const [searchTerm, setSearchTerm] = useState('');
   const [steelFilter, setSteelFilter] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const activeFilterCount = 
@@ -86,40 +83,6 @@ export function ShopPage({
               </p>
             </div>
 
-            {/* View Mode Toggle */}
-            <div style={{ display: 'flex', gap: '8px', background: '#ffffff', border: '1px solid var(--slate-200)', borderRadius: 'var(--radius-md)', padding: '4px' }}>
-              <button
-                className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                onClick={() => setViewMode('grid')}
-                title="Grid View"
-                style={{ padding: '6px 10px', borderRadius: '4px', background: viewMode === 'grid' ? 'var(--slate-100)' : 'transparent', color: viewMode === 'grid' ? 'var(--navy-dark)' : 'var(--slate-400)' }}
-              >
-                <Grid size={18} />
-              </button>
-              <button
-                className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
-                onClick={() => setViewMode('list')}
-                title="List View"
-                style={{ padding: '6px 10px', borderRadius: '4px', background: viewMode === 'list' ? 'var(--slate-100)' : 'transparent', color: viewMode === 'list' ? 'var(--navy-dark)' : 'var(--slate-400)' }}
-              >
-                <List size={18} />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Horizontal Quick Category Pills for Mobile / Tablet */}
-        <div className="shop-category-pills-bar">
-          <div className="shop-category-pills-track">
-            {surgicalCategories.map((cat) => (
-              <button
-                key={cat.id}
-                className={`shop-category-pill-btn ${selectedCategory === cat.id ? 'active' : ''}`}
-                onClick={() => onSelectCategory(cat.id)}
-              >
-                <span>{cat.name}</span>
-              </button>
-            ))}
           </div>
         </div>
 
@@ -216,8 +179,8 @@ export function ShopPage({
           {/* Main Results Grid */}
           <main>
             {/* Top Bar Sort and Count */}
-            <div className="shop-sort-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', padding: '10px 16px', background: '#ffffff', borderRadius: '8px', border: '1px solid var(--slate-200)', flexWrap: 'wrap', gap: '10px' }}>
-              <div className="shop-sort-bar-left" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div className="shop-sort-bar">
+              <div className="shop-sort-bar-left">
                 <button 
                   className="mobile-filter-trigger-btn"
                   onClick={() => setMobileFiltersOpen(true)}
@@ -229,23 +192,48 @@ export function ShopPage({
                     <span className="mobile-filter-count-badge">{activeFilterCount}</span>
                   )}
                 </button>
-                <span style={{ fontSize: '0.85rem', color: 'var(--slate-600)' }}>
+                <span className="shop-count-text">
                   Showing <strong>{sorted.length}</strong> instruments
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>Sort by:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  style={{ border: '1px solid var(--slate-300)', borderRadius: '4px', padding: '4px 8px', fontSize: '0.825rem', background: '#ffffff', color: 'var(--slate-700)' }}
-                >
-                  <option value="popular">Most In-Demand</option>
-                  <option value="rating">Top Surgeon Rated</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                </select>
+              <div className="shop-sort-bar-controls">
+                {/* Category Dropdown */}
+                <div className="shop-filter-field">
+                  <label htmlFor="shop-category-select" className="shop-filter-label">
+                    Category:
+                  </label>
+                  <select
+                    id="shop-category-select"
+                    value={selectedCategory}
+                    onChange={(e) => onSelectCategory(e.target.value)}
+                    className="shop-filter-select"
+                  >
+                    {surgicalCategories.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Sort By Dropdown */}
+                <div className="shop-filter-field">
+                  <label htmlFor="shop-sort-select" className="shop-filter-label">
+                    Sort by:
+                  </label>
+                  <select
+                    id="shop-sort-select"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="shop-filter-select"
+                  >
+                    <option value="popular">Most In-Demand</option>
+                    <option value="rating">Top Surgeon Rated</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -265,8 +253,8 @@ export function ShopPage({
                   Reset All Filters
                 </button>
               </div>
-            ) : viewMode === 'grid' ? (
-              <div className="shop-products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
+            ) : (
+              <div className="shop-products-grid">
                 {sorted.map((item) => (
                   <div key={item.id} className="instrument-card">
                     {item.steel.includes('Tungsten Carbide') ? (
@@ -332,88 +320,6 @@ export function ShopPage({
                           <span>Add</span>
                         </button>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              /* List View */
-              <div className="shop-list-view" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {sorted.map((item) => (
-                  <div 
-                    key={item.id}
-                    className="shop-list-item"
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid var(--slate-200)',
-                      borderRadius: '10px',
-                      padding: '16px 20px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '20px',
-                      boxShadow: 'var(--shadow-sm)'
-                    }}
-                  >
-                    <div 
-                      style={{ width: '80px', height: '80px', flexShrink: 0, borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--slate-200)', cursor: 'pointer' }}
-                      onClick={() => handleOpenProduct(item)}
-                    >
-                      <ProductImage 
-                        src={item.image} 
-                        alt={item.name} 
-                        sku={item.sku} 
-                        height="100%" 
-                        showWatermark={false}
-                      />
-                    </div>
-
-                    <div className="shop-list-item-info" style={{ flex: 1, cursor: 'pointer' }} onClick={() => handleOpenProduct(item)}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', fontFamily: 'monospace' }}>
-                          {item.sku}
-                        </span>
-                        {item.steel.includes('Tungsten Carbide') && (
-                          <span style={{ fontSize: '0.7rem', fontWeight: '700', background: 'var(--gold-light)', color: 'var(--gold-tc)', padding: '1px 6px', borderRadius: '4px' }}>
-                            TC Inserts
-                          </span>
-                        )}
-                      </div>
-                      <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '4px' }}>
-                        {item.name}
-                      </h4>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>
-                        {item.steel} • {item.size} • Hardness {item.rockwell} • {item.finish}
-                      </p>
-                    </div>
-
-                    <div className="shop-list-item-price" style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
-                        ${item.price.toFixed(2)}
-                      </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: '600' }}>
-                        Bulk: ${item.bulkPrice.toFixed(2)} ea
-                      </div>
-                    </div>
-
-                    <div className="shop-list-item-actions" style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                      <button 
-                        className="btn-secondary"
-                        style={{ padding: '8px 12px' }}
-                        onClick={() => handleOpenProduct(item)}
-                      >
-                        <Eye size={14} />
-                        <span>Details</span>
-                      </button>
-
-                      <button 
-                        className="btn-primary"
-                        style={{ padding: '8px 14px' }}
-                        onClick={() => onAddToCart(item)}
-                      >
-                        <ShoppingCart size={14} />
-                        <span>Add</span>
-                      </button>
                     </div>
                   </div>
                 ))}
