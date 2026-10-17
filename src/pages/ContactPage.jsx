@@ -41,36 +41,36 @@ export function ContactPage({ onOpenWhatsApp }) {
   };
 
   return (
-    <div className="contact-page-root" style={{ background: '#f8fafc', padding: '48px 0 80px 0' }}>
+    <div className="contact-page-root">
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px auto' }}>
+        <div className="contact-header">
           <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
             Direct Factory Communication
           </span>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '4px' }}>
+          <h1 className="contact-hero-title">
             Contact Surgix Supplies
           </h1>
-          <p style={{ fontSize: '1.05rem', color: 'var(--slate-600)', marginTop: '10px', lineHeight: '1.6' }}>
+          <p className="contact-hero-subtitle">
             Speak directly with our Boston sales directors, clinical engineering team, or global export logistics coordinators.
           </p>
         </div>
 
         {/* Grid: Contact Information & Interactive Form */}
-        <div className="contact-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '36px', alignItems: 'flex-start' }}>
+        <div className="contact-layout">
           {/* Left Column: Direct Offices & Contacts */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="contact-info-col">
             {/* Headquarters Card */}
-            <div style={{ background: '#ffffff', borderRadius: '14px', border: '1px solid var(--slate-200)', padding: '28px', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="contact-hq-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Building2 size={20} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', margin: 0 }}>
                     Boston Operations Center
                   </h3>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)', marginTop: '2px' }}>
                     Headquarters & Quality Laboratory
                   </div>
                 </div>
@@ -104,20 +104,20 @@ export function ContactPage({ onOpenWhatsApp }) {
             </div>
 
             {/* Department Quick Channels */}
-            <div style={{ background: '#ffffff', borderRadius: '14px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="contact-desks-card">
               <h4 style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '14px' }}>
                 Specialized Desks
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.825rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
+                <div className="contact-desk-row">
                   <span style={{ color: 'var(--slate-600)' }}>Customer Orders & Support:</span>
                   <a href="mailto:orders@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>orders@surgixsupplies.com</a>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
+                <div className="contact-desk-row">
                   <span style={{ color: 'var(--slate-600)' }}>International Export / Containers:</span>
                   <a href="mailto:export@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>export@surgixsupplies.com</a>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className="contact-desk-row">
                   <span style={{ color: 'var(--slate-600)' }}>Regulatory & Material Reports:</span>
                   <a href="mailto:quality@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>quality@surgixsupplies.com</a>
                 </div>
@@ -125,18 +125,18 @@ export function ContactPage({ onOpenWhatsApp }) {
             </div>
 
             {/* WhatsApp Quick Action Banner */}
-            <div style={{ background: 'var(--dark-teal)', color: '#ffffff', borderRadius: '14px', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+            <div className="contact-whatsapp-banner">
               <div>
                 <h5 style={{ fontSize: '0.95rem', fontWeight: '700', marginBottom: '4px' }}>
                   Urgent Same-Day Requirement?
                 </h5>
-                <p style={{ fontSize: '0.78rem', color: '#93c5fd' }}>
+                <p style={{ fontSize: '0.78rem', color: '#93c5fd', margin: 0 }}>
                   Connect instantly with our clinical logistics desk via WhatsApp.
                 </p>
               </div>
               <button 
                 onClick={onOpenWhatsApp}
-                style={{ background: '#25d366', color: '#ffffff', fontWeight: '700', fontSize: '0.8rem', padding: '8px 16px', borderRadius: '9999px', whiteSpace: 'nowrap' }}
+                className="contact-whatsapp-btn"
               >
                 Chat Now
               </button>
@@ -144,7 +144,7 @@ export function ContactPage({ onOpenWhatsApp }) {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="contact-form-card" style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
+          <div className="contact-form-card">
             <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '6px' }}>
               Send an Inquiry
             </h3>
@@ -164,7 +164,7 @@ export function ContactPage({ onOpenWhatsApp }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div className="contact-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="contact-form-grid-2">
                   <div className="form-group">
                     <label className="form-label">Full Name *</label>
                     <input 
@@ -182,14 +182,14 @@ export function ContactPage({ onOpenWhatsApp }) {
                     <input 
                       type="text" 
                       className="form-input" 
-                      placeholder="e.g., Personal, Clinic, Practice, or leave blank"
+                      placeholder="e.g., Personal, Clinic, Practice"
                       value={formData.companyOrOrg}
                       onChange={(e) => setFormData({ ...formData, companyOrOrg: e.target.value })}
                     />
                   </div>
                 </div>
 
-                <div className="contact-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="contact-form-grid-2">
                   <div className="form-group">
                     <label className="form-label">Email Address *</label>
                     <input 
@@ -230,6 +230,7 @@ export function ContactPage({ onOpenWhatsApp }) {
                     <option>Account Support & Billing</option>
                   </select>
                 </div>
+
 
                 <div className="form-group">
                   <label className="form-label">Subject</label>

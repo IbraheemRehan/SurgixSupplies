@@ -66,13 +66,13 @@ export function ProductDetailPage({
   const relatedSets = surgicalSets.slice(0, 2);
 
   return (
-    <div className="product-detail-page" style={{ backgroundColor: '#f8fafc', minHeight: '85vh', paddingBottom: '70px' }}>
+    <div className="product-detail-page">
       
       {/* 1. Breadcrumbs Bar */}
-      <div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--slate-200)', padding: '16px 0' }}>
+      <div className="pdp-breadcrumb-bar">
         <div className="container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', color: 'var(--slate-500)' }}>
+          <div className="pdp-breadcrumb-inner">
+            <div className="pdp-breadcrumb-links">
               <button 
                 onClick={() => onNavigate('home')} 
                 style={{ color: 'var(--slate-600)', fontWeight: '500' }}
@@ -84,17 +84,17 @@ export function ProductDetailPage({
                 onClick={() => onNavigate(currentProduct.pieces ? 'sets' : 'shop')} 
                 style={{ color: 'var(--slate-600)', fontWeight: '500' }}
               >
-                {currentProduct.pieces ? 'Instrument Sets' : 'Instruments Catalog'}
+                {currentProduct.pieces ? 'Instrument Sets' : 'Instruments'}
               </button>
               <span>/</span>
-              <span style={{ color: 'var(--primary)', fontWeight: '700' }}>
+              <span className="pdp-breadcrumb-current">
                 {currentProduct.sku}
               </span>
             </div>
 
             <button 
               onClick={() => onNavigate(currentProduct.pieces ? 'sets' : 'shop')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', color: 'var(--slate-600)', fontWeight: '600' }}
+              className="pdp-back-catalog-btn"
             >
               <ArrowLeft size={14} />
               <span>Back to Catalog</span>
@@ -103,22 +103,14 @@ export function ProductDetailPage({
         </div>
       </div>
 
-      <div className="container" style={{ marginTop: '28px' }}>
+      <div className="container" style={{ marginTop: '24px' }}>
         
         {/* 2. Top Product Showcase: Left Photo, Right Specifications & Actions */}
-        <div className="pdp-showcase" style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '32px', boxShadow: '0 4px 16px rgba(13, 45, 94, 0.04)', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)', gap: '40px', alignItems: 'start' }}>
+        <div className="pdp-showcase">
           
           {/* Left Column: Image View */}
-          <div className="pdp-image-col" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div className="pdp-main-image" style={{ 
-              height: '420px', 
-              width: '100%', 
-              borderRadius: '12px', 
-              overflow: 'hidden', 
-              border: '1px solid var(--slate-200)', 
-              backgroundColor: '#f8fafc',
-              position: 'relative'
-            }}>
+          <div className="pdp-image-col">
+            <div className="pdp-main-image">
               <ProductImage 
                 src={currentProduct.image} 
                 alt={currentProduct.name} 
@@ -129,20 +121,20 @@ export function ProductDetailPage({
             </div>
 
             {/* Quality Specs Under Image */}
-            <div className="pdp-quality-badges" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', backgroundColor: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)', fontSize: '0.78rem', color: 'var(--slate-700)' }}>
+            <div className="pdp-quality-badges">
+              <div className="pdp-quality-badge-item">
                 <ShieldCheck size={16} color="var(--primary)" />
                 <span>ASTM A967 Passivated</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', backgroundColor: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)', fontSize: '0.78rem', color: 'var(--slate-700)' }}>
+              <div className="pdp-quality-badge-item">
                 <CheckCircle2 size={16} color="var(--emerald-600)" />
-                <span>Autoclave 134°C (500+ Cyc)</span>
+                <span>Autoclave 134°C Tested</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', backgroundColor: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)', fontSize: '0.78rem', color: 'var(--slate-700)' }}>
+              <div className="pdp-quality-badge-item">
                 <Award size={16} color="var(--primary)" />
                 <span>German Martensitic Alloy</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', backgroundColor: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)', fontSize: '0.78rem', color: 'var(--slate-700)' }}>
+              <div className="pdp-quality-badge-item">
                 <Sparkles size={16} color="#d97706" />
                 <span>Precision Calibrated</span>
               </div>
@@ -150,16 +142,16 @@ export function ProductDetailPage({
           </div>
 
           {/* Right Column: Title, Pricing, Actions */}
-          <div className="pdp-info-col" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <div className="pdp-info-col">
             
             {/* SKU and In-Stock Badges */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--primary)', letterSpacing: '0.06em', backgroundColor: 'var(--primary-light)', padding: '4px 10px', borderRadius: '4px' }}>
                 {currentProduct.sku}
               </span>
               <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--emerald-600)', backgroundColor: 'var(--emerald-50)', padding: '4px 10px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <Check size={13} />
-                In Stock • Boston Warehouse (Ships 24h)
+                In Stock • Boston Warehouse
               </span>
               {currentProduct.pieces && (
                 <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--navy-dark)', backgroundColor: 'var(--slate-100)', padding: '4px 10px', borderRadius: '4px' }}>
@@ -169,53 +161,53 @@ export function ProductDetailPage({
             </div>
 
             {/* Product Title */}
-            <h1 className="pdp-title" style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1.25', margin: 0, letterSpacing: '-0.02em' }}>
+            <h1 className="pdp-title">
               {currentProduct.name}
             </h1>
 
             {/* Ratings and Reviews */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.85rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#d97706' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', color: '#d97706' }}>
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} fill="#d97706" color="#d97706" />
+                  <Star key={i} size={14} fill="#d97706" color="#d97706" />
                 ))}
                 <span style={{ fontWeight: '700', marginLeft: '4px' }}>{currentProduct.rating || '4.9'}</span>
               </div>
               <span style={{ color: 'var(--slate-400)' }}>•</span>
-              <span style={{ color: 'var(--slate-600)' }}>{currentProduct.reviews || '34'} Verified Customer & Clinic Reviews</span>
+              <span style={{ color: 'var(--slate-600)' }}>{currentProduct.reviews || '34'} Reviews</span>
             </div>
 
             {/* Pricing Section */}
-            <div style={{ padding: '16px 20px', backgroundColor: 'var(--slate-50)', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
-                <span style={{ fontSize: '2rem', fontWeight: '900', color: 'var(--navy-dark)' }}>
+            <div className="pdp-price-box">
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
+                <span className="pdp-unit-price">
                   ${currentUnitPrice.toFixed(2)}
                 </span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--slate-500)' }}>
+                <span style={{ fontSize: '0.825rem', color: 'var(--slate-500)' }}>
                   / unit (Direct Pricing)
                 </span>
                 {currentProduct.bulkPrice && (
-                  <span style={{ fontSize: '0.8rem', color: 'var(--emerald-600)', fontWeight: '700', marginLeft: 'auto' }}>
-                    Bulk Discount Available
+                  <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: '700', marginLeft: 'auto' }}>
+                    Bulk Available
                   </span>
                 )}
               </div>
 
               {/* Volume Discount Tiers */}
-              <div style={{ marginTop: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', fontSize: '0.78rem' }}>
-                <div style={{ padding: '6px 8px', borderRadius: '6px', backgroundColor: quantity < 5 ? '#ffffff' : 'transparent', border: quantity < 5 ? '1px solid var(--primary)' : '1px solid var(--slate-200)', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '700', color: 'var(--navy-dark)' }}>1 - 4 Units</div>
-                  <div style={{ color: 'var(--slate-600)' }}>${currentProduct.price.toFixed(2)} ea</div>
+              <div className="pdp-bulk-tiers">
+                <div className={`pdp-bulk-tier-item ${quantity < 5 ? 'active' : ''}`}>
+                  <div className="tier-range">1 - 4 Units</div>
+                  <div className="tier-price">${currentProduct.price.toFixed(2)} ea</div>
                 </div>
-                <div style={{ padding: '6px 8px', borderRadius: '6px', backgroundColor: quantity >= 5 && quantity < 20 ? '#ffffff' : 'transparent', border: quantity >= 5 && quantity < 20 ? '1px solid var(--primary)' : '1px solid var(--slate-200)', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '700', color: 'var(--navy-dark)' }}>5 - 19 Units</div>
-                  <div style={{ color: 'var(--emerald-600)', fontWeight: '600' }}>
+                <div className={`pdp-bulk-tier-item ${quantity >= 5 && quantity < 20 ? 'active' : ''}`}>
+                  <div className="tier-range">5 - 19 Units</div>
+                  <div className="tier-price">
                     ${(currentProduct.bulkPrice ? (currentProduct.price + currentProduct.bulkPrice)/2 : currentProduct.price * 0.9).toFixed(2)} ea
                   </div>
                 </div>
-                <div style={{ padding: '6px 8px', borderRadius: '6px', backgroundColor: quantity >= 20 ? '#ffffff' : 'transparent', border: quantity >= 20 ? '1px solid var(--primary)' : '1px solid var(--slate-200)', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '700', color: 'var(--navy-dark)' }}>20+ Bulk Pack</div>
-                  <div style={{ color: 'var(--emerald-600)', fontWeight: '700' }}>
+                <div className={`pdp-bulk-tier-item ${quantity >= 20 ? 'active' : ''}`}>
+                  <div className="tier-range">20+ Bulk</div>
+                  <div className="tier-price">
                     ${(currentProduct.bulkPrice || currentProduct.price * 0.85).toFixed(2)} ea
                   </div>
                 </div>
@@ -223,7 +215,7 @@ export function ProductDetailPage({
             </div>
 
             {/* Description Paragraph */}
-            <p style={{ fontSize: '0.925rem', color: 'var(--slate-600)', lineHeight: '1.6', margin: 0 }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', lineHeight: '1.6', margin: 0 }}>
               {currentProduct.description || currentProduct.summary || "Precision operating room surgical instrument manufactured in strict compliance with ASTM F899 standards. Designed for ergonomic surgeon tactile feel and maximum longevity across high-turnover autoclave reprocessing cycles."}
             </p>
 
@@ -231,8 +223,8 @@ export function ProductDetailPage({
             {currentProduct.features && (
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {currentProduct.features.map((feat, idx) => (
-                  <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.85rem', color: 'var(--slate-700)' }}>
-                    <CheckCircle2 size={16} color="var(--primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.825rem', color: 'var(--slate-700)' }}>
+                    <CheckCircle2 size={15} color="var(--primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -240,42 +232,43 @@ export function ProductDetailPage({
             )}
 
             {/* Quantity Controls & Add to Cart */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '8px', flexWrap: 'wrap' }}>
+            <div className="pdp-actions-row">
               {/* Counter */}
-              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--slate-300)', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
+              <div className="pdp-quantity-counter">
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  style={{ padding: '10px 14px', backgroundColor: 'var(--slate-50)', color: 'var(--slate-700)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  className="counter-btn"
+                  aria-label="Decrease quantity"
                 >
-                  <Minus size={16} />
+                  <Minus size={15} />
                 </button>
-                <span style={{ padding: '10px 18px', fontSize: '1rem', fontWeight: '700', minWidth: '40px', textAlign: 'center', color: 'var(--navy-dark)' }}>
+                <span className="counter-val">
                   {quantity}
                 </span>
                 <button 
                   onClick={() => setQuantity(quantity + 1)}
-                  style={{ padding: '10px 14px', backgroundColor: 'var(--slate-50)', color: 'var(--slate-700)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  className="counter-btn"
+                  aria-label="Increase quantity"
                 >
-                  <Plus size={16} />
+                  <Plus size={15} />
                 </button>
               </div>
 
               {/* Add to Cart CTA */}
               <button 
-                className="btn-primary" 
-                style={{ padding: '12px 28px', fontSize: '1rem', borderRadius: '8px', flex: 1, minWidth: '220px', boxShadow: '0 4px 14px rgba(0, 119, 200, 0.3)' }}
+                className="btn-primary pdp-add-cart-btn" 
                 onClick={handleAdd}
               >
-                <ShoppingCart size={18} />
+                <ShoppingCart size={17} />
                 <span>Add to Cart (${totalPrice.toFixed(2)})</span>
               </button>
             </div>
 
             {/* Added Notice Toast */}
             {addedNotice && (
-              <div style={{ backgroundColor: 'var(--emerald-50)', border: '1px solid rgba(5, 150, 105, 0.3)', padding: '10px 16px', borderRadius: '8px', color: 'var(--emerald-600)', fontSize: '0.85rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ backgroundColor: 'var(--emerald-50)', border: '1px solid rgba(5, 150, 105, 0.3)', padding: '10px 14px', borderRadius: '8px', color: 'var(--emerald-600)', fontSize: '0.825rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircle2 size={16} />
-                <span>{quantity}x {currentProduct.name} added to cart!</span>
+                <span>Added to cart!</span>
                 <button 
                   onClick={() => onNavigate('cart')}
                   style={{ marginLeft: 'auto', textDecoration: 'underline', color: 'var(--navy-dark)' }}
@@ -286,21 +279,21 @@ export function ProductDetailPage({
             )}
 
             {/* Secondary Action Button */}
-            <div style={{ marginTop: '4px' }}>
+            <div>
               <button 
                 className="btn-secondary" 
-                style={{ padding: '10px 16px', fontSize: '0.85rem', borderRadius: '8px', justifyContent: 'center', width: '100%' }}
+                style={{ padding: '9px 14px', fontSize: '0.825rem', borderRadius: '8px', justifyContent: 'center', width: '100%' }}
                 onClick={() => onOpenEnquiry(currentProduct)}
               >
                 <Info size={15} />
-                <span>Product Direct Inquiry / Have Questions?</span>
+                <span>Product Direct Inquiry / Questions</span>
               </button>
             </div>
 
             {/* Free Shipping Alert */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--slate-500)', borderTop: '1px solid var(--slate-100)', paddingTop: '12px' }}>
-              <Truck size={15} color="var(--primary)" />
-              <span>Orders over $500 qualify for Free Nationwide Insured Shipping</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--slate-500)', borderTop: '1px solid var(--slate-100)', paddingTop: '10px' }}>
+              <Truck size={14} color="var(--primary)" />
+              <span>Orders over $500 qualify for Free Insured Shipping</span>
             </div>
 
           </div>
@@ -308,38 +301,38 @@ export function ProductDetailPage({
         </div>
 
         {/* 3. Detailed Specifications Tabs Section */}
-        <div style={{ marginTop: '36px', backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', overflow: 'hidden', boxShadow: '0 4px 16px rgba(13, 45, 94, 0.04)' }}>
+        <div className="pdp-tabs-container">
           
           {/* Tab Headers */}
-          <div style={{ display: 'flex', borderBottom: '1px solid var(--slate-200)', backgroundColor: 'var(--slate-50)', overflowX: 'auto' }}>
+          <div className="pdp-tabs-nav">
             <button 
               onClick={() => setActiveTab('specs')}
-              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'specs' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'specs' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'specs' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
+              className={`pdp-tab-btn ${activeTab === 'specs' ? 'active' : ''}`}
             >
-              Metallurgy & Specifications
+              Metallurgy & Specs
             </button>
             <button 
               onClick={() => setActiveTab('clinical')}
-              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'clinical' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'clinical' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'clinical' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
+              className={`pdp-tab-btn ${activeTab === 'clinical' ? 'active' : ''}`}
             >
               Clinical Applications
             </button>
             <button 
               onClick={() => setActiveTab('sterilization')}
-              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'sterilization' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'sterilization' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'sterilization' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
+              className={`pdp-tab-btn ${activeTab === 'sterilization' ? 'active' : ''}`}
             >
-              Reprocessing & Autoclave Protocol
+              Reprocessing & Autoclave
             </button>
             <button 
               onClick={() => setActiveTab('warranty')}
-              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'warranty' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'warranty' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'warranty' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
+              className={`pdp-tab-btn ${activeTab === 'warranty' ? 'active' : ''}`}
             >
-              Shipping & Warranty Guarantee
+              Warranty & Shipping
             </button>
           </div>
 
           {/* Tab Body */}
-          <div className="pdp-tab-body" style={{ padding: '32px' }}>
+          <div className="pdp-tab-body">
             {activeTab === 'specs' && (
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '16px' }}>
@@ -534,6 +527,21 @@ export function ProductDetailPage({
           </div>
         )}
 
+      </div>
+
+      {/* 5. Mobile Floating Sticky Action Bar */}
+      <div className="pdp-mobile-sticky-bar">
+        <div className="pdp-sticky-price-info">
+          <span className="pdp-sticky-label">Total ({quantity}x)</span>
+          <span className="pdp-sticky-price">${totalPrice.toFixed(2)}</span>
+        </div>
+        <button 
+          className="btn-primary pdp-sticky-add-btn"
+          onClick={handleAdd}
+        >
+          <ShoppingCart size={16} />
+          <span>Add to Cart</span>
+        </button>
       </div>
     </div>
   );
