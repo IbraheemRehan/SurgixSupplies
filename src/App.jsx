@@ -5,7 +5,6 @@ import { FloatingActions } from './components/FloatingActions';
 import { CartDrawer } from './components/CartDrawer';
 import { QuickEnquiryModal } from './components/QuickEnquiryModal';
 import { SignInModal } from './components/SignInModal';
-import { QuoteModal } from './components/QuoteModal';
 import { ProductModal } from './components/ProductModal';
 import { AiAssistantModal } from './components/AiAssistantModal';
 import { WhatsAppModal } from './components/WhatsAppModal';
@@ -16,7 +15,6 @@ import { SetsPage } from './pages/SetsPage';
 import { CataloguePage } from './pages/CataloguePage';
 import { AboutPage } from './pages/AboutPage';
 import { QualityPage } from './pages/QualityPage';
-import { QualityDocsPage } from './pages/QualityDocsPage';
 import { ContactPage } from './pages/ContactPage';
 import { TrackOrderPage } from './pages/TrackOrderPage';
 import { ShippingReturnsPage } from './pages/ShippingReturnsPage';
@@ -33,7 +31,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Cart State (pre-populated with 2 initial hospital standard items to demonstrate free shipping meter)
+  // Cart State
   const [cartItems, setCartItems] = useState([
     {
       id: "sx-101",
@@ -60,7 +58,6 @@ export default function App() {
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [enquiryItem, setEnquiryItem] = useState(null);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
-  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [productModalOpen, setProductModalOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState(null);
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
@@ -131,7 +128,6 @@ export default function App() {
         onOpenCart={() => setCartOpen(true)}
         onOpenEnquiry={() => openEnquiryForItem(null)}
         onOpenSignIn={() => setSignInModalOpen(true)}
-        onOpenQuote={() => setQuoteModalOpen(true)}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onSearchSubmit={handleSearchSubmit}
@@ -148,7 +144,6 @@ export default function App() {
             onNavigate={setActivePage}
             onOpenProductModal={openProductQuickView}
             onAddToCart={handleAddToCart}
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
             onSelectProduct={handleSelectProduct}
           />
@@ -168,7 +163,6 @@ export default function App() {
         {activePage === 'sets' && (
           <SetsPage
             onAddToCart={handleAddToCart}
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
             onSelectProduct={handleSelectProduct}
           />
@@ -178,7 +172,6 @@ export default function App() {
           <CataloguePage
             onOpenProductModal={openProductQuickView}
             onAddToCart={handleAddToCart}
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
             onSelectProduct={handleSelectProduct}
           />
@@ -192,7 +185,6 @@ export default function App() {
               setActivePage(page);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenEnquiry={openEnquiryForItem}
             onSelectProduct={handleSelectProduct}
           />
@@ -200,7 +192,6 @@ export default function App() {
 
         {activePage === 'about' && (
           <AboutPage
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onNavigate={setActivePage}
           />
         )}
@@ -208,17 +199,11 @@ export default function App() {
         {activePage === 'quality' && (
           <QualityPage
             onNavigate={setActivePage}
-            onOpenQuote={() => setQuoteModalOpen(true)}
           />
-        )}
-
-        {activePage === 'quality-docs' && (
-          <QualityDocsPage />
         )}
 
         {activePage === 'contact' && (
           <ContactPage
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onOpenWhatsApp={() => setWhatsAppModalOpen(true)}
           />
         )}
@@ -235,7 +220,7 @@ export default function App() {
 
         {activePage === 'faq' && (
           <FaqPage
-            onOpenQuote={() => setQuoteModalOpen(true)}
+            onNavigate={setActivePage}
           />
         )}
 
@@ -252,7 +237,6 @@ export default function App() {
               setActivePage(page);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            onOpenQuote={() => setQuoteModalOpen(true)}
             onSelectProduct={handleSelectProduct}
           />
         )}
@@ -275,7 +259,6 @@ export default function App() {
         setActivePage={setActivePage}
         onOpenCart={() => setCartOpen(true)}
         onOpenWhatsApp={() => setWhatsAppModalOpen(true)}
-        onOpenQuote={() => setQuoteModalOpen(true)}
       />
 
       {/* 4. Floating Action Buttons (Matching Image 1 & 2) */}
@@ -291,10 +274,6 @@ export default function App() {
         onUpdateQty={handleUpdateQty}
         onRemoveItem={handleRemoveFromCart}
         onCheckout={handleCheckoutComplete}
-        onOpenQuote={() => {
-          setCartOpen(false);
-          setQuoteModalOpen(true);
-        }}
         onNavigateToCart={() => {
           setCartOpen(false);
           setActivePage('cart');
@@ -317,11 +296,6 @@ export default function App() {
       <SignInModal
         isOpen={signInModalOpen}
         onClose={() => setSignInModalOpen(false)}
-      />
-
-      <QuoteModal
-        isOpen={quoteModalOpen}
-        onClose={() => setQuoteModalOpen(false)}
       />
 
       <ProductModal

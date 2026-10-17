@@ -28,7 +28,7 @@ export function ShippingReturnsPage({ onOpenEnquiry }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.9rem', color: 'var(--slate-700)', lineHeight: '1.6' }}>
               <p>
-                <strong>Free Shipping Standard:</strong> All consumer orders and institutional requisitions totaling <strong>$500.00 or greater</strong> qualify for complimentary priority delivery across all 50 US states. Orders under $500 enjoy flat, insured courier delivery.
+                <strong>Free Shipping Standard:</strong> All orders totaling <strong>$500.00 or greater</strong> qualify for complimentary priority delivery across all 50 US states. Orders under $500 enjoy flat, insured courier delivery.
               </p>
               <p>
                 <strong>Sterile Tamper-Evident Packaging:</strong> Every surgical instrument is individually sealed in lint-free, puncture-resistant medical film with active desiccant and an RFID-verified tamper seal.

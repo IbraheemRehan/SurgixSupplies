@@ -20,7 +20,6 @@ import { surgicalSets } from '../data/sets';
 export function CataloguePage({ 
   onOpenProductModal, 
   onAddToCart, 
-  onOpenQuote, 
   onOpenEnquiry,
   onSelectProduct 
 }) {
@@ -97,20 +96,9 @@ export function CataloguePage({
       {/* 2. TWO FEATURE CARDS UNDER HERO (Matches Image 2) */}
       <section style={{ padding: '48px 0 64px 0', background: '#ffffff', borderBottom: '1px solid var(--slate-200)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', maxWidth: '1000px', margin: '0 auto' }}>
+          <div className="catalogue-feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', maxWidth: '1000px', margin: '0 auto' }}>
             {/* Card 1: Searchable Online Database */}
-            <div 
-              style={{ 
-                border: '1.5px solid var(--slate-200)', 
-                borderRadius: '16px', 
-                padding: '32px', 
-                background: '#ffffff',
-                boxShadow: '0 4px 12px rgba(13, 45, 94, 0.05)',
-                transition: 'all 0.2s ease',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
+            <div className="catalogue-feature-card">
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '2px solid var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', marginBottom: '16px' }}>
                 <Search size={22} />
               </div>
@@ -137,18 +125,7 @@ export function CataloguePage({
             </div>
 
             {/* Card 2: Export & Procurement Assistance */}
-            <div 
-              style={{ 
-                border: '1.5px solid var(--slate-200)', 
-                borderRadius: '16px', 
-                padding: '32px', 
-                background: '#ffffff',
-                boxShadow: '0 4px 12px rgba(13, 45, 94, 0.05)',
-                transition: 'all 0.2s ease',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
+            <div className="catalogue-feature-card">
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '2px solid var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', marginBottom: '16px' }}>
                 <Send size={22} />
               </div>
@@ -178,33 +155,32 @@ export function CataloguePage({
       </section>
 
       {/* 3. INTERACTIVE DIGITAL CATALOGUE & SKU LOOKUP SECTION */}
-      <section id="searchable-catalogue-section" style={{ padding: '64px 0', background: '#f8fafc' }}>
+      <section id="searchable-catalogue-section" className="catalogue-section-root" style={{ padding: '64px 0', background: '#f8fafc' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '28px' }}>
+          <div className="catalogue-dir-header">
             <div>
               <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 2026 Edition Master Index
               </span>
-              <h2 style={{ fontSize: '1.85rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '2px' }}>
+              <h2 className="catalogue-dir-title">
                 Live Surgical Instruments & Trays Directory
               </h2>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="catalogue-download-wrapper">
               <button 
-                className="btn-primary"
-                style={{ padding: '10px 18px', fontSize: '0.875rem' }}
+                className="btn-primary catalogue-download-btn"
                 onClick={handleDownloadPdf}
               >
                 <Download size={16} />
-                <span>{pdfDownloaded ? 'Generating PDF...' : 'Download Full PDF Catalogue (128 Pages)'}</span>
+                <span>{pdfDownloaded ? 'Generating PDF...' : 'Download PDF Catalogue (128 Pages)'}</span>
               </button>
             </div>
           </div>
 
           {/* Filter Bar */}
-          <div style={{ background: '#ffffff', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--slate-200)', marginBottom: '24px', display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div className="catalogue-filter-bar">
+            <div className="catalogue-tabs-scroll">
               {[
                 { id: 'all', label: 'All Catalog' },
                 { id: 'scissors', label: 'Scissors & Shears' },
@@ -215,15 +191,7 @@ export function CataloguePage({
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  style={{
-                    padding: '8px 14px',
-                    borderRadius: '6px',
-                    fontSize: '0.8125rem',
-                    fontWeight: '600',
-                    background: activeCatalogTab === tab.id ? 'var(--navy-dark)' : 'var(--slate-100)',
-                    color: activeCatalogTab === tab.id ? '#ffffff' : 'var(--slate-700)',
-                    transition: 'all 0.15s ease'
-                  }}
+                  className={`catalogue-tab-btn ${activeCatalogTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveCatalogTab(tab.id)}
                 >
                   {tab.label}
@@ -231,12 +199,11 @@ export function CataloguePage({
               ))}
             </div>
 
-            <div style={{ minWidth: '280px', position: 'relative' }}>
+            <div className="catalogue-search-box">
               <input
                 type="text"
-                className="form-input"
-                style={{ padding: '8px 12px 8px 36px', fontSize: '0.85rem' }}
-                placeholder="Search by SKU, tip size, steel grade..."
+                className="form-input catalogue-search-input"
+                placeholder="Search SKU, tip size, alloy..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -244,8 +211,8 @@ export function CataloguePage({
             </div>
           </div>
 
-          {/* Interactive Catalog Table View */}
-          <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+          {/* Interactive Catalog - Desktop Table View */}
+          <div className="catalogue-desktop-table" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
                 <thead>
@@ -340,6 +307,90 @@ export function CataloguePage({
               </div>
             </div>
           </div>
+
+          {/* Interactive Catalog - Mobile Card List View (Visible on <= 768px) */}
+          <div className="catalogue-mobile-cards-view">
+            {filteredInstruments.length === 0 ? (
+              <div style={{ padding: '36px 16px', textAlign: 'center', background: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)' }}>
+                <p style={{ color: 'var(--slate-600)', margin: '0 0 12px 0' }}>No instruments match your search criteria.</p>
+                <button className="btn-secondary" onClick={() => { setSearchTerm(''); setActiveCatalogTab('all'); }}>
+                  Reset Catalogue Filters
+                </button>
+              </div>
+            ) : (
+              <div className="catalogue-cards-container">
+                {filteredInstruments.map((item) => (
+                  <div key={item.id} className="catalogue-mobile-card">
+                    <div className="catalogue-card-top">
+                      <span 
+                        className="catalogue-card-sku"
+                        onClick={() => onSelectProduct && onSelectProduct(item)}
+                      >
+                        {item.sku}
+                      </span>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <span className="catalogue-card-rockwell">{item.rockwell}</span>
+                        {item.steel.includes('Tungsten Carbide') && (
+                          <span className="catalogue-card-tc">TC</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <h4 
+                      className="catalogue-card-title"
+                      onClick={() => onSelectProduct && onSelectProduct(item)}
+                    >
+                      {item.name}
+                    </h4>
+
+                    <div className="catalogue-card-specs">
+                      <span>{item.steel}</span>
+                      <span>•</span>
+                      <span>{item.finish}</span>
+                      <span>•</span>
+                      <span>{item.size}</span>
+                    </div>
+
+                    <div className="catalogue-card-bottom">
+                      <div>
+                        <div className="catalogue-card-price">${item.price.toFixed(2)}</div>
+                        <div className="catalogue-card-bulk">Bulk: ${item.bulkPrice.toFixed(2)}</div>
+                      </div>
+
+                      <div className="catalogue-card-actions">
+                        <button 
+                          className="btn-secondary"
+                          onClick={() => onOpenProductModal(item)}
+                          title="Quick Spec Sheet"
+                        >
+                          <Eye size={13} />
+                          <span>Specs</span>
+                        </button>
+                        <button 
+                          className="btn-primary"
+                          onClick={() => onAddToCart(item)}
+                          title="Add to Requisition"
+                        >
+                          <ShoppingCart size={13} />
+                          <span>Add</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <div className="catalogue-mobile-pagination">
+              <span>Showing {filteredInstruments.length} items</span>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <button className="pagination-btn">Prev</button>
+                <button className="pagination-btn active">1</button>
+                <button className="pagination-btn">2</button>
+                <button className="pagination-btn">Next</button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -348,10 +399,10 @@ export function CataloguePage({
         <div className="container" style={{ maxWidth: '800px' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <Printer size={36} color="var(--primary)" style={{ margin: '0 auto 12px auto' }} />
-            <h2 style={{ fontSize: '1.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
+            <h2 className="catalogue-form-title" style={{ fontSize: '1.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
               Request Physical Hardbound Catalogue
             </h2>
-            <p style={{ color: 'var(--slate-600)', fontSize: '0.925rem' }}>
+            <p className="catalogue-form-subtitle" style={{ color: 'var(--slate-600)', fontSize: '0.925rem' }}>
               Complimentary 128-page full-color edition including complete instrument trays, dimensional line art, and reprocessing protocols. Delivered via FedEx nationwide to practitioners, clinics, and surgical centers.
             </p>
           </div>
@@ -367,8 +418,8 @@ export function CataloguePage({
               </p>
             </div>
           ) : (
-            <form onSubmit={handleRequestPhysical} style={{ background: 'var(--slate-50)', border: '1px solid var(--slate-200)', padding: '32px', borderRadius: '16px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <form onSubmit={handleRequestPhysical} className="catalogue-form-container">
+              <div className="catalogue-form-row-2">
                 <div className="form-group">
                   <label className="form-label">Contact / Full Name *</label>
                   <input type="text" required className="form-input" placeholder="Dr. Jennifer Ross" />
@@ -379,7 +430,7 @@ export function CataloguePage({
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="catalogue-form-row-2">
                 <div className="form-group">
                   <label className="form-label">Email Address *</label>
                   <input type="email" required className="form-input" placeholder="jross@example.com" />
@@ -395,7 +446,7 @@ export function CataloguePage({
                 <input type="text" required className="form-input" placeholder="1200 Healthcare Way, Suite 400" />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '16px' }}>
+              <div className="catalogue-form-row-3">
                 <div className="form-group">
                   <label className="form-label">City *</label>
                   <input type="text" required className="form-input" placeholder="Boston" />

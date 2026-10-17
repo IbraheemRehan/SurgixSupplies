@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { steelGradesInfo } from '../data/certificates';
 
-export function QualityPage({ onNavigate, onOpenQuote }) {
+export function QualityPage({ onNavigate }) {
   const [lotNumber, setLotNumber] = useState('');
   const [lotResult, setLotResult] = useState(null);
 
@@ -104,8 +104,8 @@ export function QualityPage({ onNavigate, onOpenQuote }) {
         </div>
 
         {/* Interactive Lot Number Verification Portal */}
-        <div style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '40px', boxShadow: 'var(--shadow-md)', marginBottom: '60px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '36px', alignItems: 'center' }}>
+        <div className="quality-lot-card" style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '40px', boxShadow: 'var(--shadow-md)', marginBottom: '60px' }}>
+          <div className="quality-lot-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '36px', alignItems: 'center' }}>
             <div>
               <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                 Batch Traceability System
@@ -117,7 +117,7 @@ export function QualityPage({ onNavigate, onOpenQuote }) {
                 Every Surgix instrument is laser-engraved with an individual lot number. Enter your lot code below (or try demo lot <strong>LOT-2026-881</strong>) to retrieve its certified chemical analysis and passivation audit dossier.
               </p>
 
-              <form onSubmit={handleVerifyLot} style={{ display: 'flex', gap: '10px', maxWidth: '460px' }}>
+              <form onSubmit={handleVerifyLot} className="quality-lot-form" style={{ display: 'flex', gap: '10px', maxWidth: '460px' }}>
                 <input 
                   type="text" 
                   className="form-input" 
@@ -162,23 +162,23 @@ export function QualityPage({ onNavigate, onOpenQuote }) {
           </div>
         </div>
 
-        {/* Quality Documentation Link Card */}
-        <div style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, #153e7a 100%)', color: '#ffffff', borderRadius: '16px', padding: '36px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+        {/* Direct Shop Link Card */}
+        <div className="quality-cta-banner" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, #153e7a 100%)', color: '#ffffff', borderRadius: '16px', padding: '36px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div>
             <h3 style={{ fontSize: '1.4rem', fontWeight: '800', marginBottom: '6px' }}>
-              Need Official Certificates & Regulatory Files?
+              Looking for High-Precision Medical Instruments?
             </h3>
             <p style={{ fontSize: '0.9rem', color: '#cbd5e1', maxWidth: '600px' }}>
-              Download our active ISO 13485:2016 certificate, FDA 510(k) clearances, CE MDR documentation, and sterile processing guidelines.
+              Explore our extensive collection of German-forged surgical instruments, diagnostic equipment, and complete procedure sets with free shipping on orders over $500.
             </p>
           </div>
 
           <button 
             className="btn-primary"
             style={{ padding: '12px 24px', background: '#ffffff', color: 'var(--navy-dark)', fontWeight: '700' }}
-            onClick={() => onNavigate('quality-docs')}
+            onClick={() => onNavigate('shop')}
           >
-            <span>Open Quality Documentation Hub</span>
+            <span>Shop All Instruments</span>
             <ArrowRight size={16} />
           </button>
         </div>

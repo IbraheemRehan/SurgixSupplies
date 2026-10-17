@@ -348,7 +348,7 @@ export const surgicalInstruments = [
     features: [
       "Detachable outer perforated sheath with multiple intake holes prevents visceral blockage",
       "Inner cannula transforms instantly into fine pinpoint suction tube",
-      "Standard hose barb connection fits hospital central vacuum systems"
+      "Standard hose barb connection fits clinical and central vacuum systems"
     ],
     description: "Dual-mode surgical suction cannula designed for rapid evacuation of fluids and blood from abdominal cavities without tissue grab."
   }

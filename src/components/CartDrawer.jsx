@@ -9,7 +9,6 @@ export function CartDrawer({
   onUpdateQty, 
   onRemoveItem, 
   onCheckout, 
-  onOpenQuote,
   onNavigateToCart,
   onNavigateToCheckout,
   onSelectProduct
@@ -267,18 +266,6 @@ export function CartDrawer({
                 }}
               >
                 <span>View Full Cart Page</span>
-              </button>
-
-              <button 
-                className="btn-secondary"
-                style={{ padding: '8px', fontSize: '0.8rem', width: '100%', color: 'var(--slate-600)', borderRadius: '6px' }}
-                onClick={() => {
-                  onClose();
-                  onOpenQuote();
-                }}
-              >
-                <FileDown size={14} />
-                <span>Request Bulk / Wholesale Quote</span>
               </button>
             </div>
 

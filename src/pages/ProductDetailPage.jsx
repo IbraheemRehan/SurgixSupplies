@@ -17,7 +17,7 @@ import {
   Clock,
   ArrowRight,
   Eye,
-  FileDown
+  RotateCcw
 } from 'lucide-react';
 import { ProductImage } from '../components/ProductImage';
 import { surgicalInstruments } from '../data/instruments';
@@ -27,12 +27,11 @@ export function ProductDetailPage({
   product, 
   onAddToCart, 
   onNavigate, 
-  onOpenQuote, 
   onOpenEnquiry,
   onSelectProduct 
 }) {
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState('specs'); // 'specs', 'clinical', 'sterilization', 'certs'
+  const [activeTab, setActiveTab] = useState('specs'); // 'specs', 'clinical', 'sterilization', 'warranty'
   const [addedNotice, setAddedNotice] = useState(false);
 
   // If no product is provided, fallback to the first instrument
@@ -107,11 +106,11 @@ export function ProductDetailPage({
       <div className="container" style={{ marginTop: '28px' }}>
         
         {/* 2. Top Product Showcase: Left Photo, Right Specifications & Actions */}
-        <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '32px', boxShadow: '0 4px 16px rgba(13, 45, 94, 0.04)', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)', gap: '40px', alignItems: 'start' }}>
+        <div className="pdp-showcase" style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '32px', boxShadow: '0 4px 16px rgba(13, 45, 94, 0.04)', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)', gap: '40px', alignItems: 'start' }}>
           
           {/* Left Column: Image View */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ 
+          <div className="pdp-image-col" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div className="pdp-main-image" style={{ 
               height: '420px', 
               width: '100%', 
               borderRadius: '12px', 
@@ -130,7 +129,7 @@ export function ProductDetailPage({
             </div>
 
             {/* Quality Specs Under Image */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="pdp-quality-badges" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', backgroundColor: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)', fontSize: '0.78rem', color: 'var(--slate-700)' }}>
                 <ShieldCheck size={16} color="var(--primary)" />
                 <span>ASTM A967 Passivated</span>
@@ -151,7 +150,7 @@ export function ProductDetailPage({
           </div>
 
           {/* Right Column: Title, Pricing, Actions */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <div className="pdp-info-col" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             
             {/* SKU and In-Stock Badges */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -170,7 +169,7 @@ export function ProductDetailPage({
             </div>
 
             {/* Product Title */}
-            <h1 style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1.25', margin: 0, letterSpacing: '-0.02em' }}>
+            <h1 className="pdp-title" style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1.25', margin: 0, letterSpacing: '-0.02em' }}>
               {currentProduct.name}
             </h1>
 
@@ -286,24 +285,15 @@ export function ProductDetailPage({
               </div>
             )}
 
-            {/* Secondary Action Buttons */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '4px' }}>
+            {/* Secondary Action Button */}
+            <div style={{ marginTop: '4px' }}>
               <button 
                 className="btn-secondary" 
-                style={{ padding: '10px', fontSize: '0.85rem', borderRadius: '8px', justifyContent: 'center' }}
-                onClick={onOpenQuote}
-              >
-                <FileDown size={15} />
-                <span>Request Bulk / Wholesale Quote</span>
-              </button>
-
-              <button 
-                className="btn-secondary" 
-                style={{ padding: '10px', fontSize: '0.85rem', borderRadius: '8px', justifyContent: 'center' }}
+                style={{ padding: '10px 16px', fontSize: '0.85rem', borderRadius: '8px', justifyContent: 'center', width: '100%' }}
                 onClick={() => onOpenEnquiry(currentProduct)}
               >
                 <Info size={15} />
-                <span>Product Direct Inquiry</span>
+                <span>Product Direct Inquiry / Have Questions?</span>
               </button>
             </div>
 
@@ -341,15 +331,15 @@ export function ProductDetailPage({
               Reprocessing & Autoclave Protocol
             </button>
             <button 
-              onClick={() => setActiveTab('certs')}
-              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'certs' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'certs' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'certs' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
+              onClick={() => setActiveTab('warranty')}
+              style={{ padding: '16px 24px', fontSize: '0.9rem', fontWeight: '700', color: activeTab === 'warranty' ? 'var(--primary)' : 'var(--slate-600)', borderBottom: activeTab === 'warranty' ? '3px solid var(--primary)' : '3px solid transparent', backgroundColor: activeTab === 'warranty' ? '#ffffff' : 'transparent', whiteSpace: 'nowrap' }}
             >
-              Compliance & Certifications
+              Shipping & Warranty Guarantee
             </button>
           </div>
 
           {/* Tab Body */}
-          <div style={{ padding: '32px' }}>
+          <div className="pdp-tab-body" style={{ padding: '32px' }}>
             {activeTab === 'specs' && (
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '16px' }}>
@@ -434,27 +424,50 @@ export function ProductDetailPage({
               </div>
             )}
 
-            {activeTab === 'certs' && (
+            {activeTab === 'warranty' && (
               <div>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '12px' }}>
-                  Quality Standards, Compliance & Regulatory Traceability
+                <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '14px' }}>
+                  Customer Guarantees, Nationwide Shipping & Warranty
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
                   <div style={{ padding: '16px', border: '1px solid var(--slate-200)', borderRadius: '8px', backgroundColor: 'var(--slate-50)' }}>
-                    <div style={{ fontWeight: '800', color: 'var(--primary)', fontSize: '1rem' }}>ISO 13485:2016</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '4px' }}>Medical Devices Quality Management Systems</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <RotateCcw size={18} color="var(--primary)" />
+                      <strong style={{ color: 'var(--navy-dark)', fontSize: '0.95rem' }}>30-Day Inspection Guarantee</strong>
+                    </div>
+                    <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', lineHeight: '1.55' }}>
+                      Inspect and handle your instrument in your practice or home with zero risk. 100% full refund if you are not fully satisfied.
+                    </div>
                   </div>
+
                   <div style={{ padding: '16px', border: '1px solid var(--slate-200)', borderRadius: '8px', backgroundColor: 'var(--slate-50)' }}>
-                    <div style={{ fontWeight: '800', color: 'var(--primary)', fontSize: '1rem' }}>FDA Registered</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '4px' }}>Class I & II Surgical Device Establishment Listing</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <ShieldCheck size={18} color="var(--emerald-600)" />
+                      <strong style={{ color: 'var(--navy-dark)', fontSize: '0.95rem' }}>Lifetime Joint & Forging Warranty</strong>
+                    </div>
+                    <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', lineHeight: '1.55' }}>
+                      Guaranteed against micro-cracking, joint loosening, and metallurgical defects during appropriate care.
+                    </div>
                   </div>
+
                   <div style={{ padding: '16px', border: '1px solid var(--slate-200)', borderRadius: '8px', backgroundColor: 'var(--slate-50)' }}>
-                    <div style={{ fontWeight: '800', color: 'var(--primary)', fontSize: '1rem' }}>CE Mark / EU MDR</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '4px' }}>Conforms to Regulation (EU) 2017/745 for Surgical Devices</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <Truck size={18} color="var(--primary)" />
+                      <strong style={{ color: 'var(--navy-dark)', fontSize: '0.95rem' }}>Free Insured Shipping Over $500</strong>
+                    </div>
+                    <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', lineHeight: '1.55' }}>
+                      Complimentary priority insured delivery nationwide. Same-day dispatch from our Boston logistics warehouse.
+                    </div>
                   </div>
+
                   <div style={{ padding: '16px', border: '1px solid var(--slate-200)', borderRadius: '8px', backgroundColor: 'var(--slate-50)' }}>
-                    <div style={{ fontWeight: '800', color: 'var(--primary)', fontSize: '1rem' }}>Certified MTR</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '4px' }}>Batch Mill Test Report enclosed with shipment</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <Award size={18} color="var(--gold-tc)" />
+                      <strong style={{ color: 'var(--navy-dark)', fontSize: '0.95rem' }}>German Forged Stainless Steel</strong>
+                    </div>
+                    <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', lineHeight: '1.55' }}>
+                      Premium medical-grade AISI 420 & 410 stainless steel alloys with non-glare satin finish for smooth durability.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -484,7 +497,7 @@ export function ProductDetailPage({
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            <div className="pdp-related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
               {relatedItems.map(item => (
                 <div 
                   key={item.id}

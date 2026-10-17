@@ -52,7 +52,7 @@ export function WhatsAppModal({ isOpen, onClose }) {
               onChange={(e) => setInquiryType(e.target.value)}
             >
               <option>Individual Order / Customer Inquiry</option>
-              <option>Hospital & Clinic Bulk Requisition / RFQ</option>
+              <option>Bulk Order Assistance</option>
               <option>Urgent Surgery Center Restock</option>
               <option>Custom Tray & Instrument Sets</option>
               <option>International Air Export & Freight</option>

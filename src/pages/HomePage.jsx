@@ -15,6 +15,7 @@ import {
   ShoppingCart,
   FileText,
   Building2,
+  CreditCard,
   CheckCircle2,
   Lock,
   Clock,
@@ -29,7 +30,6 @@ export function HomePage({
   onNavigate, 
   onOpenProductModal, 
   onAddToCart, 
-  onOpenQuote, 
   onOpenEnquiry,
   onSelectProduct 
 }) {
@@ -41,34 +41,37 @@ export function HomePage({
     {
       id: 1,
       image: '/assets/hero-modern-or.jpg',
-      title: 'Precision Surgical Instruments for Professionals & Clinics',
-      subtitle: 'Engineered from German-forged stainless steel with 100% ASTM A967 passivation. Order single instruments directly with zero minimum order quantities, or bulk volume for healthcare centers.',
+      title: 'Precision Medical Equipment & Surgical Instruments',
+      subtitle: 'Engineered from German-forged stainless steel with 100% ASTM A967 passivation. Order single instruments directly with zero minimum order quantities and fast nationwide shipping.',
       primaryBtnText: 'Explore Instruments Catalog',
       primaryAction: () => onNavigate('shop'),
-      secondaryBtnText: 'Request Bulk / Custom Quote',
-      secondaryAction: onOpenQuote
+      secondaryBtnText: 'View Instrument Sets',
+      secondaryAction: () => onNavigate('sets')
     },
     {
       id: 2,
       image: '/assets/products/cardio-thoracic-set.jpg',
       title: 'Complete Operating Room Trays & Precision Surgery Sets',
-      subtitle: 'Standardized major laparotomy, cardiovascular, orthopedic trauma, and specialty clinic sets for individual surgeons, private practices, and hospital surgical suites.',
+      subtitle: 'Standardized major laparotomy, cardiovascular, orthopedic trauma, and specialty clinic sets for practitioners, clinics, and surgical specialists.',
       primaryBtnText: 'View Surgical Sets & Trays',
       primaryAction: () => onNavigate('sets'),
-      secondaryBtnText: 'Quality Documentation',
-      secondaryAction: () => onNavigate('quality-docs')
+      secondaryBtnText: 'Shop All Instruments',
+      secondaryAction: () => onNavigate('shop')
     },
     {
       id: 3,
       image: '/assets/products/ortho-trauma-set.jpg',
       title: 'German Martensitic Alloys with Tungsten Carbide Inserts',
-      subtitle: 'Rockwell hardness calibrated to HRC 54–58 with diamond-pyramid grip jaws. Direct factory pricing with Mill Test Reports (MTR) and lot traceability included with every purchase.',
-      primaryBtnText: 'View Metallurgy Standards',
-      primaryAction: () => onNavigate('quality'),
-      secondaryBtnText: 'Direct Order / Wholesale Quote',
-      secondaryAction: onOpenQuote
+      subtitle: 'Rockwell hardness calibrated to HRC 54–58 with diamond-pyramid grip jaws. Direct transparent pricing with lifetime joint warranty and fast dispatch.',
+      primaryBtnText: 'Shop All Products',
+      primaryAction: () => onNavigate('shop'),
+      secondaryBtnText: 'Browse Instrument Sets',
+      secondaryAction: () => onNavigate('sets')
     }
   ];
+
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
 
   // Auto-advance slides every 5.5 seconds unless user hovers
   useEffect(() => {
@@ -87,6 +90,26 @@ export function HomePage({
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  // Touch Swipe Handlers for Mobile Phones
+  const handleTouchStart = (e) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > 45) {
+      nextSlide();
+    } else if (distance < -45) {
+      prevSlide();
+    }
+  };
+
   const featuredProducts = surgicalInstruments.slice(0, 4);
   const featuredSets = surgicalSets.slice(0, 3);
 
@@ -103,9 +126,12 @@ export function HomePage({
       
       {/* 1. HERO SLIDER BANNER (No logo, badges removed, headings pushed upward) */}
       <section 
-        className="hero-slider-section"
+        className="hero-slider-section hp-hero"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         style={{
           position: 'relative',
           height: '560px',
@@ -160,7 +186,7 @@ export function HomePage({
 
               {/* Slide Content - Pushed upward */}
               <div 
-                className="container" 
+                className="container hp-hero-container" 
                 style={{ 
                   position: 'relative', 
                   height: '100%', 
@@ -170,10 +196,10 @@ export function HomePage({
                   zIndex: 3 
                 }}
               >
-                <div style={{ maxWidth: '750px', color: '#ffffff' }}>
+                <div className="hp-hero-content" style={{ maxWidth: '750px', color: '#ffffff' }}>
                   
                   {/* Main Title */}
-                  <h1 style={{ 
+                  <h1 className="hp-hero-title" style={{ 
                     fontSize: 'clamp(2.3rem, 4.4vw, 3.65rem)', 
                     fontWeight: '900', 
                     lineHeight: '1.14', 
@@ -185,7 +211,7 @@ export function HomePage({
                   </h1>
 
                   {/* Subtitle */}
-                  <p style={{ 
+                  <p className="hp-hero-subtitle" style={{ 
                     fontSize: '1.08rem', 
                     color: '#e2e8f0', 
                     lineHeight: '1.65', 
@@ -197,9 +223,9 @@ export function HomePage({
                   </p>
 
                   {/* Action Buttons */}
-                  <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <div className="hp-hero-actions" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
                     <button 
-                      className="btn-primary" 
+                      className="btn-primary hp-hero-btn-primary" 
                       style={{ 
                         padding: '14px 28px', 
                         fontSize: '0.95rem', 
@@ -214,7 +240,7 @@ export function HomePage({
                     </button>
 
                     <button 
-                      className="btn-secondary" 
+                      className="btn-secondary hp-hero-btn-secondary" 
                       style={{ 
                         padding: '14px 24px', 
                         fontSize: '0.95rem', 
@@ -239,6 +265,7 @@ export function HomePage({
 
         {/* Carousel Controls: Previous / Next Arrows */}
         <button
+          className="hp-hero-arrow hp-hero-arrow-prev"
           onClick={prevSlide}
           aria-label="Previous Slide"
           style={{
@@ -265,6 +292,7 @@ export function HomePage({
         </button>
 
         <button
+          className="hp-hero-arrow hp-hero-arrow-next"
           onClick={nextSlide}
           aria-label="Next Slide"
           style={{
@@ -292,6 +320,7 @@ export function HomePage({
 
         {/* Slide Pagination Indicator Dots */}
         <div
+          className="hp-hero-dots"
           style={{
             position: 'absolute',
             bottom: '24px',
@@ -323,10 +352,10 @@ export function HomePage({
       </section>
 
       {/* 2. VALUE PROPOSITION STRIP */}
-      <div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--slate-200)', padding: '22px 0', boxShadow: '0 2px 6px rgba(13, 45, 94, 0.03)' }}>
+      <div className="hp-value-strip" style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--slate-200)', padding: '22px 0', boxShadow: '0 2px 6px rgba(13, 45, 94, 0.03)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="hp-value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px', alignItems: 'center' }}>
+            <div className="hp-value-item" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <ShieldCheck size={22} />
               </div>
@@ -336,7 +365,7 @@ export function HomePage({
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div className="hp-value-item" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'var(--emerald-50)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Truck size={22} />
               </div>
@@ -346,7 +375,7 @@ export function HomePage({
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div className="hp-value-item" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Clock size={22} />
               </div>
@@ -356,7 +385,7 @@ export function HomePage({
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div className="hp-value-item" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: 'var(--slate-100)', color: 'var(--navy-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Building2 size={22} />
               </div>
@@ -370,14 +399,14 @@ export function HomePage({
       </div>
 
       {/* 3. FEATURED SURGICAL INSTRUMENTS (Direct link to Product Details Page!) */}
-      <section style={{ padding: '64px 0', backgroundColor: '#f8fafc' }}>
+      <section className="hp-featured-section" style={{ padding: '64px 0', backgroundColor: '#f8fafc' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
+          <div className="hp-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <div style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
                 Precision Catalog
               </div>
-              <h2 style={{ fontSize: '1.875rem', fontWeight: '900', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
+              <h2 className="hp-section-title" style={{ fontSize: '1.875rem', fontWeight: '900', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
                 Bestselling Operating Room Instruments
               </h2>
             </div>
@@ -392,7 +421,7 @@ export function HomePage({
           </div>
 
           {/* Product Cards Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+          <div className="hp-products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
             {featuredProducts.map((prod) => (
               <div 
                 key={prod.id} 
@@ -417,7 +446,7 @@ export function HomePage({
                 }}
               >
                 {/* Product Photo */}
-                <div style={{ height: '220px', width: '100%', borderBottom: '1px solid var(--slate-100)', backgroundColor: '#ffffff', position: 'relative' }}>
+                <div className="hp-product-image-box" style={{ height: '220px', width: '100%', borderBottom: '1px solid var(--slate-100)', backgroundColor: '#ffffff', position: 'relative' }}>
                   <ProductImage 
                     src={prod.image} 
                     alt={prod.name} 
@@ -433,7 +462,7 @@ export function HomePage({
                 </div>
 
                 {/* Details */}
-                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <div className="hp-product-details" style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#d97706', marginBottom: '6px' }}>
                     <Star size={13} fill="#d97706" color="#d97706" />
                     <span style={{ fontWeight: '700' }}>{prod.rating}</span>
@@ -449,7 +478,7 @@ export function HomePage({
                   </p>
 
                   {/* Price & Action Row */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--slate-100)', paddingTop: '14px', marginTop: 'auto' }}>
+                  <div className="hp-product-price-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--slate-100)', paddingTop: '14px', marginTop: 'auto' }}>
                     <div>
                       <span style={{ fontSize: '1.2rem', fontWeight: '900', color: 'var(--navy-dark)' }}>
                         ${prod.price.toFixed(2)}
@@ -496,14 +525,14 @@ export function HomePage({
       </section>
 
       {/* 4. COMPLETE SURGICAL SETS & TRAYS SHOWCASE */}
-      <section style={{ padding: '64px 0', backgroundColor: '#ffffff' }}>
+      <section className="hp-sets-section" style={{ padding: '64px 0', backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
+          <div className="hp-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <div style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
                 Sterilization Ready
               </div>
-              <h2 style={{ fontSize: '1.875rem', fontWeight: '900', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
+              <h2 className="hp-section-title" style={{ fontSize: '1.875rem', fontWeight: '900', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
                 Specialty Surgical Sets & Sterilization Trays
               </h2>
             </div>
@@ -517,7 +546,7 @@ export function HomePage({
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+          <div className="hp-sets-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
             {featuredSets.map((set) => (
               <div 
                 key={set.id}
@@ -533,7 +562,7 @@ export function HomePage({
                 }}
                 onClick={() => handleProductClick(set)}
               >
-                <div style={{ height: '220px', width: '100%', position: 'relative', backgroundColor: '#f8fafc' }}>
+                <div className="hp-set-image-box" style={{ height: '220px', width: '100%', position: 'relative', backgroundColor: '#f8fafc' }}>
                   <ProductImage src={set.image} alt={set.name} sku={set.sku} height="100%" showWatermark={true} />
                   <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 2 }}>
                     <span style={{ fontSize: '0.72rem', fontWeight: '800', backgroundColor: 'var(--navy-dark)', color: '#ffffff', padding: '4px 10px', borderRadius: '4px' }}>
@@ -542,7 +571,7 @@ export function HomePage({
                   </div>
                 </div>
 
-                <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <div className="hp-set-details" style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '4px' }}>
                     {set.specialty}
                   </span>
@@ -553,7 +582,7 @@ export function HomePage({
                     {set.summary}
                   </p>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '16px', borderTop: '1px solid var(--slate-100)' }}>
+                  <div className="hp-set-price-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '16px', borderTop: '1px solid var(--slate-100)' }}>
                     <div>
                       <span style={{ fontSize: '1.35rem', fontWeight: '900', color: 'var(--navy-dark)' }}>
                         ${set.price.toFixed(2)}
@@ -584,24 +613,24 @@ export function HomePage({
         </div>
       </section>
 
-      {/* 5. METALLURGY QUALITY BREAKDOWN */}
-      <section style={{ padding: '64px 0', backgroundColor: 'var(--navy-dark)', color: '#ffffff' }}>
+      {/* 5. METALLURGY & CRAFTSMANSHIP BREAKDOWN */}
+      <section className="hp-metallurgy-section" style={{ padding: '64px 0', backgroundColor: 'var(--navy-dark)', color: '#ffffff' }}>
         <div className="container">
-          <div style={{ maxWidth: '640px', marginBottom: '40px' }}>
+          <div className="hp-metallurgy-header" style={{ maxWidth: '640px', marginBottom: '40px' }}>
             <div style={{ fontSize: '0.8rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
-              Metallurgy & Traceability
+              Craftsmanship & Durability
             </div>
-            <h2 style={{ fontSize: '1.9rem', fontWeight: '900', letterSpacing: '-0.02em', margin: 0 }}>
-              Forged to Withstand 500+ Autoclave Turns
+            <h2 className="hp-section-title" style={{ fontSize: '1.9rem', fontWeight: '900', letterSpacing: '-0.02em', margin: 0 }}>
+              Forged to Withstand 500+ Autoclave Cycles
             </h2>
-            <p style={{ color: '#cbd5e1', fontSize: '0.95rem', marginTop: '10px', lineHeight: '1.6' }}>
-              Every instrument blank is hot-drop forged from verified German steel compositions, cryogenic tempered, and chemical passivated per ASTM A967.
+            <p className="hp-metallurgy-desc" style={{ color: '#cbd5e1', fontSize: '0.95rem', marginTop: '10px', lineHeight: '1.6' }}>
+              Every instrument blank is hot-drop forged from certified surgical stainless steel alloys, cryogenic tempered, and hand-honed for razor-sharp, durable clinical performance.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+          <div className="hp-metallurgy-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
             {steelGradesInfo.map((steel, idx) => (
-              <div key={idx} style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '12px', padding: '24px' }}>
+              <div key={idx} className="hp-steel-card" style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '12px', padding: '24px' }}>
                 <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '0.05em' }}>
                   {steel.grade}
                 </span>
@@ -620,11 +649,11 @@ export function HomePage({
 
           <div style={{ marginTop: '36px', textAlign: 'center' }}>
             <button 
-              className="btn-secondary"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.25)', padding: '12px 24px', fontSize: '0.9rem' }}
-              onClick={() => onNavigate('quality-docs')}
+              className="btn-primary"
+              style={{ padding: '12px 28px', fontSize: '0.925rem' }}
+              onClick={() => onNavigate('shop')}
             >
-              <span>Download Material Test Reports (MTR) & Certifications</span>
+              <span>Explore All Medical Instruments</span>
               <ArrowRight size={16} />
             </button>
           </div>
@@ -632,25 +661,25 @@ export function HomePage({
       </section>
 
       {/* 6. CALL TO ACTION PROCUREMENT STRIP */}
-      <section style={{ padding: '60px 0', backgroundColor: '#f1f5f9' }}>
+      <section className="hp-cta-section" style={{ padding: '60px 0', backgroundColor: '#f1f5f9' }}>
         <div className="container">
-          <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '40px', boxShadow: '0 8px 24px rgba(13, 45, 94, 0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
-            <div style={{ maxWidth: '600px' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: 'var(--navy-dark)', marginBottom: '8px' }}>
-                Need a Custom Procedure Pack, Student Kit, or Bulk Quote?
+          <div className="hp-cta-card" style={{ backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid var(--slate-200)', padding: '40px', boxShadow: '0 8px 24px rgba(13, 45, 94, 0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
+            <div className="hp-cta-text" style={{ maxWidth: '600px' }}>
+              <h3 className="hp-cta-title" style={{ fontSize: '1.5rem', fontWeight: '900', color: 'var(--navy-dark)', marginBottom: '8px' }}>
+                Looking for Quality Medical Equipment & Surgical Tools?
               </h3>
               <p style={{ fontSize: '0.925rem', color: 'var(--slate-600)', lineHeight: '1.6', margin: 0 }}>
-                Whether you are ordering individual pieces for private practice, academic kits for training, or bulk supply for a surgical center, our Boston team is ready to assist.
+                We supply professional-grade medical equipment directly to anyone—individuals, healthcare workers, clinics, students, and caregivers worldwide with transparent pricing, instant online checkout, and no order minimums.
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div className="hp-cta-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <button 
                 className="btn-primary" 
                 style={{ padding: '14px 28px', fontSize: '0.95rem' }}
-                onClick={onOpenQuote}
+                onClick={() => onNavigate('shop')}
               >
-                <span>Request Bulk / Custom Quote</span>
+                <span>Shop All Medical Equipment</span>
                 <ArrowRight size={16} />
               </button>
               <button 
@@ -658,7 +687,7 @@ export function HomePage({
                 style={{ padding: '14px 24px', fontSize: '0.95rem' }}
                 onClick={() => onNavigate('contact')}
               >
-                <span>Contact Purchasing Desk</span>
+                <span>Contact Customer Support</span>
               </button>
             </div>
           </div>

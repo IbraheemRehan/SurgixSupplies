@@ -5,7 +5,7 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    hospital: '',
+    companyOrOrg: '',
     email: '',
     phone: '',
     instruments: initialItem ? `${initialItem.sku} - ${initialItem.name}` : '',
@@ -31,7 +31,7 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
           <div>
             <h3 className="modal-title">Direct Product & Order Enquiry</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)', marginTop: '2px' }}>
-              Direct factory pricing for consumers, practitioners, clinics & medical facilities
+              Direct factory pricing for anyone: individuals, practitioners, clinics & healthcare professionals
             </p>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
@@ -55,7 +55,7 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="modal-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group">
                   <label className="form-label">Full Name *</label>
                   <input 
@@ -69,18 +69,18 @@ export function QuickEnquiryModal({ isOpen, onClose, initialItem }) {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Practice, Clinic or School (Optional)</label>
+                  <label className="form-label">Company, Practice or School (Optional)</label>
                   <input 
                     type="text" 
                     className="form-input" 
-                    placeholder="e.g. Private Practice or Individual"
-                    value={formData.hospital}
-                    onChange={(e) => setFormData({ ...formData, hospital: e.target.value })}
+                    placeholder="e.g. Personal, Practice, or leave blank"
+                    value={formData.companyOrOrg}
+                    onChange={(e) => setFormData({ ...formData, companyOrOrg: e.target.value })}
                   />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="modal-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group">
                   <label className="form-label">Email Address *</label>
                   <input 

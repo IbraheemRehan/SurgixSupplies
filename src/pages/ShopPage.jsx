@@ -10,7 +10,8 @@ import {
   Check, 
   ShieldCheck, 
   Award,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { surgicalInstruments, surgicalCategories } from '../data/instruments';
 import { ProductImage } from '../components/ProductImage';
@@ -27,6 +28,12 @@ export function ShopPage({
   const [steelFilter, setSteelFilter] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const activeFilterCount = 
+    (selectedCategory !== 'all' ? 1 : 0) + 
+    (steelFilter !== 'all' ? 1 : 0) + 
+    (searchTerm.trim() ? 1 : 0);
 
   const filtered = surgicalInstruments.filter((item) => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
@@ -69,9 +76,9 @@ export function ShopPage({
             </strong>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
+          <div className="shop-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
             <div>
-              <h1 style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
+              <h1 className="shop-page-title" style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', margin: 0 }}>
                 {surgicalCategories.find((c) => c.id === selectedCategory)?.name || 'All Surgical Instruments'}
               </h1>
               <p style={{ color: 'var(--slate-600)', fontSize: '0.95rem', marginTop: '6px', margin: 0 }}>
@@ -101,8 +108,23 @@ export function ShopPage({
           </div>
         </div>
 
+        {/* Horizontal Quick Category Pills for Mobile / Tablet */}
+        <div className="shop-category-pills-bar">
+          <div className="shop-category-pills-track">
+            {surgicalCategories.map((cat) => (
+              <button
+                key={cat.id}
+                className={`shop-category-pill-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+                onClick={() => onSelectCategory(cat.id)}
+              >
+                <span>{cat.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* 2-Column Catalog Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '32px', alignItems: 'start' }}>
+        <div className="shop-layout" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '32px', alignItems: 'start' }}>
           {/* Filters Sidebar */}
           <aside className="shop-sidebar" style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid var(--slate-200)', padding: '24px', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', fontWeight: '700', color: 'var(--navy-dark)', marginBottom: '18px', paddingBottom: '12px', borderBottom: '1px solid var(--slate-100)' }}>
@@ -194,10 +216,23 @@ export function ShopPage({
           {/* Main Results Grid */}
           <main>
             {/* Top Bar Sort and Count */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', padding: '10px 16px', background: '#ffffff', borderRadius: '8px', border: '1px solid var(--slate-200)' }}>
-              <span style={{ fontSize: '0.85rem', color: 'var(--slate-600)' }}>
-                Showing <strong>{sorted.length}</strong> instruments
-              </span>
+            <div className="shop-sort-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', padding: '10px 16px', background: '#ffffff', borderRadius: '8px', border: '1px solid var(--slate-200)', flexWrap: 'wrap', gap: '10px' }}>
+              <div className="shop-sort-bar-left" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <button 
+                  className="mobile-filter-trigger-btn"
+                  onClick={() => setMobileFiltersOpen(true)}
+                  type="button"
+                >
+                  <SlidersHorizontal size={14} />
+                  <span>Filter</span>
+                  {activeFilterCount > 0 && (
+                    <span className="mobile-filter-count-badge">{activeFilterCount}</span>
+                  )}
+                </button>
+                <span style={{ fontSize: '0.85rem', color: 'var(--slate-600)' }}>
+                  Showing <strong>{sorted.length}</strong> instruments
+                </span>
+              </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>Sort by:</span>
@@ -231,7 +266,7 @@ export function ShopPage({
                 </button>
               </div>
             ) : viewMode === 'grid' ? (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
+              <div className="shop-products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
                 {sorted.map((item) => (
                   <div key={item.id} className="instrument-card">
                     {item.steel.includes('Tungsten Carbide') ? (
@@ -303,10 +338,11 @@ export function ShopPage({
               </div>
             ) : (
               /* List View */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div className="shop-list-view" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {sorted.map((item) => (
                   <div 
                     key={item.id}
+                    className="shop-list-item"
                     style={{
                       background: '#ffffff',
                       border: '1px solid var(--slate-200)',
@@ -332,7 +368,7 @@ export function ShopPage({
                       />
                     </div>
 
-                    <div style={{ flex: 1, cursor: 'pointer' }} onClick={() => handleOpenProduct(item)}>
+                    <div className="shop-list-item-info" style={{ flex: 1, cursor: 'pointer' }} onClick={() => handleOpenProduct(item)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', fontFamily: 'monospace' }}>
                           {item.sku}
@@ -351,7 +387,7 @@ export function ShopPage({
                       </p>
                     </div>
 
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div className="shop-list-item-price" style={{ textAlign: 'right', flexShrink: 0 }}>
                       <div style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
                         ${item.price.toFixed(2)}
                       </div>
@@ -360,7 +396,7 @@ export function ShopPage({
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                    <div className="shop-list-item-actions" style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
                       <button 
                         className="btn-secondary"
                         style={{ padding: '8px 12px' }}
@@ -386,6 +422,115 @@ export function ShopPage({
           </main>
         </div>
       </div>
+
+      {/* Mobile Filter Drawer Overlay & Modal */}
+      {mobileFiltersOpen && (
+        <div className="mobile-filter-overlay" onClick={() => setMobileFiltersOpen(false)}>
+          <div className="mobile-filter-drawer" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-filter-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <SlidersHorizontal size={18} color="var(--primary)" />
+                <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
+                  Filter Instruments
+                </h3>
+              </div>
+              <button 
+                className="mobile-filter-close"
+                onClick={() => setMobileFiltersOpen(false)}
+                aria-label="Close filters"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="mobile-filter-body">
+              {/* Keyword Search */}
+              <div className="filter-group">
+                <label className="filter-label">Search In Catalog</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="text"
+                    placeholder="Mayo, Forceps, TC..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="filter-search-input"
+                  />
+                  <Search size={14} color="var(--slate-400)" style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }} />
+                  {searchTerm && (
+                    <button 
+                      onClick={() => setSearchTerm('')}
+                      style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--slate-400)', fontSize: '0.75rem', fontWeight: '700' }}
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Steel Formulation */}
+              <div className="filter-group">
+                <label className="filter-label">Steel Formulation</label>
+                <div className="filter-radio-list">
+                  <label className={`filter-radio-item ${steelFilter === 'all' ? 'active' : ''}`}>
+                    <input type="radio" name="mobile-steel" checked={steelFilter === 'all'} onChange={() => setSteelFilter('all')} />
+                    <span>All Formulations</span>
+                  </label>
+                  <label className={`filter-radio-item ${steelFilter === 'tc' ? 'active' : ''}`}>
+                    <input type="radio" name="mobile-steel" checked={steelFilter === 'tc'} onChange={() => setSteelFilter('tc')} />
+                    <span>Tungsten Carbide (TC Jaws)</span>
+                  </label>
+                  <label className={`filter-radio-item ${steelFilter === '420' ? 'active' : ''}`}>
+                    <input type="radio" name="mobile-steel" checked={steelFilter === '420'} onChange={() => setSteelFilter('420')} />
+                    <span>AISI 420 Martensitic</span>
+                  </label>
+                  <label className={`filter-radio-item ${steelFilter === '410' ? 'active' : ''}`}>
+                    <input type="radio" name="mobile-steel" checked={steelFilter === '410'} onChange={() => setSteelFilter('410')} />
+                    <span>AISI 410 Clamp Steel</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Specialty Category Selector */}
+              <div className="filter-group">
+                <label className="filter-label">Specialty Category</label>
+                <div className="filter-category-grid">
+                  {surgicalCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => onSelectCategory(cat.id)}
+                      className={`filter-category-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+                    >
+                      <span>{cat.name}</span>
+                      {selectedCategory === cat.id && <Check size={14} />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mobile-filter-footer">
+              <button 
+                className="btn-secondary"
+                style={{ flex: 1, padding: '11px', justifyContent: 'center' }}
+                onClick={() => {
+                  setSearchTerm('');
+                  setSteelFilter('all');
+                  onSelectCategory('all');
+                }}
+              >
+                Reset
+              </button>
+              <button 
+                className="btn-primary"
+                style={{ flex: 1.5, padding: '11px', justifyContent: 'center' }}
+                onClick={() => setMobileFiltersOpen(false)}
+              >
+                Show {sorted.length} Products
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

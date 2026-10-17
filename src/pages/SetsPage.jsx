@@ -16,7 +16,7 @@ import {
 import { surgicalSets } from '../data/sets';
 import { ProductImage } from '../components/ProductImage';
 
-export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProduct }) {
+export function SetsPage({ onAddToCart, onOpenEnquiry, onSelectProduct }) {
   const [expandedSetId, setExpandedSetId] = useState(surgicalSets[0].id);
 
   const toggleExpand = (id) => {
@@ -45,13 +45,13 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
     <div className="sets-page-root" style={{ background: '#f8fafc', padding: '40px 0 80px 0' }}>
       <div className="container">
         {/* Page Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 48px auto' }}>
+        <div className="sets-page-header" style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 48px auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--primary-light)', color: 'var(--primary)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.8rem', fontWeight: '700', letterSpacing: '0.04em', marginBottom: '14px' }}>
             <Layers size={15} />
             <span>SURGICAL PROCEDURAL PACKS & TRAYS</span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', marginBottom: '16px' }}>
+          <h1 className="sets-page-title" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: '800', color: 'var(--navy-dark)', letterSpacing: '-0.02em', marginBottom: '16px' }}>
             Pre-Configured Surgical Instrument Sets & Trays
           </h1>
 
@@ -78,9 +78,10 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                 }}
               >
                 {/* Main Card Overview Bar */}
-                <div style={{ padding: '28px', display: 'grid', gridTemplateColumns: '200px 1.2fr 0.9fr 0.7fr', gap: '24px', alignItems: 'center' }}>
+                <div className="sets-card-grid" style={{ padding: '28px', display: 'grid', gridTemplateColumns: '200px 1.2fr 0.9fr 0.7fr', gap: '24px', alignItems: 'center' }}>
                   {/* Set Product Image with Minimal Watermark */}
                   <div 
+                    className="sets-card-image"
                     style={{ height: '170px', borderRadius: '10px', overflow: 'hidden', border: '1px solid var(--slate-200)', background: '#f8fafc', cursor: 'pointer' }}
                     onClick={() => handleOpenSetDetails(set)}
                   >
@@ -94,7 +95,7 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                   </div>
 
                   {/* Details Column */}
-                  <div>
+                  <div className="sets-card-details">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                       <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', background: 'var(--primary-light)', padding: '3px 10px', borderRadius: '4px' }}>
                         {set.pieces} INSTRUMENTS INCLUDED
@@ -105,6 +106,7 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                     </div>
 
                     <h2 
+                      className="sets-card-title"
                       style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '8px', cursor: 'pointer' }}
                       onClick={() => handleOpenSetDetails(set)}
                     >
@@ -128,7 +130,7 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                   </div>
 
                   {/* Highlights Column */}
-                  <div style={{ background: 'var(--slate-50)', padding: '16px 20px', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
+                  <div className="sets-card-highlights" style={{ background: 'var(--slate-50)', padding: '16px 20px', borderRadius: '10px', border: '1px solid var(--slate-200)' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--navy-dark)', letterSpacing: '0.04em', marginBottom: '10px' }}>
                       Quality & Assembly Standards
                     </div>
@@ -143,7 +145,7 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                   </div>
 
                   {/* Right Column: Pricing & Purchase */}
-                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center' }}>
+                  <div className="sets-card-pricing" style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center' }}>
                     <div style={{ marginBottom: '16px' }}>
                       <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--navy-dark)', lineHeight: '1' }}>
                         ${set.price.toFixed(2)}
@@ -188,8 +190,8 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
 
                 {/* Collapsible Itemized Instrument Manifest */}
                 {isExpanded && (
-                  <div style={{ borderTop: '1px solid var(--slate-200)', background: 'var(--slate-50)', padding: '24px 28px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div className="sets-manifest" style={{ borderTop: '1px solid var(--slate-200)', background: 'var(--slate-50)', padding: '24px 28px' }}>
+                    <div className="sets-manifest-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                       <div style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--navy-dark)' }}>
                         Sterilization Container Content & Itemized Manifest (DIN Specification)
                       </div>
@@ -198,7 +200,7 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                       </span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '10px' }}>
+                    <div className="sets-manifest-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '10px' }}>
                       {set.itemizedList.map((entry, index) => (
                         <div 
                           key={index}
@@ -223,13 +225,13 @@ export function SetsPage({ onAddToCart, onOpenQuote, onOpenEnquiry, onSelectProd
                       ))}
                     </div>
 
-                    <div style={{ marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--slate-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
+                    <div className="sets-manifest-footer" style={{ marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--slate-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem', color: 'var(--slate-600)' }}>
                       <span><strong>Tray Dimensions:</strong> {set.trayDimensions}</span>
                       <button 
-                        onClick={onOpenQuote}
+                        onClick={() => onOpenEnquiry(set)}
                         style={{ color: 'var(--primary)', fontWeight: '700', textDecoration: 'underline' }}
                       >
-                        Request Custom Instrument Substitutions for This Set →
+                        Have Questions About This Set? Inquire Directly →
                       </button>
                     </div>
                   </div>

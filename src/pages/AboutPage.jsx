@@ -11,49 +11,49 @@ import {
   Globe2
 } from 'lucide-react';
 
-export function AboutPage({ onOpenQuote, onNavigate }) {
+export function AboutPage({ onNavigate }) {
   return (
     <div className="about-page-root" style={{ background: '#ffffff' }}>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, #153e7a 100%)', color: '#ffffff', padding: '64px 0 72px 0', textAlign: 'center' }}>
+      <section className="about-hero-section" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, #153e7a 100%)', color: '#ffffff', padding: '64px 0 72px 0', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '840px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.12)', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.8rem', fontWeight: '700', marginBottom: '16px' }}>
             <Building2 size={16} />
             <span>ESTABLISHED PRECISION • BOSTON, MA</span>
           </div>
 
-          <h1 style={{ fontSize: '2.6rem', fontWeight: '800', marginBottom: '16px', lineHeight: '1.2' }}>
+          <h1 className="about-hero-title" style={{ fontSize: '2.6rem', fontWeight: '800', marginBottom: '16px', lineHeight: '1.2' }}>
             Empowering Surgical Excellence Across North America
           </h1>
 
-          <p style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.65' }}>
-            Surgix Supplies bridges traditional German metallurgical forging with advanced Boston-based quality engineering. We provide surgeons, private practitioners, students, and healthcare facilities direct factory access to premium surgical instrumentation.
+          <p className="about-hero-subtitle" style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.65' }}>
+            Surgix Supplies bridges traditional German metallurgical forging with advanced Boston-based quality engineering. We provide anyone—surgeons, private practitioners, students, caregivers, and individuals—direct factory access to premium medical and surgical equipment.
           </p>
         </div>
       </section>
 
       {/* Origin & Boston Hub */}
-      <section style={{ padding: '72px 0', borderBottom: '1px solid var(--slate-200)' }}>
+      <section className="about-origin-section" style={{ padding: '72px 0', borderBottom: '1px solid var(--slate-200)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '48px', alignItems: 'center' }}>
+          <div className="about-split-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '48px', alignItems: 'center' }}>
             <div>
               <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 Corporate Heritage
               </span>
-              <h2 style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '6px', marginBottom: '18px' }}>
+              <h2 className="about-section-heading" style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--navy-dark)', marginTop: '6px', marginBottom: '18px' }}>
                 Direct Factory Model Without Compromise
               </h2>
               <p style={{ fontSize: '0.95rem', color: 'var(--slate-600)', lineHeight: '1.7', marginBottom: '16px' }}>
                 For decades, medical professionals and clinical buyers paid excessive markups to intermediary medical supply conglomerates. Surgix Supplies was founded by biomedical engineers and clinical materials directors to disrupt this supply chain.
               </p>
               <p style={{ fontSize: '0.95rem', color: 'var(--slate-600)', lineHeight: '1.7', marginBottom: '24px' }}>
-                By establishing direct factory forging partnerships and routing every instrument through our Boston, Massachusetts testing laboratory, we achieve unyielding dimensional precision while passing 25% to 40% cost savings directly to individual buyers, clinics, and health networks.
+                By establishing direct factory forging partnerships and routing every instrument through our Boston, Massachusetts testing laboratory, we achieve unyielding dimensional precision while passing 25% to 40% cost savings directly to anyone: individual buyers, healthcare workers, students, clinics, and health practices.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="about-stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div style={{ padding: '16px', background: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)' }}>
                   <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--primary)' }}>450+</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '2px' }}>Surgeons, Clinics & Hospitals Supplied</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)', marginTop: '2px' }}>Satisfied Customers & Healthcare Providers</div>
                 </div>
                 <div style={{ padding: '16px', background: 'var(--slate-50)', borderRadius: '8px', border: '1px solid var(--slate-200)' }}>
                   <div style={{ fontSize: '1.6rem', fontWeight: '800', color: 'var(--primary)' }}>100%</div>
@@ -63,7 +63,7 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
             </div>
 
             {/* Headquarters Card */}
-            <div style={{ background: '#f8fafc', border: '1.5px solid var(--slate-200)', borderRadius: '16px', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
+            <div className="about-hq-card" style={{ background: '#f8fafc', border: '1.5px solid var(--slate-200)', borderRadius: '16px', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                 <img 
                   src="/assets/surgix-logo.png" 
@@ -125,8 +125,8 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            <div style={{ background: '#ffffff', borderRadius: '12px', padding: '28px', border: '1px solid var(--slate-200)', boxShadow: 'var(--shadow-sm)' }}>
+          <div className="about-advisory-grid">
+            <div className="about-advisory-card">
               <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '1.2rem', marginBottom: '16px' }}>
                 DW
               </div>
@@ -137,7 +137,7 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
               </p>
             </div>
 
-            <div style={{ background: '#ffffff', borderRadius: '12px', padding: '28px', border: '1px solid var(--slate-200)', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="about-advisory-card">
               <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'var(--gold-light)', color: 'var(--gold-tc)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '1.2rem', marginBottom: '16px' }}>
                 EK
               </div>
@@ -148,14 +148,14 @@ export function AboutPage({ onOpenQuote, onNavigate }) {
               </p>
             </div>
 
-            <div style={{ background: '#ffffff', borderRadius: '12px', padding: '28px', border: '1px solid var(--slate-200)', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="about-advisory-card">
               <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'var(--emerald-50)', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '1.2rem', marginBottom: '16px' }}>
                 MR
               </div>
               <h4 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--navy-dark)' }}>Marcus Reynolds, CRCST</h4>
               <div style={{ fontSize: '0.78rem', color: 'var(--emerald-600)', fontWeight: '600', marginBottom: '10px' }}>Head of Sterile Processing Advisory</div>
               <p style={{ fontSize: '0.85rem', color: 'var(--slate-600)', lineHeight: '1.5' }}>
-                Specialist in hospital central sterile processing, DIN basket containerization, and ISO 17664 autoclave reprocessing validation.
+                Specialist in medical instrument sterile processing, DIN basket containerization, and ISO 17664 autoclave reprocessing validation.
               </p>
             </div>
           </div>

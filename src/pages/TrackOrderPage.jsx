@@ -53,9 +53,9 @@ export function TrackOrderPage() {
         </div>
 
         {/* Input Card */}
-        <div style={{ background: '#ffffff', borderRadius: '14px', border: '1.5px solid var(--slate-200)', padding: '32px', boxShadow: 'var(--shadow-sm)', marginBottom: '32px' }}>
+        <div className="track-input-card" style={{ background: '#ffffff', borderRadius: '14px', border: '1.5px solid var(--slate-200)', padding: '32px', boxShadow: 'var(--shadow-sm)', marginBottom: '32px' }}>
           <form onSubmit={handleTrack}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr auto', gap: '14px', alignItems: 'flex-end' }}>
+            <div className="track-form-grid" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr auto', gap: '14px', alignItems: 'flex-end' }}>
               <div className="form-group" style={{ margin: 0 }}>
                 <label className="form-label">Order Number or PO Reference *</label>
                 <input 
@@ -93,7 +93,7 @@ export function TrackOrderPage() {
 
         {/* Tracking Results Card */}
         {trackingData && (
-          <div style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
+          <div className="track-result-card" style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--slate-200)', paddingBottom: '20px', marginBottom: '24px' }}>
               <div>
                 <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)', background: 'var(--primary-light)', padding: '2px 8px', borderRadius: '4px' }}>

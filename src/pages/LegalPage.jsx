@@ -47,7 +47,7 @@ export function LegalPage() {
               4. Payment Terms & Title of Goods
             </h3>
             <p>
-              For accredited institutions approved for Net-30 accounts, payment is due thirty (30) days from the invoice issuance date. Title of goods transfers to the hospital upon confirmed delivery by the carrier. Free shipping applies to all qualifying orders totaling $500.00 USD or more within the continental United States.
+              Title of goods transfers to the customer upon confirmed delivery by the carrier. Free shipping applies to all qualifying orders totaling $500.00 USD or more within the continental United States. All orders placed online receive instant confirmation and dispatch notifications.
             </p>
           </div>
 

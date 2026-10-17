@@ -8,7 +8,7 @@ export const qualityCertificates = [
     effectiveDate: "2024 - 2027",
     category: "Corporate Management Standard",
     badge: "Active / Verified",
-    summary: "Full scope international certification for design, precision forging, finishing, passivation, clean packaging, and distribution of hospital-grade surgical instruments.",
+    summary: "Full scope international certification for design, precision forging, finishing, passivation, clean packaging, and distribution of surgical-grade medical instruments.",
     fileSize: "1.8 MB",
     fileName: "Surgix_Supplies_ISO_13485_2016_Certificate.pdf"
   },
@@ -62,13 +62,13 @@ export const qualityCertificates = [
   },
   {
     id: "cert-reprocessing-ifu",
-    title: "Hospital Sterilization & Autoclave Reprocessing Guidelines (IFU)",
+    title: "Sterilization & Autoclave Reprocessing Guidelines (IFU)",
     docNumber: "IFU-ST-ISO-17664-REV4",
     issuer: "Surgix Clinical Engineering Advisory Board",
     effectiveDate: "2026 Standard Edition",
     category: "Clinical Instructions For Use",
-    badge: "Hospital Standard",
-    summary: "Detailed validated reprocessing steps for Central Sterile Processing Departments (CSPD) per ISO 17664: pre-cleaning, ultrasonic wash, lubrication, and steam sterilization parameters.",
+    badge: "Medical Standard",
+    summary: "Detailed validated reprocessing steps for sterile instrument handling per ISO 17664: pre-cleaning, ultrasonic wash, lubrication, and steam sterilization parameters.",
     fileSize: "4.2 MB",
     fileName: "Instructions_For_Use_Sterilization_Guide_IFU.pdf"
   }

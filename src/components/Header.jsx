@@ -21,7 +21,6 @@ export function Header({
   onOpenCart, 
   onOpenEnquiry, 
   onOpenSignIn, 
-  onOpenQuote,
   searchQuery,
   setSearchQuery,
   onSearchSubmit,
@@ -29,6 +28,7 @@ export function Header({
 }) {
   const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileShopOpen, setMobileShopOpen] = useState(false);
 
   const handleNavClick = (pageId) => {
     setActivePage(pageId);
@@ -74,10 +74,10 @@ export function Header({
               <span>info@surgixsupplies.com</span>
             </a>
             <button 
-              className="top-bar-quote-btn"
-              onClick={onOpenQuote}
+              className="top-bar-cta-btn"
+              onClick={() => handleNavClick('shop')}
             >
-              Request a Quote
+              Shop All Instruments
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function Header({
             />
             <div className="brand-text-col">
               <span className="brand-title">SURGIX SUPPLIES</span>
-              <span className="brand-subtitle">SURGICAL INSTRUMENTS & SETS</span>
+              <span className="brand-subtitle">MEDICAL EQUIPMENT & SURGICAL TOOLS</span>
             </div>
           </div>
 
@@ -125,30 +125,30 @@ export function Header({
           {/* Action Buttons: Sign In, Enquiry, Cart */}
           <div className="header-actions">
             <button 
-              className="header-action-btn"
+              className="header-action-btn header-action-signin"
               onClick={onOpenSignIn}
-              title="Customer & Clinic Sign In"
+              title="Sign In to Your Account"
             >
               <User size={16} />
-              <span>SIGN IN</span>
+              <span className="header-btn-text">SIGN IN</span>
             </button>
 
             <button 
-              className="header-action-btn"
+              className="header-action-btn header-action-support"
               onClick={() => onOpenEnquiry(null)}
-              title="Submit Direct Product Enquiry or RFQ"
+              title="Product Questions & Customer Support"
             >
               <Mail size={16} />
-              <span>ENQUIRY</span>
+              <span className="header-btn-text">SUPPORT</span>
             </button>
 
             <button 
-              className="header-action-btn"
+              className="header-action-btn header-action-cart"
               onClick={onOpenCart}
-              title="View Cart & Quote List"
+              title="View Shopping Cart"
             >
               <ShoppingCart size={16} />
-              <span>CART</span>
+              <span className="header-btn-text">CART</span>
               {cartCount > 0 && (
                 <span className="cart-badge-count">{cartCount}</span>
               )}
@@ -158,9 +158,9 @@ export function Header({
             <button 
               className="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ display: 'none' }}
+              aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -238,16 +238,16 @@ export function Header({
                 className={`nav-link ${activePage === 'about' ? 'active' : ''}`}
                 onClick={() => handleNavClick('about')}
               >
-                ABOUT
+                ABOUT US
               </button>
             </li>
 
             <li className="nav-item">
               <button 
-                className={`nav-link ${activePage === 'quality' ? 'active' : ''}`}
-                onClick={() => handleNavClick('quality')}
+                className={`nav-link ${activePage === 'faq' ? 'active' : ''}`}
+                onClick={() => handleNavClick('faq')}
               >
-                QUALITY
+                FAQ
               </button>
             </li>
 
@@ -261,16 +261,203 @@ export function Header({
             </li>
           </ul>
 
-          {/* Right Link: QUALITY DOCUMENTATION -> (Matches Image 1) */}
+          {/* Right Link: TRACK ORDER */}
           <button 
             className="nav-quality-doc-link"
-            onClick={() => handleNavClick('quality-docs')}
+            onClick={() => handleNavClick('track-order')}
           >
-            <span>QUALITY DOCUMENTATION</span>
+            <span>TRACK ORDER</span>
             <ArrowRight size={14} />
           </button>
         </div>
       </nav>
+
+      {/* 4. MOBILE NAVIGATION DRAWER & BACKDROP */}
+      {mobileMenuOpen && (
+        <div 
+          className="mobile-drawer-overlay" 
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <div 
+            className="mobile-drawer" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drawer Header */}
+            <div className="mobile-drawer-header">
+              <div 
+                className="mobile-drawer-brand" 
+                onClick={() => handleNavClick('home')}
+              >
+                <img 
+                  src="/assets/surgix-logo.png" 
+                  alt="Surgix Supplies" 
+                  className="mobile-drawer-logo" 
+                />
+                <div>
+                  <div className="mobile-drawer-title">SURGIX SUPPLIES</div>
+                  <div className="mobile-drawer-subtitle">PRECISION SURGICAL TOOLS</div>
+                </div>
+              </div>
+              <button 
+                className="mobile-drawer-close"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Menu"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* Quick Action Buttons in Drawer */}
+            <div className="mobile-drawer-actions">
+              <button 
+                className="mobile-drawer-action-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenSignIn();
+                }}
+              >
+                <User size={16} />
+                <span>Sign In</span>
+              </button>
+              <button 
+                className="mobile-drawer-action-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenEnquiry(null);
+                }}
+              >
+                <Mail size={16} />
+                <span>Support</span>
+              </button>
+              <button 
+                className="mobile-drawer-action-btn mobile-drawer-cart-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenCart();
+                }}
+              >
+                <ShoppingCart size={16} />
+                <span>Cart ({cartCount})</span>
+              </button>
+            </div>
+
+            {/* Navigation List */}
+            <div className="mobile-drawer-nav">
+              <button 
+                className={`mobile-nav-link ${activePage === 'home' ? 'active' : ''}`}
+                onClick={() => handleNavClick('home')}
+              >
+                <span>HOME</span>
+              </button>
+
+              {/* Shop Accordion */}
+              <div className="mobile-nav-group">
+                <div 
+                  className={`mobile-nav-link mobile-nav-expandable ${activePage === 'shop' ? 'active' : ''}`}
+                  onClick={() => setMobileShopOpen(!mobileShopOpen)}
+                >
+                  <span onClick={(e) => { e.stopPropagation(); handleNavClick('shop'); }}>
+                    SHOP INSTRUMENTS
+                  </span>
+                  <button 
+                    className="mobile-chevron-btn"
+                    onClick={(e) => { e.stopPropagation(); setMobileShopOpen(!mobileShopOpen); }}
+                    aria-label="Toggle categories"
+                  >
+                    <ChevronDown 
+                      size={18} 
+                      style={{ 
+                        transform: mobileShopOpen ? 'rotate(180deg)' : 'none',
+                        transition: 'transform 0.2s ease'
+                      }} 
+                    />
+                  </button>
+                </div>
+
+                {mobileShopOpen && (
+                  <div className="mobile-submenu">
+                    <button 
+                      className="mobile-submenu-item mobile-submenu-all"
+                      onClick={() => handleNavClick('shop')}
+                    >
+                      <span>Explore All Instruments</span>
+                      <ArrowRight size={14} />
+                    </button>
+                    {surgicalCategories.map((cat) => (
+                      <button 
+                        key={cat.id}
+                        className="mobile-submenu-item"
+                        onClick={() => handleShopCategoryClick(cat.id)}
+                      >
+                        <span>{cat.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'sets' ? 'active' : ''}`}
+                onClick={() => handleNavClick('sets')}
+              >
+                <span>INSTRUMENT SETS & TRAYS</span>
+              </button>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'catalogue' ? 'active' : ''}`}
+                onClick={() => handleNavClick('catalogue')}
+              >
+                <span>PRODUCT CATALOGUE</span>
+              </button>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'about' ? 'active' : ''}`}
+                onClick={() => handleNavClick('about')}
+              >
+                <span>ABOUT US</span>
+              </button>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'faq' ? 'active' : ''}`}
+                onClick={() => handleNavClick('faq')}
+              >
+                <span>FAQ</span>
+              </button>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'contact' ? 'active' : ''}`}
+                onClick={() => handleNavClick('contact')}
+              >
+                <span>CONTACT US</span>
+              </button>
+
+              <button 
+                className={`mobile-nav-link ${activePage === 'track-order' ? 'active' : ''}`}
+                onClick={() => handleNavClick('track-order')}
+              >
+                <span>TRACK ORDER</span>
+              </button>
+            </div>
+
+            {/* Drawer Footer Contact Details */}
+            <div className="mobile-drawer-footer">
+              <a href="tel:18005550199" className="mobile-drawer-contact-item">
+                <Phone size={15} />
+                <span>1 (800) 555-0199</span>
+              </a>
+              <a href="mailto:info@surgixsupplies.com" className="mobile-drawer-contact-item">
+                <Mail size={15} />
+                <span>info@surgixsupplies.com</span>
+              </a>
+              <div className="mobile-drawer-badge">
+                <ShieldCheck size={14} />
+                <span>ASTM A967 Passivated Stainless Steel</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </header>
   );
 }

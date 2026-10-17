@@ -11,11 +11,11 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
-export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
+export function ContactPage({ onOpenWhatsApp }) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    institution: '',
+    companyOrOrg: '',
     email: '',
     phone: '',
     department: 'General Product Inquiry / Direct Order',
@@ -30,7 +30,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
       setSubmitted(false);
       setFormData({
         name: '',
-        institution: '',
+        companyOrOrg: '',
         email: '',
         phone: '',
         department: 'General Product Inquiry / Direct Order',
@@ -57,7 +57,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
         </div>
 
         {/* Grid: Contact Information & Interactive Form */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '36px', alignItems: 'flex-start' }}>
+        <div className="contact-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '36px', alignItems: 'flex-start' }}>
           {/* Left Column: Direct Offices & Contacts */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {/* Headquarters Card */}
@@ -110,7 +110,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.825rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
-                  <span style={{ color: 'var(--slate-600)' }}>Customer Orders & Quotes:</span>
+                  <span style={{ color: 'var(--slate-600)' }}>Customer Orders & Support:</span>
                   <a href="mailto:orders@surgixsupplies.com" style={{ color: 'var(--primary)', fontWeight: '600' }}>orders@surgixsupplies.com</a>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--slate-100)' }}>
@@ -144,7 +144,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
+          <div className="contact-form-card" style={{ background: '#ffffff', borderRadius: '16px', border: '1.5px solid var(--slate-200)', padding: '36px', boxShadow: 'var(--shadow-md)' }}>
             <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--navy-dark)', marginBottom: '6px' }}>
               Send an Inquiry
             </h3>
@@ -164,7 +164,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="contact-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
                     <label className="form-label">Full Name *</label>
                     <input 
@@ -178,18 +178,18 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Practice, Clinic or School (Optional)</label>
+                    <label className="form-label">Company, Practice or School (Optional)</label>
                     <input 
                       type="text" 
                       className="form-input" 
-                      placeholder="Miller Surgical Clinic"
-                      value={formData.institution}
-                      onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
+                      placeholder="e.g., Personal, Clinic, Practice, or leave blank"
+                      value={formData.companyOrOrg}
+                      onChange={(e) => setFormData({ ...formData, companyOrOrg: e.target.value })}
                     />
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="contact-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
                     <label className="form-label">Email Address *</label>
                     <input 
@@ -223,7 +223,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                   >
                     <option>General Product Inquiry / Direct Order</option>
-                    <option>Clinic & Hospital Bulk Quotation</option>
+                    <option>Bulk Order Assistance</option>
                     <option>Surgical Instrument Sets Configuration</option>
                     <option>International Export Logistics</option>
                     <option>Quality Assurance / Material Reports</option>
@@ -236,7 +236,7 @@ export function ContactPage({ onOpenQuote, onOpenWhatsApp }) {
                   <input 
                     type="text" 
                     className="form-input" 
-                    placeholder="e.g., Question about needle holder sizes or bulk quote"
+                    placeholder="e.g., Question about product specifications, sizing, or delivery"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   />

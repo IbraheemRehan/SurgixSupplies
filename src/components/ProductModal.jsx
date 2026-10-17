@@ -39,7 +39,7 @@ export function ProductModal({
         </div>
 
         <div className="modal-body" style={{ padding: '24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '24px' }}>
+          <div className="product-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '24px' }}>
             {/* Visual Box */}
             <div>
               <div 
@@ -177,7 +177,7 @@ export function ProductModal({
                   }}
                 >
                   <Mail size={14} />
-                  <span>Direct Inquiry / Request Bulk Quote</span>
+                  <span>Direct Product Inquiry / Ask a Question</span>
                 </button>
               </div>
 
